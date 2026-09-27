@@ -1,0 +1,298 @@
+{
+	"__schema" : "4.1",
+	"__type" : "page",
+	"children" : {
+		"__type" : "snippets",
+		"items" : [
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:39:47.858575+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:45:22.557868+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "jdgICTewQd2Dbukm3+IB7Q=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "Welcome to the Gt4Kotlin log book."
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:40:12.310323+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:51:01.480032+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "NLP/jEoWQHeTol7RpphFIQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "This project aims to build `GtSmaCCKotlinImporter`, a Glamorous Toolkit(GT) library  that turns a Kotlin codebase into a Moose/FAMIX model so Kotlin projects can be analyzed in GT."
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:41:35.552494+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:51:21.020877+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "HIJex7JCT7ivFw9OrD0Q1A=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "This is also a ***learning*** project: The aim is to learn more about GT, Moldable Development, Pharo, SmaCC, FAMIX/Moose and how the existing importers work. "
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:45:34.333151+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:46:51.87275+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "zOKCPqbkQ8q3piaYeoORFw=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "This log book will act as a project diary."
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:43:42.454754+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:43:56.618778+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "+GHRAkDKQ1KPxFvs9tqJDQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Ways of working: GOOS( outside-in TDD)"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:44:01.496959+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:50:10.278297+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "9CGqSeQGSMu9UfBj8ugt5g=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "I will follow *Growing Object-Oriented Software, Guided by Tests* (Freeman & Pryce).\n\nSince I'm not familiar enough yet with GT, Pharo and everything in-between, this is one of the best ways of working. I will try to create a walking skeleton, the thinnest slice imaginable to kickstart this ambitious, at least for me, project."
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:51:56.174648+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-27T23:53:00.954547+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "Ww0UORrsQZyuL1PeNx/jUw=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "At the time of writing no examples exist for the `GtSmaCCJavaImporter`. Along with the library's examples, I will create the relevant Java examples to inspect the Java Moose model and use as a guide  to Kotlin."
+			}
+		]
+	},
+	"createEmail" : {
+		"__type" : "email",
+		"emailString" : "<unknown>"
+	},
+	"createTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2026-09-27T23:38:12.567902+03:00"
+		}
+	},
+	"editEmail" : {
+		"__type" : "email",
+		"emailString" : "<unknown>"
+	},
+	"editTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2026-09-28T00:00:23.712155+03:00"
+		}
+	},
+	"pageType" : {
+		"__type" : "namedPage",
+		"title" : "Log Book"
+	},
+	"uid" : {
+		"__type" : "uuid",
+		"uuid" : "914dc3e1-9b5c-435e-bdc0-05278e4afa07"
+	}
+}
