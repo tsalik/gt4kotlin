@@ -24,6 +24,33 @@ GtSmaCCJavaImporterExamples >> singleClassFile [
 ]
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassFileSource [
+	<gtExample>
+	<return: #FAMIXFile>
+	| file |
+	file := self singleClassFile first.
+	self assert: file mooseName equals: './com/example/Example.java'.
+	self assert: file sourceText equals: 'public class Example {}'.
+	^ file.
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassFolders [
+	<gtExample>
+	<return: #FAMIXFolder>
+	| model root example |
+	model := self singleClassMooseModel.
+	self
+		assert: (model allFolders collect: #mooseName) asArray sorted
+		equals: #('.' './com' './com/example').
+	root := model allFolders detect: [ :each | each belongsTo isNil ].
+	self assert: root name equals: '.'.
+	example := model allFolders detect: [ :each | each name = 'example' ].
+	self assert: (example files collect: #name) asArray equals: #('Example.java').
+	^ root
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> singleClassMooseModel [
 	<gtExample>
 	<return: #MooseModel>

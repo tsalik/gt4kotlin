@@ -19,6 +19,7 @@ GtSmaCCKotlinImporter >> baseDirectory: anObject [
 { #category : 'accessing' }
 GtSmaCCKotlinImporter >> buildKotlinModel [
 	model := MooseModel new.
+	model rootFolder: baseDirectory.
 	self importFiles.
 	self importClasses.
 	^ model
@@ -36,11 +37,34 @@ GtSmaCCKotlinImporter >> createClassFrom: aNode [
 
 { #category : 'accessing' }
 GtSmaCCKotlinImporter >> ensureFileFrom: aFileReference [
-	| file |
+	| file anchor |
 	file := FAMIXFile new.
 	file name: aFileReference basename.
+	anchor := FAMIXIndexedFileEntityAnchor
+			file: file
+			startPos: 1
+			endPos: aFileReference contents size
+			model: model.
+	file sourceAnchor: anchor.
+	(self ensureFolderNamed: aFileReference parent)
+		ifNotNil: [ :folder | folder addChildFileSystemEntity: file ].
 	model add: file.
 	^ file
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> ensureFolderNamed: aDirectory [
+	^ folders
+		at: aDirectory pathString
+		ifAbsentPut: [ | folder |
+			folder := FAMIXFolder new.
+			aDirectory = baseDirectory
+				ifTrue: [ folder name: '.' ]
+				ifFalse: [ folder name: aDirectory basename.
+					(self ensureFolderNamed: aDirectory parent)
+						ifNotNil: [ :outer | outer addChildFileSystemEntity: folder ] ].
+			model add: folder.
+			folder ]
 ]
 
 { #category : 'accessing' }
@@ -54,8 +78,12 @@ GtSmaCCKotlinImporter >> importClasses [
 
 { #category : 'accessing' }
 GtSmaCCKotlinImporter >> importFiles [
+	folders := Dictionary new.
 	self
-		kotlinAstsDo: [ :node | self ensureFileFrom: node filename asFileReference ]
+		kotlinAstsDo: [ :node | 
+			node
+				attributeNamed: #famixFile
+				put: (self ensureFileFrom: node filename asFileReference) ]
 ]
 
 { #category : 'accessing' }

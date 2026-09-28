@@ -24,6 +24,33 @@ GtSmaCCKotlinExamples >> singleClassFile [
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassFileSource [
+	<gtExample>
+	<return: #FAMIXFile>
+	| file |
+	file := self singleClassFile first.
+	self assert: file mooseName equals: './com/example/Example.kt'.
+	self assert: file sourceText equals: 'class Example'.
+	^ file
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassFolders [
+	<gtExample>
+	<return: #FAMIXFolder>
+	| model root example |
+	model := self singleClassModel.
+	self
+		assert: (model allFolders collect: #mooseName) asArray sorted
+		equals: #('.' './com' './com/example').
+	root := model allFolders detect: [ :each | each belongsTo isNil ].
+	self assert: root name equals: '.'.
+	example := model allFolders detect: [ :each | each name = 'example' ].
+	self assert: (example files collect: #name) asArray equals: #('Example.kt').
+	^ root
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> singleClassModel [
 	<gtExample>
 	<return: #MooseModel>
