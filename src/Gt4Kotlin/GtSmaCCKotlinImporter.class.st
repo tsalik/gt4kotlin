@@ -19,7 +19,9 @@ GtSmaCCKotlinImporter >> baseDirectory: anObject [
 { #category : 'accessing' }
 GtSmaCCKotlinImporter >> buildKotlinModel [
 	model := MooseModel new.
+	model sourceLanguage: FAMIXKotlinSourceLanguage new.
 	model rootFolder: baseDirectory.
+	model name: baseDirectory basenameWithoutExtension.
 	self importFiles.
 	self importClasses.
 	^ model

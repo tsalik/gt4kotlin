@@ -7,6 +7,18 @@ Class {
 }
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> sincleClassModelSourceLanguage [
+	<gtExample>
+	<return: #MooseModel>
+	| model file |
+	model := self singleClassModel.
+	file := model allFiles first.
+	self assert: model sourceLanguage class equals: FAMIXKotlinSourceLanguage.
+	self assert: file sourceLanguage equals:  model sourceLanguage.
+	^ model.
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> singleClassFile [
 	<gtExample>
 	<return: #FAMIXFileGroup>
@@ -31,6 +43,16 @@ GtSmaCCKotlinExamples >> singleClassFileSource [
 	file := self singleClassFile first.
 	self assert: file mooseName equals: './com/example/Example.kt'.
 	self assert: file sourceText equals: 'class Example'.
+	^ file
+]
+
+{ #category : 'as yet unclassified' }
+GtSmaCCKotlinExamples >> singleClassFileStyler [
+	<gtExample>
+	<return: #FAMIXFile>
+	| file |
+	file := self singleClassFileSource.
+	self assert: file gtStyler notNil.
 	^ file
 ]
 

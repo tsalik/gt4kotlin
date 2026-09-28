@@ -7,6 +7,18 @@ Class {
 }
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> sincleClassModelSourceLanguage [
+	<gtExample>
+	<return: #MooseModel>
+	| model file |
+	model := self singleClassMooseModel.
+	file := model allFiles first.
+	self assert: model sourceLanguage class equals: FAMIXJavaSourceLanguage.
+	self assert: file sourceLanguage equals:  model sourceLanguage.
+	^ model.
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> singleClassFile [
 	<gtExample>
 	<return: #FAMIXFileGroup>
@@ -32,6 +44,17 @@ GtSmaCCJavaImporterExamples >> singleClassFileSource [
 	self assert: file mooseName equals: './com/example/Example.java'.
 	self assert: file sourceText equals: 'public class Example {}'.
 	^ file.
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassFileStyler [
+	<gtExample>
+	<return: #FAMIXFile>
+	| file |
+	file := self singleClassFileSource.
+	self assert: file sourceLanguage isJava.
+	self assert: file gtStyler notNil.
+	^ file
 ]
 
 { #category : 'examples' }

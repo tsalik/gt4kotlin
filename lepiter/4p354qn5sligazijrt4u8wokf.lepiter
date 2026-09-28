@@ -8,7 +8,45 @@
 				"__type" : "textSnippet",
 				"children" : {
 					"__type" : "snippets",
-					"items" : [ ]
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-29T00:31:32.382946+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-29T00:31:57.52861+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "ouek942VSmSyFZiKyGHsyg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "This step is going to add highlgihts to Kotlin `FAMIXFile` "
+						}
+					]
 				},
 				"createEmail" : {
 					"__type" : "email",
@@ -18,7 +56,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-27T23:59:27.174632+03:00"
+						"dateAndTimeString" : "2026-09-29T00:31:26.275701+03:00"
 					}
 				},
 				"editEmail" : {
@@ -29,17 +67,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:03:25.236576+03:00"
+						"dateAndTimeString" : "2026-09-29T00:31:28.599974+03:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "eV6GbVLUSraoTqJi6QsRJQ=="
+					"uidString" : "Aas2dbLuR7uC1ONBEyee4g=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Welcome to Gt4Kotlin's knowledgebase."
+				"string" : "## Context"
 			},
 			{
 				"__type" : "textSnippet",
@@ -60,7 +98,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T02:15:36.519588+03:00"
+									"dateAndTimeString" : "2026-09-29T16:59:28.84071+03:00"
 								}
 							},
 							"editEmail" : {
@@ -71,17 +109,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T02:15:36.519588+03:00"
+									"dateAndTimeString" : "2026-09-29T17:03:02.894327+03:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "vNLWO6jXRRSazfo7Kb9Kwg=="
+								"uidString" : "zo/kRb1uSnWHYS98Sc2xtg=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[2026-09-28: Planning the first steps]]"
+							"string" : "Added  styler and source language Java example."
 						},
 						{
 							"__type" : "textSnippet",
@@ -97,7 +135,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T02:14:27.344377+03:00"
+									"dateAndTimeString" : "2026-09-29T17:02:32.042138+03:00"
 								}
 							},
 							"editEmail" : {
@@ -108,17 +146,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T02:14:27.344377+03:00"
+									"dateAndTimeString" : "2026-09-29T17:03:14.967479+03:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "hs1N+tCkQj+HYQzcKqg1JQ=="
+								"uidString" : "eON/ESTAS0uP7QuHT6D9Vg=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[2026-09-28: Creating the first Java examples]]"
+							"string" : "Added failing styler Kotlin example."
 						},
 						{
 							"__type" : "textSnippet",
@@ -134,7 +172,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T20:37:29.973073+03:00"
+									"dateAndTimeString" : "2026-09-29T17:04:11.104943+03:00"
 								}
 							},
 							"editEmail" : {
@@ -145,17 +183,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T20:37:42.265671+03:00"
+									"dateAndTimeString" : "2026-09-29T17:06:19.459389+03:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "NXlngw1aTCWrLunJm1sZWA=="
+								"uidString" : "pTU+bwM9QHuxq840ltLiEA=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[2026-09-28: Creating the first Kotlin example and implementation]]"
+							"string" : "Decided to introduce a new {{gtClass:FAMIXKotlinSourceLanguage}} instead of {{gtClass:FAMIXCustomSourceLanguage}} in order to return the {{gtClass:KotlinParser}} as a {{gtMethod:FAMIXSourceLanguage>>gtStyler}}"
 						},
 						{
 							"__type" : "textSnippet",
@@ -171,7 +209,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T23:27:09.396199+03:00"
+									"dateAndTimeString" : "2026-09-29T17:07:49.98042+03:00"
 								}
 							},
 							"editEmail" : {
@@ -182,17 +220,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T23:27:09.396199+03:00"
+									"dateAndTimeString" : "2026-09-29T17:08:18.764225+03:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "vToULSKPTgGFLEXQcSw3XQ=="
+								"uidString" : "kpJIIR6kS/GB+Cq0cSSRag=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[2026-09-28: Importing files on the Kotlin MooseModel]]"
+							"string" : "Matching the Java source language implementation, implemented the rest of the methods, even though they were not really needed. I'm not sure where they might be needed."
 						},
 						{
 							"__type" : "textSnippet",
@@ -208,7 +246,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-29T00:20:38.029947+03:00"
+									"dateAndTimeString" : "2026-09-29T17:08:33.320094+03:00"
 								}
 							},
 							"editEmail" : {
@@ -219,54 +257,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-29T00:20:38.029947+03:00"
+									"dateAndTimeString" : "2026-09-29T17:09:49.608235+03:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "+UyrL2tcTcipyjdG12dL2g=="
+								"uidString" : "TqmDywPxQ22wQfS0ik+wyg=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[2026-09-29: Allowing the file to read its source code]]"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-29T01:03:23.026227+03:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-29T01:03:23.026227+03:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "DlA5rMwqQ2aOiTFu7E8ehg=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "[[2026-09-29: Adding highlights to Kotlin code]]"
+							"string" : "Also updated the {{gtMethod:GtSmaCCKotlinImporter>>buildKotlinModel}}to populate the MooseModel's name. Not really needed for this slice/step, but wanted to do without adding two new Java+Kotlin examples. "
 						}
 					]
 				},
@@ -278,7 +279,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:03:26.780395+03:00"
+						"dateAndTimeString" : "2026-09-29T00:32:09.230919+03:00"
 					}
 				},
 				"editEmail" : {
@@ -289,23 +290,98 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T02:15:28.143111+03:00"
+						"dateAndTimeString" : "2026-09-29T00:32:12.532838+03:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "3q18L8obT8GCLrd3aNIGVQ=="
+					"uidString" : "MBQ7z5zwS/+mhZ0cWutogg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "[[Log Book]]"
+				"string" : "## Done"
 			},
 			{
 				"__type" : "textSnippet",
 				"children" : {
 					"__type" : "snippets",
-					"items" : [ ]
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-29T17:01:40.991666+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-29T17:06:34.311811+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "GmFfsweQTxGvx4IPhFFAMA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "There is a custom {{gtClass:FAMIXJavaSourceLanguage}}for Java which subclasses {{gtClass:FAMIXSourceLanguage}}"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-29T17:06:41.330239+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-29T17:07:30.958723+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "ikvZrBvKTA2YccTQHAV2hg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "{{gtMethod:FAMIXSourceLanguage>>gtStyler}}is responsible for language highlighing in the FAMIXFile source tab."
+						}
+					]
 				},
 				"createEmail" : {
 					"__type" : "email",
@@ -315,7 +391,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T02:15:33.746927+03:00"
+						"dateAndTimeString" : "2026-09-29T17:01:27.299014+03:00"
 					}
 				},
 				"editEmail" : {
@@ -326,17 +402,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T02:15:33.746927+03:00"
+						"dateAndTimeString" : "2026-09-29T17:01:31.520606+03:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "OAw11aa3QWSPZRsK5jO67Q=="
+					"uidString" : "NdEC7E/QSfyYupZz92wutg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "## Learned"
 			}
 		]
 	},
@@ -348,7 +424,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2026-09-27T23:59:20.255602+03:00"
+			"dateAndTimeString" : "2026-09-29T00:31:16.575783+03:00"
 		}
 	},
 	"editEmail" : {
@@ -359,15 +435,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2026-09-27T23:59:20.255602+03:00"
+			"dateAndTimeString" : "2026-09-29T00:31:16.575783+03:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Gt4Kotlin"
+		"title" : "2026-09-29: Adding highlights to Kotlin code"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "58378ef1-344d-4088-be27-e5d92a1135be"
+		"uuid" : "5f0494b0-48f8-49ee-801b-e5dca3f4554f"
 	}
 }
