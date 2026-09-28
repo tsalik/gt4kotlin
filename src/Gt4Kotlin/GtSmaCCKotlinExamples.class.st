@@ -1,32 +1,30 @@
 Class {
-	#name : 'GtSmaCCJavaImporterExamples',
+	#name : 'GtSmaCCKotlinExamples',
 	#superclass : 'Object',
-	#category : 'Gt4Kotlin-Examples-Java',
+	#category : 'Gt4Kotlin-Examples-Kotlin',
 	#package : 'Gt4Kotlin',
-	#tag : 'Examples-Java'
+	#tag : 'Examples-Kotlin'
 }
 
-{ #category : 'examples' }
-GtSmaCCJavaImporterExamples >> singleClassMooseModel [
+{ #category : 'as yet unclassified' }
+GtSmaCCKotlinExamples >> singleClassModel [
 	<gtExample>
 	<return: #MooseModel>
 	| directory model |
 	directory := self
 			sourceDirectoryNamed: 'com/example'
-			withFiles: {'Example.java' -> 'public class Example {}'} asDictionary.
-	model := GtSmaCCJavaImporter new
+			withFiles: {'Example.kt' -> 'class Example'} asDictionary.
+	model := GtSmaCCKotlinImporter new
 			baseDirectory: directory;
-			buildJavaModel.
-	self
-		assert: (model allModelClasses collect: #mooseName) asArray sorted
-		equals: #('Example').
+			buildKotlinModel.
+	self assert: (model allModelClasses collect: #mooseName) asArray sorted equals: #('Example').
 	^ model
 ]
 
 { #category : 'examples - support' }
-GtSmaCCJavaImporterExamples >> sourceDirectoryNamed: aString withFiles: aDictionary [
+GtSmaCCKotlinExamples >> sourceDirectoryNamed: aString withFiles: aDictionary [
 	| sourceDirectory directory |
-	sourceDirectory := FileSystem memory root / 'src'.
+	sourceDirectory:= FileSystem memory root / 'src'.
 	sourceDirectory ensureCreateDirectory.
 	directory := sourceDirectory / aString.
 	directory ensureCreateDirectory.
