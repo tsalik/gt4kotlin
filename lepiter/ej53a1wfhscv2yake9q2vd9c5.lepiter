@@ -370,7 +370,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:14:29.687801+03:00"
+									"dateAndTimeString" : "2026-09-28T15:37:00.972543+03:00"
 								}
 							},
 							"uid" : {
@@ -380,7 +380,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Create `GtSmaCCJavaImporterExamples` with `simpleClassSourceDirectory`, run it, record what the model contains(classes, files, folders, namespaces, source anchors)"
+							"string" : "Create `GtSmaCCJavaImporterExamples` with `simpleClassSourceDirectory`, run it, record what the model contains(classes, files, folders, namespaces, source anchors)\nDone at: [[2026-09-28: Creating the first Java examples]]"
 						}
 					]
 				},
