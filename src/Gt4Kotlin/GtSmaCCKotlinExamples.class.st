@@ -6,7 +6,24 @@ Class {
 	#tag : 'Examples-Kotlin'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassFile [
+	<gtExample>
+	<return: #FAMIXFileGroup>
+	| directory model file |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt' -> 'class Example'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allFiles size equals: 1.
+	file := model allFiles at: 1.
+	self assert: file name equals: 'Example.kt'.
+	^ model allFiles
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> singleClassModel [
 	<gtExample>
 	<return: #MooseModel>

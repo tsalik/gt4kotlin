@@ -156,6 +156,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "[[2026-09-28: Creating the first Kotlin example and implementation]]"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-28T23:27:09.396199+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-28T23:27:09.396199+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "vToULSKPTgGFLEXQcSw3XQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "[[2026-09-28: Importing files on the Kotlin MooseModel]]"
 						}
 					]
 				},

@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'baseDirectory',
 		'model',
-		'asts'
+		'asts',
+		'folders'
 	],
 	#category : 'Gt4Kotlin',
 	#package : 'Gt4Kotlin'
@@ -18,6 +19,7 @@ GtSmaCCKotlinImporter >> baseDirectory: anObject [
 { #category : 'accessing' }
 GtSmaCCKotlinImporter >> buildKotlinModel [
 	model := MooseModel new.
+	self importFiles.
 	self importClasses.
 	^ model
 ]
@@ -33,12 +35,27 @@ GtSmaCCKotlinImporter >> createClassFrom: aNode [
 ]
 
 { #category : 'accessing' }
+GtSmaCCKotlinImporter >> ensureFileFrom: aFileReference [
+	| file |
+	file := FAMIXFile new.
+	file name: aFileReference basename.
+	model add: file.
+	^ file
+]
+
+{ #category : 'accessing' }
 GtSmaCCKotlinImporter >> importClasses [
 	self
 		kotlinAstsDo: [ :node | 
 			node
 				withAllNodesOfType: KotlinClassDeclarationNode
 				do: [ :each | self createClassFrom: each ] ]
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> importFiles [
+	self
+		kotlinAstsDo: [ :node | self ensureFileFrom: node filename asFileReference ]
 ]
 
 { #category : 'accessing' }

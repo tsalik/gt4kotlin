@@ -7,6 +7,23 @@ Class {
 }
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassFile [
+	<gtExample>
+	<return: #FAMIXFileGroup>
+	| directory model file |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java' -> 'public class Example {}'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allFiles size equals: 1.
+	file := model allFiles at: 1.
+	self assert: file name equals: 'Example.java'.
+	^ model allFiles
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> singleClassMooseModel [
 	<gtExample>
 	<return: #MooseModel>

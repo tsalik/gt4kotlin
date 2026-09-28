@@ -23,7 +23,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:08:01.050126+03:00"
+									"dateAndTimeString" : "2026-09-28T22:03:19.076816+03:00"
 								}
 							},
 							"editEmail" : {
@@ -34,17 +34,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:19:47.863559+03:00"
+									"dateAndTimeString" : "2026-09-28T22:03:40.469029+03:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "7W4+JX/gTfet5qHYxu5g8Q=="
+								"uidString" : "17f63H1xQdyI+feJZS2Z8Q=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "First working session: set up the knowledgebase, planned the walking skeleton."
+							"string" : "This step is going to import Kotlin {{gtClass:FAMIXFile}} "
 						}
 					]
 				},
@@ -56,7 +56,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:07:49.05016+03:00"
+						"dateAndTimeString" : "2026-09-28T22:02:37.7699+03:00"
 					}
 				},
 				"editEmail" : {
@@ -67,278 +67,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:07:51.03076+03:00"
+						"dateAndTimeString" : "2026-09-28T22:02:39.421727+03:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "/1P1UYTtTs6iOWmkIp/7Iw=="
+					"uidString" : "mRgNd27hSaaAePVBCvT/qw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "##Context"
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:09:19.339159+03:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:10:06.284619+03:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "AbFUtRXUQtaWzK1h1EQxiw=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "**Characterize the Java importer before writing the Kotlin one**. `GtSmaccJavaImporter` has no examples or tests. Writing examples for it shows what FAMIX model it builds for the simplest input, and that model becomes the garget for the Kotlin acceptance test."
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:10:19.932162+03:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:10:49.515843+03:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "y0OM58DgQkKNl9PtjO5RPg=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "**Use GT examples**: each `gtExample` returns a life FAMIX model I can inspect."
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:10:54.019022+03:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:13:02.119719+03:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "P8WhQGYBROetucC7m0BBxw=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "**Walking skeleton = parse a single class**. For the thinnest slice I'll only focus on parsing a single class without the package, inheritance or properties."
-						}
-					]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:08:52.709116+03:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:08:57.737149+03:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "6+7H/J7JTSekYPYo9SzVXw=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "##Decisions"
-			},
-			{
-				"__type" : "textSnippet",
-				"children" : {
-					"__type" : "snippets",
-					"items" : [
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:24:20.207505+03:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:25:09.738808+03:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "dutE61B2RHOeSN4E0KGiOA=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "Set up knowledgebase"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:25:00.093278+03:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:25:12.064472+03:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "33+tDMi7QnCkFbrBbFOZbw=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "Planned walking skeleton"
-						}
-					]
-				},
-				"createEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"createTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:24:09.328073+03:00"
-					}
-				},
-				"editEmail" : {
-					"__type" : "email",
-					"emailString" : "<unknown>"
-				},
-				"editTime" : {
-					"__type" : "time",
-					"time" : {
-						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:24:11.236264+03:00"
-					}
-				},
-				"uid" : {
-					"__type" : "uid",
-					"uidString" : "mpGtLbqQQeKQF0Ft3DkunA=="
-				},
-				"paragraphStyle" : {
-					"__type" : "textStyle"
-				},
-				"string" : "##Done "
+				"string" : "## Context"
 			},
 			{
 				"__type" : "textSnippet",
@@ -364,7 +103,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-09-28T00:13:45.789846+03:00"
+												"dateAndTimeString" : "2026-09-28T22:21:20.109264+03:00"
 											}
 										},
 										"editEmail" : {
@@ -375,17 +114,54 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-09-28T21:59:45.62651+03:00"
+												"dateAndTimeString" : "2026-09-28T22:24:14.181783+03:00"
 											}
 										},
 										"uid" : {
 											"__type" : "uid",
-											"uidString" : "8Awpl1rkSVyhOj+er+6gRw=="
+											"uidString" : "qhNDsWxfRa+uddbFhnrl3Q=="
 										},
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Done at: [[2026-09-28: Creating the first Java examples]]"
+										"string" : "Assert {{gtMethod:MooseModel>>allFiles}} has a single file"
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-09-28T22:23:36.559309+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-09-28T22:24:30.275976+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "y7Vj0zqCS9iVURZdhV8gOQ=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Assert {{gtMethod:FAMIXFile>>name}} is equal to `Example.java`"
 									}
 								]
 							},
@@ -397,7 +173,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T21:59:45.622806+03:00"
+									"dateAndTimeString" : "2026-09-28T22:04:02.897051+03:00"
 								}
 							},
 							"editEmail" : {
@@ -408,17 +184,129 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T21:59:45.622806+03:00"
+									"dateAndTimeString" : "2026-09-28T22:24:40.418928+03:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "9oKHhzw2THSFsxkYIwQOkw=="
+								"uidString" : "eaPMRTWcRS2mTJKpO/tdtQ=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Create `GtSmaCCJavaImporterExamples` with `simpleClassSourceDirectory`, run it, record what the model contains(classes, files, folders, namespaces, source anchors)"
+							"string" : "Introduced new example for {{gtClass:FAMIXFile}}on {{gtClass:GtSmaCCJavaImporterExamples}}"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-28T22:24:34.460374+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-28T23:15:01.550248+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "jqftXLdnTuqm7OJdPPdqlg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Added new example {{gtExample:GtSmaCCKotlinExamples>>singleClassFile|noCode|previewHeight=300|expanded}}"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-09-28T23:16:09.343471+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-09-28T23:17:34.318571+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "Cu0fnMDcT5azhmm3m88kLw=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "{{gtMethod:GtSmaCCKotlinImporter>>importFiles}} and {{gtMethod:GtSmaCCKotlinImporter>>ensureFileFrom:}}create a {{gtClass:FAMIXFile}}for reach Kotlin node."
+									}
+								]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-28T23:15:52.839654+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-28T23:16:01.618154+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "PLE3govyQ4G1UdhD5L8IkA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Made the example pass with the minimum required implementation"
 						}
 					]
 				},
@@ -430,7 +318,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:13:31.897823+03:00"
+						"dateAndTimeString" : "2026-09-28T22:03:54.048235+03:00"
 					}
 				},
 				"editEmail" : {
@@ -441,12 +329,87 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:13:38.797727+03:00"
+						"dateAndTimeString" : "2026-09-28T22:03:55.285558+03:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "pm3ZBv+AT3ib7gXaBdv+nw=="
+					"uidString" : "ev9Bvb6/TdCuxpFpjVKeuw=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Done"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-28T23:22:10.782526+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-28T23:22:15.352307+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "9tBa8fr7T/W9sl6K2Maikw=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "The file can read its own source"
+						}
+					]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-28T23:21:47.220453+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-28T23:21:51.132371+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "9UKT7oeSQMqgfU1aKXii6Q=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
@@ -462,45 +425,7 @@
 							"__type" : "textSnippet",
 							"children" : {
 								"__type" : "snippets",
-								"items" : [
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-09-28T00:15:39.023307+03:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-09-28T21:59:55.887473+03:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "bQExoeYcTTmBWA395ca1BQ=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Done at: [[2026-09-28: Creating the first Kotlin example and implementation]]"
-									}
-								]
+								"items" : [ ]
 							},
 							"createEmail" : {
 								"__type" : "email",
@@ -510,7 +435,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T21:59:55.883896+03:00"
+									"dateAndTimeString" : "2026-09-28T23:22:39.633156+03:00"
 								}
 							},
 							"editEmail" : {
@@ -521,17 +446,91 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T21:59:55.883896+03:00"
+									"dateAndTimeString" : "2026-09-28T23:22:42.192103+03:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "pdtQrijESD6Cb1UyPKpGgg=="
+								"uidString" : "L456qUDoSvqcFSBzcu7KtQ=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Write the Kotlin acceptance example. Equivalent Kotlin class with the Java example"
+							"string" : "Import folders."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-28T23:22:48.237207+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-28T23:23:47.080765+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "oEntjv7TR1y64LBT1yZEmQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "The class is linked to its file. The file's `entities` includes `Example`, and the class's `sourceText` is `class Example`. "
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-28T23:24:04.373576+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-28T23:24:06.883157+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "NDFjurlpSV+jS4x6VTFmtQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Namespaces."
 						}
 					]
 				},
@@ -543,7 +542,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:14:39.589798+03:00"
+						"dateAndTimeString" : "2026-09-28T23:22:27.578421+03:00"
 					}
 				},
 				"editEmail" : {
@@ -554,17 +553,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:14:40.790727+03:00"
+						"dateAndTimeString" : "2026-09-28T23:22:33.78673+03:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "/vqTpme0QWGF2l+AphSgEg=="
+					"uidString" : "qbJr62HiRDKl+D/xxnf2Zg=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "## Next"
+				"string" : "## Next Steps"
 			},
 			{
 				"__type" : "textSnippet",
@@ -585,7 +584,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:16:49.736355+03:00"
+									"dateAndTimeString" : "2026-09-28T23:24:34.815015+03:00"
 								}
 							},
 							"editEmail" : {
@@ -596,17 +595,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T00:17:49.069981+03:00"
+									"dateAndTimeString" : "2026-09-28T23:24:57.532172+03:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "eAMMJ4CHRn6E0sCud5OmpQ=="
+								"uidString" : "HUO/mj+vRkubkyyJxiIViw=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "What should I do with stub types? i.e. `java.lang.String`, etc which the Java importer adds. And what about the Java-Kotlin interop? For example, should I map manually `Int` to Java's `Integer`?"
+							"string" : "How to create a {{gtClass:FAMIXFile}}and add it to the {{gtClass:MooseModel}}"
 						}
 					]
 				},
@@ -618,7 +617,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:14:44.988468+03:00"
+						"dateAndTimeString" : "2026-09-28T23:24:22.953942+03:00"
 					}
 				},
 				"editEmail" : {
@@ -629,17 +628,54 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:16:47.343074+03:00"
+						"dateAndTimeString" : "2026-09-28T23:24:24.228697+03:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "Ep1E+p99Ro6v+owCpNqvdw=="
+					"uidString" : "XJxgu5/aT6W1K4tIDxG3eQ=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "## Open questions / housekeeping"
+				"string" : "## Learned"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-28T23:22:16.470818+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-28T23:22:16.470818+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "REXsJGEWRsGWJEXNZKNjqA=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : ""
 			}
 		]
 	},
@@ -651,7 +687,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2026-09-28T00:07:39.735114+03:00"
+			"dateAndTimeString" : "2026-09-28T22:02:25.207505+03:00"
 		}
 	},
 	"editEmail" : {
@@ -662,15 +698,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2026-09-28T00:25:35.578625+03:00"
+			"dateAndTimeString" : "2026-09-28T22:02:55.076073+03:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "2026-09-28: Planning the first steps"
+		"title" : "2026-09-28: Importing files on the Kotlin MooseModel"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "85170f07-90fb-4124-b3c4-1376be3d75f5"
+		"uuid" : "065af277-4301-4eac-8b97-1fe0e6e4beff"
 	}
 }
