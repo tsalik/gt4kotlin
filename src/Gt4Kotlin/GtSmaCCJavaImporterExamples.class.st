@@ -90,6 +90,22 @@ GtSmaCCJavaImporterExamples >> singleClassMooseModel [
 	^ model
 ]
 
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassSourceAnchor [
+	<gtExample>
+	<return: #FAMIXClass>
+	| model class directory |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java' -> 'public class Example {}'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: class sourceText equals: 'public class Example {}'.
+	^ class
+]
+
 { #category : 'examples - support' }
 GtSmaCCJavaImporterExamples >> sourceDirectoryNamed: aString withFiles: aDictionary [
 	| sourceDirectory directory |

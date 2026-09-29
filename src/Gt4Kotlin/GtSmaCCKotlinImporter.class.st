@@ -33,6 +33,7 @@ GtSmaCCKotlinImporter >> createClassFrom: aNode [
 	class := FAMIXClass new
 			name: aNode name source;
 			mooseModel: model;
+			sourceAnchor: (self sourceAnchorFrom: aNode);
 			yourself.
 	^ class
 ]
@@ -94,4 +95,13 @@ GtSmaCCKotlinImporter >> kotlinAstsDo: aBlock [
 		ifNil: [ asts := (KotlinParser sourceFilesIn: baseDirectory)
 					collect: [ :each | KotlinParser parseFileWithErrors: each ] ].
 	asts do: aBlock
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> sourceAnchorFrom: aNode [
+	^ FAMIXIndexedFileEntityAnchor
+		file: (aNode topParent attributeNamed: #famixFile)
+		startPos: aNode startPosition
+		endPos: aNode stopPosition
+		model: model
 ]

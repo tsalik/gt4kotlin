@@ -87,6 +87,22 @@ GtSmaCCKotlinExamples >> singleClassModel [
 	^ model
 ]
 
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassSourceAnchor [
+	<gtExample>
+	<return: #FAMIXClass>
+	| model class directory |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt' -> 'class Example'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: class sourceText equals: 'class Example'.
+	^ class
+]
+
 { #category : 'examples - support' }
 GtSmaCCKotlinExamples >> sourceDirectoryNamed: aString withFiles: aDictionary [
 	| sourceDirectory directory |

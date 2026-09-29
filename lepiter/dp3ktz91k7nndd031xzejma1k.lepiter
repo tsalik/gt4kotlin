@@ -8,7 +8,82 @@
 				"__type" : "textSnippet",
 				"children" : {
 					"__type" : "snippets",
-					"items" : [ ]
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-29T21:59:08.368244+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-29T21:59:35.53017+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "I7hHXJmYQJiCN+MWrQO70Q=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "I have created the FAMIXClass, but it still doesn't have a Source tab"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-29T21:59:36.983319+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-29T22:00:04.367559+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "dgQddyPVQ46brpnLv7lrvA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "This steps is going to add the sourceText"
+						}
+					]
 				},
 				"createEmail" : {
 					"__type" : "email",
@@ -18,7 +93,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-27T23:59:27.174632+03:00"
+						"dateAndTimeString" : "2026-09-29T21:58:54.507364+03:00"
 					}
 				},
 				"editEmail" : {
@@ -29,17 +104,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:03:25.236576+03:00"
+						"dateAndTimeString" : "2026-09-29T21:58:56.212818+03:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "eV6GbVLUSraoTqJi6QsRJQ=="
+					"uidString" : "2tFg4oygSx+7GyHHdivVMw=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "Welcome to Gt4Kotlin's knowledgebase."
+				"string" : "## Context"
 			},
 			{
 				"__type" : "textSnippet",
@@ -60,7 +135,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T02:15:36.519588+03:00"
+									"dateAndTimeString" : "2026-09-29T22:02:10.336414+03:00"
 								}
 							},
 							"editEmail" : {
@@ -71,17 +146,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T02:15:36.519588+03:00"
+									"dateAndTimeString" : "2026-09-29T22:04:43.821718+03:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "vNLWO6jXRRSazfo7Kb9Kwg=="
+								"uidString" : "IiSWvU3kRQCF5WPhRPPehg=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[2026-09-28: Planning the first steps]]"
+							"string" : "Add new Java example to assert the `sourceText`  {{gtExample:GtSmaCCJavaImporterExamples>>singleClassSourceAnchor}}"
 						},
 						{
 							"__type" : "textSnippet",
@@ -97,7 +172,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T02:14:27.344377+03:00"
+									"dateAndTimeString" : "2026-09-29T22:04:01.162835+03:00"
 								}
 							},
 							"editEmail" : {
@@ -108,17 +183,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T02:14:27.344377+03:00"
+									"dateAndTimeString" : "2026-09-29T22:04:52.4287+03:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "hs1N+tCkQj+HYQzcKqg1JQ=="
+								"uidString" : "ajm5nhpaT7+8H0B69EjR4A=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[2026-09-28: Creating the first Java examples]]"
+							"string" : "Add new Kotlin example {{gtExample:GtSmaCCKotlinExamples>>singleClassSourceAnchor}}"
 						},
 						{
 							"__type" : "textSnippet",
@@ -134,7 +209,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T20:37:29.973073+03:00"
+									"dateAndTimeString" : "2026-09-29T22:05:20.816818+03:00"
 								}
 							},
 							"editEmail" : {
@@ -145,17 +220,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T20:37:42.265671+03:00"
+									"dateAndTimeString" : "2026-09-29T22:06:41.781641+03:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "NXlngw1aTCWrLunJm1sZWA=="
+								"uidString" : "/bslfyV/SH25EI01iiGLAw=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[2026-09-28: Creating the first Kotlin example and implementation]]"
+							"string" : "Make the Kotlin example pass by adding the implementation. Introduced new {{gtMethod:GtSmaCCKotlinImporter>>sourceAnchorFrom:}} and return a {{gtClass:FAMIXIndexedFileEntityAnchor}}"
 						},
 						{
 							"__type" : "textSnippet",
@@ -171,7 +246,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T23:27:09.396199+03:00"
+									"dateAndTimeString" : "2026-09-29T22:28:47.09592+03:00"
 								}
 							},
 							"editEmail" : {
@@ -182,128 +257,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-28T23:27:09.396199+03:00"
+									"dateAndTimeString" : "2026-09-29T22:29:27.002434+03:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "vToULSKPTgGFLEXQcSw3XQ=="
+								"uidString" : "jI9KudUoQzKfb56p9qq5AA=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[2026-09-28: Importing files on the Kotlin MooseModel]]"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-29T00:20:38.029947+03:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-29T00:20:38.029947+03:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "+UyrL2tcTcipyjdG12dL2g=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "[[2026-09-29: Allowing the file to read its source code]]"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-29T01:03:23.026227+03:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-29T01:03:23.026227+03:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "DlA5rMwqQ2aOiTFu7E8ehg=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "[[2026-09-29: Adding highlights to Kotlin code]]"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-29T22:32:19.371907+03:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-09-29T22:32:19.371907+03:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "f7pK3NWnSQWjKL2yECknaQ=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "[[2026-09-29: Adding sourceText to Kotlin FAMIXClass]]"
+							"string" : "Add respective examples to ensure that the FAMIX Entity shows on its Navigation tab items"
 						}
 					]
 				},
@@ -315,7 +279,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T00:03:26.780395+03:00"
+						"dateAndTimeString" : "2026-09-29T22:00:20.599054+03:00"
 					}
 				},
 				"editEmail" : {
@@ -326,17 +290,17 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T02:15:28.143111+03:00"
+						"dateAndTimeString" : "2026-09-29T22:00:23.457447+03:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "3q18L8obT8GCLrd3aNIGVQ=="
+					"uidString" : "aQgN6rTRREC5p8k9BzWj/Q=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : "[[Log Book]]"
+				"string" : "## Done"
 			},
 			{
 				"__type" : "textSnippet",
@@ -352,7 +316,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T02:15:33.746927+03:00"
+						"dateAndTimeString" : "2026-09-29T22:07:35.494391+03:00"
 					}
 				},
 				"editEmail" : {
@@ -363,17 +327,92 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2026-09-28T02:15:33.746927+03:00"
+						"dateAndTimeString" : "2026-09-29T22:07:38.282821+03:00"
 					}
 				},
 				"uid" : {
 					"__type" : "uid",
-					"uidString" : "OAw11aa3QWSPZRsK5jO67Q=="
+					"uidString" : "xg5Nzf/ZTVystaHlpx053g=="
 				},
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "## Next Steps"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-29T22:11:53.595275+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-09-29T22:13:56.821857+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "0I2nRt8hR2yGLpa/z7VxgA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Entities such as {{gtClass:FAMIXClass}}, {{gtClass:FAMIXMethod}} and {{gtClass:FAMIXFile}}don't hold their source text. Each one inherits from {{gtClass:FAMIXSourcedEntity}}, which has a {{gtMethod:FAMIXScopingEntity>>sourceAnchor}} and it asks that anchor for the text"
+						}
+					]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-29T22:07:49.277394+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-09-29T22:07:51.185895+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "GCb92fG8R9Wc5j0cmxjZwg=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Learned"
 			}
 		]
 	},
@@ -385,7 +424,7 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2026-09-27T23:59:20.255602+03:00"
+			"dateAndTimeString" : "2026-09-29T21:58:53.522488+03:00"
 		}
 	},
 	"editEmail" : {
@@ -396,15 +435,15 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2026-09-27T23:59:20.255602+03:00"
+			"dateAndTimeString" : "2026-09-29T21:58:53.522488+03:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "Gt4Kotlin"
+		"title" : "2026-09-29: Adding sourceText to Kotlin FAMIXClass"
 	},
 	"uid" : {
 		"__type" : "uuid",
-		"uuid" : "58378ef1-344d-4088-be27-e5d92a1135be"
+		"uuid" : "58371e5d-3b65-48cf-9fa7-b9b51cbd5ce7"
 	}
 }
