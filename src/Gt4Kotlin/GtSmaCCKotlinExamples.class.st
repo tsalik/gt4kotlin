@@ -46,7 +46,7 @@ GtSmaCCKotlinExamples >> singleClassFileSource [
 	^ file
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> singleClassFileStyler [
 	<gtExample>
 	<return: #FAMIXFile>
@@ -88,6 +88,35 @@ GtSmaCCKotlinExamples >> singleClassModel [
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassNamespace [
+	<gtExample>
+	<return: #FAMIXNamespace>
+	| directory model namespace class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+			package com.example
+
+ 		 class Example
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self
+		assert: ((model allNamespaces collect: #mooseName) includes: 'com::example').
+	namespace := model allNamespaces
+			detect: [ :each | each mooseName = 'com::example' ].
+	self assert: namespace name equals: 'example'.
+	self assert: namespace parentScope name equals: 'com'.
+	self assert: namespace parentScope parentScope isNil.
+	class := model allModelClasses
+			detect: [ :each | each mooseName = 'com::example::Example' ].
+	self assert: class container equals: namespace.
+	^ namespace
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> singleClassSourceAnchor [
 	<gtExample>
 	<return: #FAMIXClass>
@@ -116,4 +145,74 @@ GtSmaCCKotlinExamples >> sourceDirectoryNamed: aString withFiles: aDictionary [
 			file := directory / path.
 			file writeStreamDo: [ :stream | stream nextPutAll: source ] ].
 	^ sourceDirectory
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> twoClassesSameFileNamespace [
+	<gtExample>
+	<return: #FAMIXNamespace>
+	| directory model first second |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'First.kt'
+						-> '
+			package com.example
+
+ 		 class First
+ 		 
+ 		 class Second
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self
+		assert: (model allModelNamespaces collect: #mooseName) asArray sorted
+		equals: #('com::example').
+	self
+		assert: (model allNamespaces select: [ :each | each mooseName = 'com' ]) size
+		equals: 1.
+	self
+		assert: (model allNamespaces select: [ :each | each mooseName = 'com::example' ]) size
+		equals: 1.
+	first := model allModelClasses detect: [ :each | each name = 'First' ].
+	second := model allModelClasses detect: [ :each | each name = 'Second' ].
+	self assert: first container == second container.
+	^ first container
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> twoClassesSamePackageNamespace [
+	<gtExample>
+	<return: #FAMIXNamespace>
+	| directory model first second |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'First.kt'
+						-> '
+			package com.example
+
+ 		 class First
+'.
+					'Second.kt'
+						-> '
+			package com.example
+			
+			class Second
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self
+		assert: (model allModelNamespaces collect: #mooseName) asArray sorted
+		equals: #('com::example').
+	self
+		assert: (model allNamespaces select: [ :each | each mooseName = 'com' ]) size
+		equals: 1.
+	self
+		assert: (model allNamespaces select: [ :each | each mooseName = 'com::example' ]) size
+		equals: 1.
+	first := model allModelClasses detect: [ :each | each name = 'First' ].
+	second := model allModelClasses detect: [ :each | each name = 'Second' ].
+	self assert: first container == second container.
+	^ first container.
 ]

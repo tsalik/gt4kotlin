@@ -91,6 +91,34 @@ GtSmaCCJavaImporterExamples >> singleClassMooseModel [
 ]
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassNamespace [
+	<gtExample>
+	<return: #FAMIXNamespace>
+	| directory model namespace class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> '
+			package com.example;
+
+ 		public class Example {}
+'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: ((model allNamespaces collect:#mooseName) includes: 'com::example').
+	namespace := model allNamespaces
+			detect: [ :each | each mooseName = 'com::example' ].
+	self assert: namespace name equals: 'example'.
+	self assert: namespace parentScope name equals: 'com'.
+	self assert: namespace parentScope parentScope isNil.
+	class := model allModelClasses
+			detect: [ :each | each mooseName = 'com::example::Example' ].
+	self assert: class container equals: namespace.
+	^ namespace
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> singleClassSourceAnchor [
 	<gtExample>
 	<return: #FAMIXClass>
@@ -119,4 +147,41 @@ GtSmaCCJavaImporterExamples >> sourceDirectoryNamed: aString withFiles: aDiction
 			file := directory / path.
 			file writeStreamDo: [ :stream | stream nextPutAll: source ] ].
 	^ sourceDirectory
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> twoClassesSamePackageNamespace [
+	<gtExample>
+	<return: #FAMIXNamespace>
+	| directory model first second |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'First.java'
+						-> '
+			package com.example;
+
+ 		 public class First {}
+'.
+					'Second.java'
+						-> '
+			package com.example;
+			
+			public class Second {}
+'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self
+		assert: (model allModelNamespaces collect: #mooseName) asArray sorted
+		equals: #('com::example').
+	self
+		assert: (model allNamespaces select: [ :each | each mooseName = 'com' ]) size
+		equals: 1.
+	self
+		assert: (model allNamespaces select: [ :each | each mooseName = 'com::example' ]) size
+		equals: 1.
+	first := model allModelClasses detect: [ :each | each name = 'First' ].
+	second := model allModelClasses detect: [ :each | each name = 'Second' ].
+	self assert: first container == second container.
+	^ first container.
 ]

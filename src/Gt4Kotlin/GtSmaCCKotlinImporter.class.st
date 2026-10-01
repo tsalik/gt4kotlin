@@ -5,7 +5,8 @@ Class {
 		'baseDirectory',
 		'model',
 		'asts',
-		'folders'
+		'folders',
+		'rootNamespaces'
 	],
 	#category : 'Gt4Kotlin',
 	#package : 'Gt4Kotlin'
@@ -23,8 +24,19 @@ GtSmaCCKotlinImporter >> buildKotlinModel [
 	model rootFolder: baseDirectory.
 	model name: baseDirectory basenameWithoutExtension.
 	self importFiles.
+	self importNamespaces.
 	self importClasses.
 	^ model
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> containerIn: aNode [
+	| current |
+	current := aNode.
+	[ current notNil ]
+		whileTrue: [ (current attributeNamed: #container ifAbsent: [  ]) ifNotNil: [ :c | ^ c ].
+			current := current parent ].
+	^ nil 
 ]
 
 { #category : 'accessing' }
@@ -33,6 +45,7 @@ GtSmaCCKotlinImporter >> createClassFrom: aNode [
 	class := FAMIXClass new
 			name: aNode name source;
 			mooseModel: model;
+			container:(self containerIn: aNode parent);
 			sourceAnchor: (self sourceAnchorFrom: aNode);
 			yourself.
 	^ class
@@ -71,6 +84,28 @@ GtSmaCCKotlinImporter >> ensureFolderNamed: aDirectory [
 ]
 
 { #category : 'accessing' }
+GtSmaCCKotlinImporter >> ensureNamespace: aString in: aNamespace [
+	^ aNamespace childScopes
+		detect: [ :each | each name = aString ]
+		ifNone: [ model
+				add: (FAMIXNamespace new
+						name: aString;
+						parentScope: aNamespace;
+						yourself) ]
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> ensureRootNamespace: aString [
+	rootNamespaces ifNil: [ rootNamespaces := Dictionary new ].
+	^ rootNamespaces
+		at: aString
+		ifAbsentPut: [ model
+				add: (FAMIXNamespace new
+						name: aString;
+						yourself) ]
+]
+
+{ #category : 'accessing' }
 GtSmaCCKotlinImporter >> importClasses [
 	self
 		kotlinAstsDo: [ :node | 
@@ -87,6 +122,22 @@ GtSmaCCKotlinImporter >> importFiles [
 			node
 				attributeNamed: #famixFile
 				put: (self ensureFileFrom: node filename asFileReference) ]
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> importNamespaces [
+	self
+		kotlinAstsDo: [ :node | 
+			node name
+				ifNotNil: [ :package | 
+					node
+						attributeNamed: #container
+						put: (package names
+								inject: nil
+								into: [ :parent :each | 
+									parent
+										ifNil: [ self ensureRootNamespace: each source ]
+										ifNotNil: [ self ensureNamespace: each source in: parent ] ]) ] ]
 ]
 
 { #category : 'accessing' }
