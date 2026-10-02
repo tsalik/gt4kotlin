@@ -36,6 +36,29 @@ GtSmaCCJavaImporterExamples >> singleClassFile [
 ]
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassFileEntities [
+	<gtExample>
+	<return: #FAMIXFile>
+	| directory model file class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> '
+	public class Example {}
+	'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allFiles size equals: 1.
+	file := model allFiles detect: [ :each | each name = 'Example.java' ].
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: file entities size equals: 1.
+	self assert: file entities first == class.
+	self assert: (class containerFiles includes: file).
+	^ file.
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> singleClassFileSource [
 	<gtExample>
 	<return: #FAMIXFile>

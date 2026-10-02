@@ -36,6 +36,29 @@ GtSmaCCKotlinExamples >> singleClassFile [
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassFileEntities [
+	<gtExample>
+	<return: #FAMIXFile>
+	| directory model file class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+	class Example
+	'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allFiles size equals: 1.
+	file := model allFiles detect: [ :each | each name = 'Example.kt' ].
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: file entities size equals: 1.
+	self assert: file entities first == class.
+	self assert: (class containerFiles includes: file).
+	^ file.
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> singleClassFileSource [
 	<gtExample>
 	<return: #FAMIXFile>
@@ -145,6 +168,34 @@ GtSmaCCKotlinExamples >> sourceDirectoryNamed: aString withFiles: aDictionary [
 			file := directory / path.
 			file writeStreamDo: [ :stream | stream nextPutAll: source ] ].
 	^ sourceDirectory
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> twoClassesFileEntities [
+	<gtExample>
+	<return: #FAMIXFile>
+	| directory model file first second |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+	class First
+	
+	class Second
+	'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allFiles size equals: 1.
+	file := model allFiles detect: [ :each | each name = 'Example.kt' ].
+	first := model allModelClasses detect: [ :each | each name = 'First' ].
+	self assert: file entities size equals: 2.
+	self assert: file entities first == first.
+	self assert: (first containerFiles includes: file).
+	second := model allModelClasses detect: [:each | each name = 'Second'].
+	self assert: file entities second == second.
+	self assert: (second containerFiles includes: file).
+	^ file.
 ]
 
 { #category : 'examples' }

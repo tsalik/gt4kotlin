@@ -45,9 +45,10 @@ GtSmaCCKotlinImporter >> createClassFrom: aNode [
 	class := FAMIXClass new
 			name: aNode name source;
 			mooseModel: model;
-			container:(self containerIn: aNode parent);
+			container: (self containerIn: aNode parent);
 			sourceAnchor: (self sourceAnchorFrom: aNode);
 			yourself.
+	(aNode topParent attributeNamed: #famixFile) addEntity: class.
 	^ class
 ]
 
