@@ -97,6 +97,33 @@ GtSmaCCJavaImporterExamples >> singleClassFolders [
 ]
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassMethod [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model class method |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> '
+	package com.example;
+	
+	public class Example {
+		void greet() {}
+	}
+	'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: model allModelMethods size equals: 1.
+	method := model allModelMethods detect: [:each | each name = 'greet'].
+	self assert: method parentType == class.
+	self assert: (class methods includes: method).
+	self assert: method mooseName equals: 'com::example::Example.greet()'.
+	^ method.
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> singleClassMooseModel [
 	<gtExample>
 	<return: #MooseModel>

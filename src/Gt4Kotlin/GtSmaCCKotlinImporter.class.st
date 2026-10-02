@@ -13,6 +13,18 @@ Class {
 }
 
 { #category : 'accessing' }
+GtSmaCCKotlinImporter >> addMethodSignature: method [
+	method
+		signature: (String
+				streamContents: [ :stream | 
+					stream << method name << '('.
+					method parameters
+						do: [ :each | stream << (each declaredType ifNil: [ each name ] ifNotNil: [ :t | t name ]) ]
+						separatedBy: [ stream << ', ' ].
+					stream << ')' ])
+]
+
+{ #category : 'accessing' }
 GtSmaCCKotlinImporter >> baseDirectory: anObject [
 	baseDirectory := anObject asFileReference.
 ]
@@ -26,6 +38,7 @@ GtSmaCCKotlinImporter >> buildKotlinModel [
 	self importFiles.
 	self importNamespaces.
 	self importClasses.
+	self importClassParts.
 	^ model
 ]
 
@@ -49,6 +62,7 @@ GtSmaCCKotlinImporter >> createClassFrom: aNode [
 			sourceAnchor: (self sourceAnchorFrom: aNode);
 			yourself.
 	(aNode topParent attributeNamed: #famixFile) addEntity: class.
+	aNode attributeNamed: #container put: class.
 	^ class
 ]
 
@@ -85,6 +99,18 @@ GtSmaCCKotlinImporter >> ensureFolderNamed: aDirectory [
 ]
 
 { #category : 'accessing' }
+GtSmaCCKotlinImporter >> ensureMethodFrom: functionDeclarationNode [
+	| method |
+	method := FAMIXMethod new
+			name: functionDeclarationNode name source;
+			parentType: (self containerIn: functionDeclarationNode parent);
+			mooseModel: model;
+			yourself.
+	self addMethodSignature: method.
+	^ method
+]
+
+{ #category : 'accessing' }
 GtSmaCCKotlinImporter >> ensureNamespace: aString in: aNamespace [
 	^ aNamespace childScopes
 		detect: [ :each | each name = aString ]
@@ -104,6 +130,15 @@ GtSmaCCKotlinImporter >> ensureRootNamespace: aString [
 				add: (FAMIXNamespace new
 						name: aString;
 						yourself) ]
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> importClassParts [
+	self
+		kotlinAstsDo: [ :node | 
+			node
+				withAllNodesOfType: KotlinFunctionDeclarationNode
+				do: [ :functionDeclaration | self ensureMethodFrom: functionDeclaration ] ]
 ]
 
 { #category : 'accessing' }

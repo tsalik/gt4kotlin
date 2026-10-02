@@ -96,6 +96,33 @@ GtSmaCCKotlinExamples >> singleClassFolders [
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassMethod [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model class method |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+	package com.example
+	
+	class Example {
+		fun greet() {}
+	}
+	'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: model allModelMethods size equals: 1.
+	method := model allModelMethods detect: [:each | each name = 'greet'].
+	self assert: method parentType == class.
+	self assert: (class methods includes: method).
+	self assert: method mooseName equals: 'com::example::Example.greet()'.
+	^ method.
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> singleClassModel [
 	<gtExample>
 	<return: #MooseModel>
