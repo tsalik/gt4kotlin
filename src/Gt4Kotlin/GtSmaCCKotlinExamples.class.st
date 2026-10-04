@@ -119,7 +119,35 @@ GtSmaCCKotlinExamples >> singleClassMethod [
 	self assert: method parentType == class.
 	self assert: (class methods includes: method).
 	self assert: method mooseName equals: 'com::example::Example.greet()'.
+	self assert: method sourceText equals: 'fun greet() {}'.
 	^ method.
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassMethodInFileEntities [
+	<gtExample>
+	<return: #FAMIXFile>
+	| directory model class method file |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+	package com.example
+	
+	class Example {
+		fun greet() {}
+	}
+	'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allFiles size equals: 1.
+	file := model allFiles detect: [ :each | each name = 'Example.kt' ].
+	self assert: file entities size equals: 2.
+	class := model allModelClasses detect: [:each | each name = 'Example'].
+	method := class methods detect: [:each | each name = 'greet'].
+	self assert: (file entities includes: method).
+	^ file
 ]
 
 { #category : 'examples' }

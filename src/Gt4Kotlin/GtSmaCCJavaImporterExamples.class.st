@@ -108,7 +108,7 @@ GtSmaCCJavaImporterExamples >> singleClassMethod [
 	package com.example;
 	
 	public class Example {
-		void greet() {}
+		public void greet() {}
 	}
 	'} asDictionary.
 	model := GtSmaCCJavaImporter new
@@ -120,7 +120,35 @@ GtSmaCCJavaImporterExamples >> singleClassMethod [
 	self assert: method parentType == class.
 	self assert: (class methods includes: method).
 	self assert: method mooseName equals: 'com::example::Example.greet()'.
+	self assert: method sourceText equals: 'public void greet() {}'.
 	^ method.
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassMethodInFileEntities [
+	<gtExample>
+	<return: #FAMIXFile>
+	| directory model class method file |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> '
+	package com.example;
+	
+	public class Example {
+		public void greet() {}
+	}
+	'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allFiles size equals: 1.
+	file := model allFiles detect: [ :each | each name = 'Example.java' ].
+	self assert: file entities size equals: 2.
+	class := model allModelClasses detect: [:each | each name = 'Example'].
+	method := class methods detect: [:each | each name = 'greet'].
+	self assert: (file entities includes: method).
+	^ file
 ]
 
 { #category : 'examples' }

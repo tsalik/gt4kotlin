@@ -104,8 +104,10 @@ GtSmaCCKotlinImporter >> ensureMethodFrom: functionDeclarationNode [
 	method := FAMIXMethod new
 			name: functionDeclarationNode name source;
 			parentType: (self containerIn: functionDeclarationNode parent);
+			sourceAnchor: (self sourceAnchorFrom: functionDeclarationNode);
 			mooseModel: model;
 			yourself.
+	(functionDeclarationNode topParent attributeNamed: #famixFile) addEntity: method.
 	self addMethodSignature: method.
 	^ method
 ]
