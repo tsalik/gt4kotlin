@@ -13,6 +13,32 @@ Class {
 }
 
 { #category : 'accessing' }
+GtSmaCCKotlinImporter >> addInheritanceFrom: aType to: aSpecifierNode [
+	| superType |
+	superType := self
+			lookupTypeNamed: aSpecifierNode type source
+			in: aType container.
+	^ model
+		add: (FAMIXInheritance new
+				subclass: aType;
+				superclass: superType;
+				sourceAnchor: (self sourceAnchorFrom: aSpecifierNode type);
+				yourself)
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> addInheritedTypes [
+	model allTypes
+		do: [ :each | 
+			(each propertyNamed: #ast ifAbsent: [  ])
+				ifNotNil: [ :ast | 
+					(ast isKindOf: KotlinClassDeclarationNode)
+						ifTrue: [ ast annotatedSpecifiers
+								do: [ :annotated | 
+									self addInheritanceFrom: each to: annotated specifier] ] ] ]
+]
+
+{ #category : 'accessing' }
 GtSmaCCKotlinImporter >> addMethodSignature: method [
 	method
 		signature: (String
@@ -39,6 +65,7 @@ GtSmaCCKotlinImporter >> buildKotlinModel [
 	self importNamespaces.
 	self importClasses.
 	self importClassParts.
+	self addInheritedTypes.
 	^ model
 ]
 
@@ -63,7 +90,18 @@ GtSmaCCKotlinImporter >> createClassFrom: aNode [
 			yourself.
 	(aNode topParent attributeNamed: #famixFile) addEntity: class.
 	aNode attributeNamed: #container put: class.
+	class propertyNamed: #ast put: aNode.
 	^ class
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> createUnknownType: aString in: aNamespace [
+	^ FAMIXType new
+		name: aString;
+		isStub: true;
+		mooseModel: model;
+		container: aNamespace;
+		yourself
 ]
 
 { #category : 'accessing' }
@@ -187,10 +225,26 @@ GtSmaCCKotlinImporter >> kotlinAstsDo: aBlock [
 ]
 
 { #category : 'accessing' }
+GtSmaCCKotlinImporter >> lookupTypeNamed: aString in: aContainer [
+	^ aContainer children
+		detect: [ :each | each name = aString and: [ each isKindOf: FAMIXType ] ]
+		ifNone: [ self unknownTypeNamed: aString ]
+]
+
+{ #category : 'accessing' }
 GtSmaCCKotlinImporter >> sourceAnchorFrom: aNode [
 	^ FAMIXIndexedFileEntityAnchor
 		file: (aNode topParent attributeNamed: #famixFile)
 		startPos: aNode startPosition
 		endPos: aNode stopPosition
 		model: model
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> unknownTypeNamed: aString [
+	| unknown |
+	unknown := self ensureRootNamespace: '__UNKNOWN__'.
+	^ unknown children
+		detect: [ :each | each name = aString and: [ each isKindOf: FAMIXType ] ]
+		ifNone: [ self createUnknownType: aString in: unknown ]
 ]

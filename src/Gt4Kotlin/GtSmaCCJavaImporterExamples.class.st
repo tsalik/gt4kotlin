@@ -7,6 +7,104 @@ Class {
 }
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> inheritanceBetweenClassesInTheSamePackage [
+	<gtExample>
+	<return: #FAMIXInheritance>
+	| model inheritance parent child |
+	model := self inheritanceBetweenClassesInTheSamePackageModel.
+	inheritance := model allInheritanceDefinitions first.
+	parent := model allModelClasses detect: [ :each | each name = 'Vehicle' ].
+	child := model allModelClasses detect: [ :each | each name = 'Car' ].
+	self assert: inheritance superclass == parent.
+	self assert: inheritance subclass == child.
+	^ inheritance
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> inheritanceBetweenClassesInTheSamePackageModel [
+	<gtExample>
+	<return: #MooseModel>
+	| directory model inheritance parent child |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Vehicle.java'
+						-> '
+			package com.example;
+			
+			public class Vehicle {}
+			'.
+					'Car.java'
+						-> '
+			package com.example;
+			
+			public class Car extends Vehicle {}
+			'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	parent := model allModelClasses detect: [ :each | each name = 'Vehicle' ].
+	child := model allModelClasses detect: [ :each | each name = 'Car' ].
+	self assert: inheritance superclass == parent.
+	self assert: inheritance subclass == child.
+	^ model
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> inheritanceBetweenClassesInTheSamePackageOnTypes [
+	<gtExample>
+	<return: #FAMIXClass>
+	| model inheritance parent child |
+	model := self inheritanceBetweenClassesInTheSamePackageModel.
+	inheritance := model allInheritanceDefinitions first.
+	parent := model allModelClasses detect: [ :each | each name = 'Vehicle' ].
+	child := model allModelClasses detect: [ :each | each name = 'Car' ].
+	self assert: child superInheritances size equals: 1.
+	self assert: (child superInheritances includes: inheritance).
+	self assert: parent subInheritances size equals: 1.
+	self assert: (parent subInheritances includes: inheritance).
+	^ child
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> inheritanceBetweenClassesInTheSamePackageSourceAnchor [
+      <gtExample>
+      <return: #FAMIXInheritance>
+      | model inheritance |
+      model := self inheritanceBetweenClassesInTheSamePackageModel.
+      inheritance := model allInheritanceDefinitions first.
+      self assert: inheritance sourceText equals: 'Vehicle'.
+      ^ inheritance
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> inheritanceFromClassOutsideTheModel [
+      <gtExample>
+      <return: #MooseModel>
+      | directory model inheritance child |
+      directory := self
+                      sourceDirectoryNamed: 'com/package'
+                      withFiles: {'Car.java'
+                                              -> '
+                      package com.example;
+
+                      public class Car extends Vehicle {}
+                      '} asDictionary.
+      model := GtSmaCCJavaImporter new
+                      baseDirectory: directory;
+                      buildJavaModel.
+      self assert: model allInheritanceDefinitions size equals: 1.
+      inheritance := model allInheritanceDefinitions first.
+      child := model allModelClasses detect: [:each | each name = 'Car'].
+      self assert: inheritance subclass == child.
+      self assert: inheritance superclass name equals: 'Vehicle'.
+      self assert: inheritance superclass isStub.
+      self assert: inheritance superclass container name equals: '__UNKNOWN__'.
+      ^ model
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> sincleClassModelSourceLanguage [
 	<gtExample>
 	<return: #MooseModel>
