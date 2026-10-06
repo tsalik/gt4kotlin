@@ -17,7 +17,7 @@ GtSmaCCKotlinImporter >> addInheritanceFrom: aType to: aSpecifierNode [
 	| superType |
 	superType := self
 			lookupTypeNamed: aSpecifierNode type source
-			in: aType container.
+			in: aType.
 	^ model
 		add: (FAMIXInheritance new
 				subclass: aType;
@@ -162,6 +162,16 @@ GtSmaCCKotlinImporter >> ensureNamespace: aString in: aNamespace [
 ]
 
 { #category : 'accessing' }
+GtSmaCCKotlinImporter >> ensureNamespaceOfImport: anImportNode [
+	^ anImportNode path names allButLast
+		inject: nil
+		into: [ :parent :each | 
+			parent
+				ifNil: [ self ensureRootNamespace: each source ]
+				ifNotNil: [ self ensureNamespace: each source in: parent ] ]
+]
+
+{ #category : 'accessing' }
 GtSmaCCKotlinImporter >> ensureRootNamespace: aString [
 	rootNamespaces ifNil: [ rootNamespaces := Dictionary new ].
 	^ rootNamespaces
@@ -225,10 +235,24 @@ GtSmaCCKotlinImporter >> kotlinAstsDo: aBlock [
 ]
 
 { #category : 'accessing' }
-GtSmaCCKotlinImporter >> lookupTypeNamed: aString in: aContainer [
-	^ aContainer children
-		detect: [ :each | each name = aString and: [ each isKindOf: FAMIXType ] ]
-		ifNone: [ self unknownTypeNamed: aString ]
+GtSmaCCKotlinImporter >> lookupTypeNamed: aString in: aType [
+	| file |
+	file := (aType propertyNamed: #ast) topParent.
+	file imports
+		detect: [ :import | import path names last source = aString ]
+		ifFound: [ :importNode | 
+			| namespace |
+			namespace := self ensureNamespaceOfImport: importNode.
+			namespace
+				ifNotNil: [ :ns | 
+					^ self
+						typeNamed: aString
+						inNamespace: ns
+						ifNone: [ self createUnknownType: aString in: ns  ] ] ]
+		ifNone: [ ^ self
+				typeNamed: aString
+				inNamespace: aType container
+				ifNone: [ self unknownTypeNamed: aString ] ]
 ]
 
 { #category : 'accessing' }
@@ -241,10 +265,18 @@ GtSmaCCKotlinImporter >> sourceAnchorFrom: aNode [
 ]
 
 { #category : 'accessing' }
+GtSmaCCKotlinImporter >> typeNamed: aString inNamespace: aNamespace ifNone: aBlock [
+	^ aNamespace children
+		detect: [ :each | each name = aString and: [ each isKindOf: FAMIXType ] ]
+		ifNone: aBlock.
+]
+
+{ #category : 'accessing' }
 GtSmaCCKotlinImporter >> unknownTypeNamed: aString [
 	| unknown |
 	unknown := self ensureRootNamespace: '__UNKNOWN__'.
-	^ unknown children
-		detect: [ :each | each name = aString and: [ each isKindOf: FAMIXType ] ]
+	^ self
+		typeNamed: aString
+		inNamespace: unknown
 		ifNone: [ self createUnknownType: aString in: unknown ]
 ]

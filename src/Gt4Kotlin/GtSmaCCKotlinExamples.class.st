@@ -7,6 +7,38 @@ Class {
 }
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> inheritanceBetweenClassesInDifferentPackagesModel [
+	<gtExample>
+	<return: #MooseModel>
+	| directory model inheritance parent child |
+	directory := self
+			sourceDirectoryWithFiles: {'com/vehicles/Vehicle.kt'
+						-> '
+						package com.vehicles
+						
+						open class Vehicle {}'.
+					'com/cars/Car.kt'
+						-> '
+						package com.cars
+						
+						import com.vehicles.Vehicle
+						class Car : Vehicle() {}'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	parent := model allModelClasses detect: [ :each | each name = 'Vehicle' ].
+	child := model allModelClasses detect: [ :each | each name = 'Car' ].
+	self assert: inheritance subclass == child.
+	self assert: inheritance superclass == parent.
+	self assert: parent isStub not.
+	self assert: parent container name equals: 'vehicles'.
+	self assert: child container name equals: 'cars'.
+	^ model
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> inheritanceBetweenClassesInTheSamePackage [
 	<gtExample>
 	<return: #FAMIXInheritance>
@@ -97,6 +129,32 @@ GtSmaCCKotlinExamples >> inheritanceFromClassOutsideTheModel [
       self assert: inheritance superclass isStub.
       self assert: inheritance superclass container name equals: '__UNKNOWN__'.
       ^ model
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> inheritanceFromImportedClassOutsideTheModel [
+	<gtExample>
+	<return: #MooseModel>
+	| directory model inheritance child |
+	directory := self
+			sourceDirectoryWithFiles: {'com/cars/Car.kt'
+						-> '
+						package com.cars
+						
+						import org.vehicles.Vehicle
+					  class Car : Vehicle() {}'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	child := model allModelClasses detect: [ :each | each name = 'Car' ].
+	self assert: inheritance subclass == child.
+	self assert: inheritance superclass name equals: 'Vehicle'.
+	self assert: inheritance superclass isStub.
+	self assert: inheritance superclass container name equals: 'vehicles'.
+	self assert: inheritance superclass container parentScope name equals: 'org'.
+	^ model
 ]
 
 { #category : 'examples' }
@@ -314,6 +372,20 @@ GtSmaCCKotlinExamples >> sourceDirectoryNamed: aString withFiles: aDictionary [
 		keysAndValuesDo: [ :path :source | 
 			| file |
 			file := directory / path.
+			file writeStreamDo: [ :stream | stream nextPutAll: source ] ].
+	^ sourceDirectory
+]
+
+{ #category : 'examples - support' }
+GtSmaCCKotlinExamples >> sourceDirectoryWithFiles: aDictionary [
+	| sourceDirectory |
+	sourceDirectory := FileSystem memory root / 'src'.
+	sourceDirectory ensureCreateDirectory.
+	aDictionary
+		keysAndValuesDo: [ :path :source | 
+			| file |
+			file := sourceDirectory resolveString: path.
+			file parent ensureCreateDirectory.
 			file writeStreamDo: [ :stream | stream nextPutAll: source ] ].
 	^ sourceDirectory
 ]

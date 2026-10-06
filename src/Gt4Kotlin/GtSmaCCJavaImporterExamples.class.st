@@ -7,6 +7,38 @@ Class {
 }
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> inheritanceBetweenClassesInDifferentPackagesModel [
+	<gtExample>
+	<return: #MooseModel>
+	| directory model inheritance parent child |
+	directory := self
+			sourceDirectoryWithFiles: {'com/vehicles/Vehicle.java'
+						-> '
+						package com.vehicles;
+						
+						public class Vehicle {}'.
+					'com/cars/Car.java'
+						-> '
+						package com.cars;
+						
+						import com.vehicles.Vehicle;
+						public class Car extends Vehicle {}'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	parent := model allModelClasses detect: [ :each | each name = 'Vehicle' ].
+	child := model allModelClasses detect: [ :each | each name = 'Car' ].
+	self assert: inheritance subclass == child.
+	self assert: inheritance superclass == parent.
+	self assert: parent isStub not.
+	self assert: parent container name equals: 'vehicles'.
+	self assert: child container name equals: 'cars'.
+	^ model
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> inheritanceBetweenClassesInTheSamePackage [
 	<gtExample>
 	<return: #FAMIXInheritance>
@@ -102,6 +134,32 @@ GtSmaCCJavaImporterExamples >> inheritanceFromClassOutsideTheModel [
       self assert: inheritance superclass isStub.
       self assert: inheritance superclass container name equals: '__UNKNOWN__'.
       ^ model
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> inheritanceFromImportedClassOutsideTheModel [
+	<gtExample>
+	<return: #MooseModel>
+	| directory model inheritance child |
+	directory := self
+			sourceDirectoryWithFiles: {'com/cars/Car.java'
+						-> '
+						package com.cars;
+						
+						import org.vehicles.Vehicle;
+						public class Car extends Vehicle {}'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	child := model allModelClasses detect: [ :each | each name = 'Car' ].
+	self assert: inheritance subclass == child.
+	self assert: inheritance superclass name equals: 'Vehicle'.
+	self assert: inheritance superclass isStub.
+	self assert: inheritance superclass container name equals: 'vehicles'.
+	self assert: inheritance superclass container parentScope name equals: 'org'.
+	^ model
 ]
 
 { #category : 'examples' }
@@ -321,6 +379,20 @@ GtSmaCCJavaImporterExamples >> sourceDirectoryNamed: aString withFiles: aDiction
 		keysAndValuesDo: [ :path :source | 
 			| file |
 			file := directory / path.
+			file writeStreamDo: [ :stream | stream nextPutAll: source ] ].
+	^ sourceDirectory
+]
+
+{ #category : 'examples - support' }
+GtSmaCCJavaImporterExamples >> sourceDirectoryWithFiles: aDictionary [
+	| sourceDirectory |
+	sourceDirectory := FileSystem memory root / 'src'.
+	sourceDirectory ensureCreateDirectory.
+	aDictionary
+		keysAndValuesDo: [ :path :source | 
+			| file |
+			file := sourceDirectory resolveString: path.
+			file parent ensureCreateDirectory.
 			file writeStreamDo: [ :stream | stream nextPutAll: source ] ].
 	^ sourceDirectory
 ]
