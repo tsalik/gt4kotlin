@@ -39,6 +39,38 @@ GtSmaCCJavaImporterExamples >> inheritanceBetweenClassesInDifferentPackagesModel
 ]
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> inheritanceBetweenClassesInDifferentPackagesWithStarImport [
+	<gtExample>
+	<return: #FAMIXInheritance>
+	| directory model inheritance parent child |
+	directory := self
+			sourceDirectoryWithFiles: {'com/vehicles/Vehicle.java'
+						-> '
+						package com.vehicles;
+						
+						public class Vehicle {}'.
+					'com/cars/Car.java'
+						-> '
+						package com.cars;
+						
+						import com.vehicles.*;
+						public class Car extends Vehicle {}'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	parent := model allModelClasses detect: [ :each | each name = 'Vehicle' ].
+	child := model allModelClasses detect: [ :each | each name = 'Car' ].
+	self assert: inheritance subclass == child.
+	self assert: inheritance superclass == parent.
+	self assert: parent isStub not.
+	self assert: parent container name equals: 'vehicles'.
+	self assert: child container name equals: 'cars'.
+	^ inheritance.
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> inheritanceBetweenClassesInTheSamePackage [
 	<gtExample>
 	<return: #FAMIXInheritance>

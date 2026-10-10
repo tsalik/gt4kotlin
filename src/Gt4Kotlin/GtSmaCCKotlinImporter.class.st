@@ -162,13 +162,13 @@ GtSmaCCKotlinImporter >> ensureNamespace: aString in: aNamespace [
 ]
 
 { #category : 'accessing' }
-GtSmaCCKotlinImporter >> ensureNamespaceOfImport: anImportNode [
-	^ anImportNode path names allButLast
+GtSmaCCKotlinImporter >> ensureNamespaceFromNames: aPackageNamesCollection [
+	^ aPackageNamesCollection
 		inject: nil
-		into: [ :parent :each | 
-			parent
-				ifNil: [ self ensureRootNamespace: each source ]
-				ifNotNil: [ self ensureNamespace: each source in: parent ] ]
+		into: [ :parentNamespace :each | 
+			parentNamespace
+				ifNil: [ self ensureRootNamespace: each ]
+				ifNotNil: [ self ensureNamespace: each in: parentNamespace ] ]
 ]
 
 { #category : 'accessing' }
@@ -180,6 +180,14 @@ GtSmaCCKotlinImporter >> ensureRootNamespace: aString [
 				add: (FAMIXNamespace new
 						name: aString;
 						yourself) ]
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> explicitlyImportedTypeNamed: aString in: aFileNode [
+	^ aFileNode imports
+		detect: [ :import | import star isNil and: [ import path names last source = aString ] ]
+		ifFound: [ :import | self typeNamed: aString importedBy: import ]
+		ifNone: [ nil ]
 ]
 
 { #category : 'accessing' }
@@ -218,12 +226,7 @@ GtSmaCCKotlinImporter >> importNamespaces [
 				ifNotNil: [ :package | 
 					node
 						attributeNamed: #container
-						put: (package names
-								inject: nil
-								into: [ :parent :each | 
-									parent
-										ifNil: [ self ensureRootNamespace: each source ]
-										ifNotNil: [ self ensureNamespace: each source in: parent ] ]) ] ]
+						put: (self ensureNamespaceFromNames: (package names collect:[:each | each source])) ] ]
 ]
 
 { #category : 'accessing' }
@@ -238,21 +241,13 @@ GtSmaCCKotlinImporter >> kotlinAstsDo: aBlock [
 GtSmaCCKotlinImporter >> lookupTypeNamed: aString in: aType [
 	| file |
 	file := (aType propertyNamed: #ast) topParent.
-	file imports
-		detect: [ :import | import path names last source = aString ]
-		ifFound: [ :importNode | 
-			| namespace |
-			namespace := self ensureNamespaceOfImport: importNode.
-			namespace
-				ifNotNil: [ :ns | 
-					^ self
-						typeNamed: aString
-						inNamespace: ns
-						ifNone: [ self createUnknownType: aString in: ns  ] ] ]
-		ifNone: [ ^ self
+	^ (self explicitlyImportedTypeNamed: aString in: file)
+		ifNil: [ (self
 				typeNamed: aString
 				inNamespace: aType container
-				ifNone: [ self unknownTypeNamed: aString ] ]
+				ifNone: [ nil ])
+				ifNil: [ (self starImportedTypeNamed: aString in: file)
+						ifNil: [ self unknownTypeNamed: aString ] ] ]
 ]
 
 { #category : 'accessing' }
@@ -262,6 +257,31 @@ GtSmaCCKotlinImporter >> sourceAnchorFrom: aNode [
 		startPos: aNode startPosition
 		endPos: aNode stopPosition
 		model: model
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> starImportedTypeNamed: aString in: aFileNode [
+	^ (aFileNode imports select: [ :import | import star notNil ])
+		inject: nil
+		into: [ :found :import | 
+			found
+				ifNil: [ self
+						typeNamed: aString
+						inNamespace: (self
+								ensureNamespaceFromNames: (import path names collect: [ :each | each source ]))
+						ifNone: [ nil ] ] ]
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> typeNamed: aString importedBy: anImportNode [
+	^ (self
+		ensureNamespaceFromNames: (anImportNode path names allButLast collect: [ :each | each source ]))
+		ifNil: [ self unknownTypeNamed: aString ]
+		ifNotNil: [ :namespace | 
+			self
+				typeNamed: aString
+				inNamespace: namespace
+				ifNone: [ self createUnknownType: aString in: namespace ] ]
 ]
 
 { #category : 'accessing' }
