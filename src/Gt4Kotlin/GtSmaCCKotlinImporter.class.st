@@ -13,16 +13,16 @@ Class {
 }
 
 { #category : 'accessing' }
-GtSmaCCKotlinImporter >> addInheritanceFrom: aType to: aSpecifierNode [
+GtSmaCCKotlinImporter >> addInheritanceFrom: aType to: aTypeNode [
 	| superType |
 	superType := self
-			lookupTypeNamed: aSpecifierNode type source
+			lookupTypeNamed: aTypeNode source
 			in: aType.
 	^ model
 		add: (FAMIXInheritance new
 				subclass: aType;
 				superclass: superType;
-				sourceAnchor: (self sourceAnchorFrom: aSpecifierNode type);
+				sourceAnchor: (self sourceAnchorFrom: aTypeNode);
 				yourself)
 ]
 
@@ -34,8 +34,7 @@ GtSmaCCKotlinImporter >> addInheritedTypes [
 				ifNotNil: [ :ast | 
 					(ast isKindOf: KotlinClassDeclarationNode)
 						ifTrue: [ ast annotatedSpecifiers
-								do: [ :annotated | 
-									self addInheritanceFrom: each to: annotated specifier] ] ] ]
+								do: [ :annotated | self addInheritanceFrom: each to: (self superTypeNodeFrom: annotated specifier) ] ] ] ]
 ]
 
 { #category : 'accessing' }
@@ -80,13 +79,14 @@ GtSmaCCKotlinImporter >> containerIn: aNode [
 ]
 
 { #category : 'accessing' }
-GtSmaCCKotlinImporter >> createClassFrom: aNode [
+GtSmaCCKotlinImporter >> createClassOrInterfaceFrom: aNode [
 	| class |
 	class := FAMIXClass new
 			name: aNode name source;
 			mooseModel: model;
 			container: (self containerIn: aNode parent);
 			sourceAnchor: (self sourceAnchorFrom: aNode);
+			isInterface: aNode interfaceToken isNotNil;
 			yourself.
 	(aNode topParent attributeNamed: #famixFile) addEntity: class.
 	aNode attributeNamed: #container put: class.
@@ -207,7 +207,7 @@ GtSmaCCKotlinImporter >> importClasses [
 		kotlinAstsDo: [ :node | 
 			node
 				withAllNodesOfType: KotlinClassDeclarationNode
-				do: [ :each | self createClassFrom: each ] ]
+				do: [ :each | self createClassOrInterfaceFrom: each ] ]
 ]
 
 { #category : 'accessing' }
@@ -272,6 +272,16 @@ GtSmaCCKotlinImporter >> starImportedTypeNamed: aString in: aFileNode [
 						inNamespace: (self
 								ensureNamespaceFromNames: (import path names collect: [ :each | each source ]))
 						ifNone: [ nil ] ] ]
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> superTypeNodeFrom: aSpecifierNode [
+	^ ((aSpecifierNode isKindOf: KotlinConstructorInvocationNode)
+		or: [ aSpecifierNode isKindOf: KotlinExplicitDelegationNode ])
+		ifTrue: [ aSpecifierNode type ]
+		ifFalse: [ (aSpecifierNode isKindOf: KotlinUserTypeNode)
+				ifTrue: [ aSpecifierNode ]
+				ifFalse: [ nil ] ]
 ]
 
 { #category : 'accessing' }

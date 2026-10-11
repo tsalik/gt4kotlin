@@ -7,6 +7,62 @@ Class {
 }
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> classExtendingClassAndImplementingInterface [
+	<gtExample>
+	<return: #FAMIXClass>
+	| directory model child |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Base.java' -> 'package com.example;
+
+public class Base {}'.
+					'A.java' -> 'package com.example;
+
+public interface A {}'.
+					'Derived.java'
+						-> 'package com.example;
+
+public class Derived extends Base implements A {}'}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allInheritanceDefinitions size equals: 2.
+	child := model allModelClasses detect: [ :each | each name = 'Derived' ].
+	self
+		assert: (child superInheritances collect: [ :each | each superclass name ]) asSet
+		equals: #('A' 'Base') asSet.
+	^ child
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> classImplementingInterfaceInTheSamePackage [
+	<gtExample>
+	<return: #FAMIXInheritance>
+	| directory model inheritance interface child |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Base.java' -> 'package com.example;
+
+public interface Base {}'.
+					'Derived.java'
+						-> 'package com.example;
+
+public class Derived implements Base {}'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	interface := model allClasses detect: [ :each | each name = 'Base' ].
+	child := model allModelClasses detect: [ :each | each name = 'Derived' ].
+	self assert: inheritance superclass == interface.
+	self assert: inheritance subclass == child.
+	self assert: interface isInterface.
+	^ inheritance
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> inheritanceBetweenClassesInDifferentPackagesModel [
 	<gtExample>
 	<return: #MooseModel>
@@ -192,6 +248,36 @@ GtSmaCCJavaImporterExamples >> inheritanceFromImportedClassOutsideTheModel [
 	self assert: inheritance superclass container name equals: 'vehicles'.
 	self assert: inheritance superclass container parentScope name equals: 'org'.
 	^ model
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> interfaceExtendingInterface [
+	<gtExample>
+	<return: #FAMIXInheritance>
+	| directory model inheritance parent child |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Base.java' -> 'package com.example;
+
+public interface Base {}'.
+					'Derived.java'
+						-> 'package com.example;
+
+public interface Derived extends Base {}'}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	parent := model allClasses detect: [ :each | each name = 'Base' ].
+	child := model allClasses detect: [ :each | each name = 'Derived' ].
+	self assert: inheritance superclass == parent.
+	self assert: inheritance subclass == child.
+	self assert: parent isInterface.
+	self assert: child isInterface.
+	self assert: model allModelClasses isEmpty.
+	^ inheritance
 ]
 
 { #category : 'examples' }
@@ -398,6 +484,30 @@ GtSmaCCJavaImporterExamples >> singleClassSourceAnchor [
 	class := model allModelClasses detect: [ :each | each name = 'Example' ].
 	self assert: class sourceText equals: 'public class Example {}'.
 	^ class
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleInterface [
+	<gtExample>
+	<return: #FAMIXClass>
+	| directory model interface |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Example.java'
+						-> 'package com.example;
+
+public interface Example {}
+                        '}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allClasses size equals: 1.
+	interface := model allClasses first.
+	self assert: interface name equals: 'Example'.
+	self assert: interface isInterface.
+	self assert: interface isStub not.
+	^ interface
 ]
 
 { #category : 'examples - support' }

@@ -7,6 +7,89 @@ Class {
 }
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> classExtendingClassAndImplementingInterface [
+	<gtExample>
+	<return: #FAMIXClass>
+	| directory model child |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Base.kt' -> 'package com.example
+
+open class Base'.
+					'A.kt' -> 'package com.example
+
+interface A'.
+					'Derived.kt'
+						-> 'package com.example
+
+class Derived : Base(), A'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allInheritanceDefinitions size equals: 2.
+	child := model allModelClasses detect: [ :each | each name = 'Derived' ].
+	self
+		assert: (child superInheritances collect: [ :each | each superclass name ]) asSet
+		equals: #('A' 'Base') asSet.
+	^ child
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> classImplementingInterfaceByDelegation [
+	<gtExample>
+	<return: #FAMIXInheritance>
+	| directory model inheritance interface child |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Base.kt' -> 'package com.example
+
+interface Base {}'.
+					'Derived.kt'
+						-> 'package com.example
+
+class Derived(impl: Base) : Base by impl {}'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	interface := model allClasses detect: [ :each | each name = 'Base' ].
+	child := model allModelClasses detect: [ :each | each name = 'Derived' ].
+	self assert: inheritance superclass == interface.
+	self assert: inheritance subclass == child.
+	^ inheritance
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> classImplementingInterfaceInTheSamePackage [
+	<gtExample>
+	<return: #FAMIXInheritance>
+	| directory model inheritance interface child |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Base.kt' -> 'package com.example
+
+interface Base {}'.
+					'Derived.kt'
+						-> 'package com.example
+
+class Derived : Base {}'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	interface := model allClasses detect: [ :each | each name = 'Base' ].
+	child := model allModelClasses detect: [ :each | each name = 'Derived' ].
+	self assert: inheritance superclass == interface.
+	self assert: inheritance subclass == child.
+	self assert: interface isInterface.
+	^ inheritance
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> inheritanceBetweenClassesInDifferentPackagesModel [
 	<gtExample>
 	<return: #MooseModel>
@@ -268,6 +351,35 @@ GtSmaCCKotlinExamples >> inheritanceFromSamePackageClassWhenImportAliasHidesOrig
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> interfaceExtendingInterface [
+	<gtExample>
+	<return: #FAMIXInheritance>
+	| directory model inheritance parent child |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Base.kt' -> 'package com.example
+
+interface Base {}'.
+					'Derived.kt' -> 'package com.example
+
+interface Derived : Base {}'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	parent := model allClasses detect: [ :each | each name = 'Base' ].
+	child := model allClasses detect: [ :each | each name = 'Derived' ].
+	self assert: inheritance superclass == parent.
+	self assert: inheritance subclass == child.
+	self assert: parent isInterface.
+	self assert: child isInterface.
+	self assert: model allModelClasses isEmpty.
+	^ inheritance
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> sincleClassModelSourceLanguage [
 	<gtExample>
 	<return: #MooseModel>
@@ -469,6 +581,27 @@ GtSmaCCKotlinExamples >> singleClassSourceAnchor [
 	class := model allModelClasses detect: [ :each | each name = 'Example' ].
 	self assert: class sourceText equals: 'class Example'.
 	^ class
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleInterface [
+	<gtExample>
+	<return: #FAMIXClass>
+	| directory model interface |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Example.kt' -> 'package com.example
+
+interface Example {}'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allClasses size equals: 1.
+	interface := model allClasses first.
+	self assert: interface name equals: 'Example'.
+	self assert: interface isInterface.
+	self assert: interface isStub not.
+	^ interface
 ]
 
 { #category : 'examples - support' }

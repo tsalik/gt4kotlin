@@ -183,7 +183,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-02T22:11:22.912643+03:00"
+									"dateAndTimeString" : "2026-10-11T23:20:26.528924+03:00"
 								}
 							},
 							"uid" : {
@@ -193,7 +193,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Fix the implementation of {{gtMethod:GtSmaCCKotlinImporter>>createClassFrom:}}to find the {{gtClass:FAMIXFile}} with the `#famixFile` attribute , then add the entity on the file."
+							"string" : "Fix the implementation of {{gtMethod:GtSmaCCKotlinImporter>>createClassOrInterfaceFrom:}}to find the {{gtClass:FAMIXFile}} with the `#famixFile` attribute , then add the entity on the file."
 						}
 					]
 				},

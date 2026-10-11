@@ -294,7 +294,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-03T00:23:43.779301+03:00"
+									"dateAndTimeString" : "2026-10-11T23:20:27.593481+03:00"
 								}
 							},
 							"uid" : {
@@ -304,7 +304,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Marked the Kotlin class declartion node as a `#container` in {{gtMethod:GtSmaCCKotlinImporter>>createClassFrom:}}and saved the {{gtClass:FAMIXClass}}so the method can access it."
+							"string" : "Marked the Kotlin class declartion node as a `#container` in {{gtMethod:GtSmaCCKotlinImporter>>createClassOrInterfaceFrom:}}and saved the {{gtClass:FAMIXClass}}so the method can access it."
 						},
 						{
 							"__type" : "textSnippet",
