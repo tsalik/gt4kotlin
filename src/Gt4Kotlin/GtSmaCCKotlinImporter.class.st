@@ -185,8 +185,10 @@ GtSmaCCKotlinImporter >> ensureRootNamespace: aString [
 { #category : 'accessing' }
 GtSmaCCKotlinImporter >> explicitlyImportedTypeNamed: aString in: aFileNode [
 	^ aFileNode imports
-		detect: [ :import | import star isNil and: [ import path names last source = aString ] ]
-		ifFound: [ :import | self typeNamed: aString importedBy: import ]
+		detect: [ :import | 
+			import star isNil
+				and: [ (import alias ifNil: [ import path names last ]) source = aString ] ]
+		ifFound: [ :import | self typeNamed: import path names last source importedBy: import ]
 		ifNone: [ nil ]
 ]
 
