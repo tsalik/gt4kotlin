@@ -293,6 +293,102 @@ GtSmaCCJavaImporterExamples >> sincleClassModelSourceLanguage [
 ]
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassAttribute [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Car.java'
+						-> 'package com.example;
+
+public class Car {
+	private String name;
+}
+'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allAttributes size equals: 1.
+	attribute := model allAttributes first.
+	class := model allModelClasses detect: [ :each | each name = 'Car' ].
+	self assert: attribute name equals: 'name'.
+	self assert: attribute parentType == class.
+	^ attribute
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassAttributeInFileEntities [
+	<gtExample>
+	<return: #FAMIXFile>
+	| directory model attribute file |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Car.java'
+						-> 'package com.example;
+
+public class Car {
+        private String name;
+}
+'}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	file := model allFiles detect: [ :each | each name = 'Car.java' ].
+	attribute := model allAttributes first.
+	self assert: file entities size equals: 2.
+	self assert: (file entities includes: attribute).
+	^ file
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassAttributeModifiers [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Car.java'
+						-> 'package com.example;
+
+public class Car {
+        private String name;
+}
+'}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	attribute := model allAttributes first.
+	self assert: attribute isPrivate.
+	^ attribute
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassAttributeSourceAnchor [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Car.java'
+						-> 'package com.example;
+
+public class Car {
+        private String name;
+}
+'}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	attribute := model allAttributes first.
+	self assert: attribute sourceText equals: 'private String name;'.
+	^ attribute
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> singleClassFile [
 	<gtExample>
 	<return: #FAMIXFileGroup>
@@ -352,6 +448,29 @@ GtSmaCCJavaImporterExamples >> singleClassFileStyler [
 	self assert: file sourceLanguage isJava.
 	self assert: file gtStyler notNil.
 	^ file
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassFinalAttribute [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Car.java'
+						-> 'package com.example;
+
+public class Car {
+        private final String name = "";
+}
+'}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	attribute := model allAttributes first.
+	self assert: attribute isFinal.
+	^ attribute
 ]
 
 { #category : 'examples' }

@@ -50,6 +50,14 @@ GtSmaCCKotlinImporter >> addMethodSignature: method [
 ]
 
 { #category : 'accessing' }
+GtSmaCCKotlinImporter >> addModifiers: aCollection to: anEntity [
+	aCollection
+		do: [ :each | 
+			(each isKindOf: KotlinModifierNode)
+				ifTrue: [ anEntity addModifier: each name source asSymbol ] ]
+]
+
+{ #category : 'accessing' }
 GtSmaCCKotlinImporter >> baseDirectory: anObject [
 	baseDirectory := anObject asFileReference.
 ]
@@ -172,6 +180,22 @@ GtSmaCCKotlinImporter >> ensureNamespaceFromNames: aPackageNamesCollection [
 ]
 
 { #category : 'accessing' }
+GtSmaCCKotlinImporter >> ensurePropertyFrom: aPropertyNode [
+	| attr famixFile |
+	famixFile := aPropertyNode topParent attributeNamed: #famixFile.
+	attr := FAMIXAttribute new
+			name: aPropertyNode declaration name source;
+			sourceAnchor: (self sourceAnchorFrom: aPropertyNode);
+			parentType: (self containerIn: aPropertyNode parent);
+			mooseModel: model;
+			yourself.
+	self addModifiers: aPropertyNode modifiers to: attr.
+	aPropertyNode valToken ifNotNil: [ attr isFinal: true ].
+	famixFile addEntity: attr.
+	^ attr
+]
+
+{ #category : 'accessing' }
 GtSmaCCKotlinImporter >> ensureRootNamespace: aString [
 	rootNamespaces ifNil: [ rootNamespaces := Dictionary new ].
 	^ rootNamespaces
@@ -197,8 +221,11 @@ GtSmaCCKotlinImporter >> importClassParts [
 	self
 		kotlinAstsDo: [ :node | 
 			node
-				withAllNodesOfType: KotlinFunctionDeclarationNode
-				do: [ :functionDeclaration | self ensureMethodFrom: functionDeclaration ] ]
+				withAllNodesDo: [ :each | 
+					(each isKindOf: KotlinFunctionDeclarationNode)
+						ifTrue: [ self ensureMethodFrom: each ].
+					(each isKindOf: KotlinPropertyDeclarationNode)
+						ifTrue: [ self ensurePropertyFrom: each ] ] ]
 ]
 
 { #category : 'accessing' }

@@ -392,6 +392,102 @@ GtSmaCCKotlinExamples >> sincleClassModelSourceLanguage [
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassAttribute [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Car.kt'
+						-> 'package com.example
+
+class Car {
+	private lateinit var name: String
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allAttributes size equals: 1.
+	attribute := model allAttributes first.
+	class := model allModelClasses detect: [ :each | each name = 'Car' ].
+	self assert: attribute name equals: 'name'.
+	self assert: attribute parentType == class.
+	^ attribute
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassAttributeInFileEntities [
+	<gtExample>
+	<return: #FAMIXFile>
+	| directory model attribute file |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Car.kt'
+						-> 'package com.example
+
+class Car {
+        private lateinit var name: String
+}
+'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	file := model allFiles detect: [ :each | each name = 'Car.kt' ].
+	attribute := model allAttributes first.
+	self assert: file entities size equals: 2.
+	self assert: (file entities includes: attribute).
+	^ file
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassAttributeModifiers [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Car.kt'
+						-> 'package com.example
+
+class Car {
+        private lateinit var name: String
+}
+'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	attribute := model allAttributes first.
+	self assert: attribute isPrivate.
+	^ attribute
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassAttributeSourceAnchor [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Car.kt'
+						-> 'package com.example
+
+class Car {
+	private lateinit var name: String
+}
+'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	attribute := model allAttributes first.
+	self assert: attribute sourceText equals: 'private lateinit var name: String'.
+	^ attribute
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> singleClassFile [
 	<gtExample>
 	<return: #FAMIXFileGroup>
@@ -450,6 +546,29 @@ GtSmaCCKotlinExamples >> singleClassFileStyler [
 	file := self singleClassFileSource.
 	self assert: file gtStyler notNil.
 	^ file
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassFinalAttribute [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Car.kt'
+						-> 'package com.example
+
+class Car {
+        private val name: String = ""
+}
+'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	attribute := model allAttributes first.
+	self assert: attribute isFinal.
+	^ attribute
 ]
 
 { #category : 'examples' }
