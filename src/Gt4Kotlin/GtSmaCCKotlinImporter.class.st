@@ -146,15 +146,26 @@ GtSmaCCKotlinImporter >> ensureFolderNamed: aDirectory [
 
 { #category : 'accessing' }
 GtSmaCCKotlinImporter >> ensureMethodFrom: functionDeclarationNode [
-	| method |
+	| method file |
 	method := FAMIXMethod new
 			name: functionDeclarationNode name source;
 			parentType: (self containerIn: functionDeclarationNode parent);
 			sourceAnchor: (self sourceAnchorFrom: functionDeclarationNode);
 			mooseModel: model;
 			yourself.
-	(functionDeclarationNode topParent attributeNamed: #famixFile) addEntity: method.
+	file := functionDeclarationNode topParent attributeNamed: #famixFile.
+	file addEntity: method.
 	self addMethodSignature: method.
+	functionDeclarationNode parameters
+		do: [ :each | 
+			| param |
+			param := FAMIXParameter new
+					name: each parameter name source;
+					sourceAnchor: (self sourceAnchorFrom: each);
+					belongsTo: method;
+					mooseModel: model;
+					yourself.
+			file addEntity: param ].
 	^ method
 ]
 

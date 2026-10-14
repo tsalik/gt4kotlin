@@ -643,6 +643,60 @@ GtSmaCCKotlinExamples >> singleClassMethodInFileEntities [
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassMethodParameter [
+	<gtExample>
+	<return: #FAMIXParameter>
+	| directory model method parameter |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+	package com.example
+	
+	class Example {
+		fun greet(message: String) {}
+	}
+	'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	method := model allModelMethods detect: [ :each | each name = 'greet' ].
+	self assert: method parameters size equals: 1.
+	parameter := method parameters first.
+	self assert: parameter name equals: 'message'.
+	self assert: parameter parentBehaviouralEntity == method.
+	self assert: parameter sourceText equals: 'message: String'.
+	self assert: ((model allWithType: FAMIXParameter) includes: parameter).
+	^ parameter
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassMethodParameterInFileEntities [
+	<gtExample>
+	<return: #FAMIXFile>
+	| directory model method parameter file |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+	package com.example
+	
+	class Example {
+		fun greet(message: String) {}
+	}
+	'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	method := model allModelMethods detect: [ :each | each name = 'greet' ].
+	self assert: method parameters size equals: 1.
+	parameter := method parameters first.
+	file := model allFiles detect: [ :each | each name = 'Example.kt' ].
+	self assert: (file entities includes: parameter).
+	^ file
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> singleClassModel [
 	<gtExample>
 	<return: #MooseModel>

@@ -545,6 +545,60 @@ GtSmaCCJavaImporterExamples >> singleClassMethodInFileEntities [
 ]
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassMethodParameter [
+	<gtExample>
+	<return: #FAMIXParameter>
+	| directory model method parameter |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> '
+	package com.example;
+	
+	public class Example {
+		public void greet(String message) {}
+	}
+	'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	method := model allModelMethods detect: [ :each | each name = 'greet' ].
+	self assert: method parameters size equals: 1.
+	parameter := method parameters first.
+	self assert: parameter name equals: 'message'.
+	self assert: parameter parentBehaviouralEntity == method.
+	self assert: parameter sourceText equals: 'String message'.
+	self assert: ((model allWithType: FAMIXParameter) includes: parameter).
+	^ parameter
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassMethodParameterInFileEntities [
+	<gtExample>
+	<return: #FAMIXFile>
+	| directory model method parameter file |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> '
+	package com.example;
+	
+	public class Example {
+		public void greet(String message) {}
+	}
+	'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	method := model allModelMethods detect: [ :each | each name = 'greet' ].
+	self assert: method parameters size equals: 1.
+	parameter := method parameters first.
+	file := model allFiles detect: [ :each | each name = 'Example.java' ].
+	self assert: (file entities includes: parameter).
+	^ file
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> singleClassMooseModel [
 	<gtExample>
 	<return: #MooseModel>
