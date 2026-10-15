@@ -63,11 +63,21 @@ GtSmaCCKotlinImporter >> baseDirectory: anObject [
 ]
 
 { #category : 'accessing' }
+GtSmaCCKotlinImporter >> buildDefaultImportedTypes [
+	self defaultImportedTypeNames
+		do: [ :each | 
+			| namespace |
+			namespace := self ensureNamespaceFromNames: each key.
+			each value do: [ :name | self createUnknownType: name in: namespace ] ]
+]
+
+{ #category : 'accessing' }
 GtSmaCCKotlinImporter >> buildKotlinModel [
 	model := MooseModel new.
 	model sourceLanguage: FAMIXKotlinSourceLanguage new.
 	model rootFolder: baseDirectory.
 	model name: baseDirectory basenameWithoutExtension.
+	self buildDefaultImportedTypes.
 	self importFiles.
 	self importNamespaces.
 	self importClasses.
@@ -110,6 +120,37 @@ GtSmaCCKotlinImporter >> createUnknownType: aString in: aNamespace [
 		mooseModel: model;
 		container: aNamespace;
 		yourself
+]
+
+{ #category : 'as yet unclassified' }
+GtSmaCCKotlinImporter >> defaultImportedNamespaces [
+	^ self defaultImportedTypeNames
+		collect: [ :each | self ensureNamespaceFromNames: each key ]
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> defaultImportedTypeNamed: aString [
+	self defaultImportedNamespaces
+		do: [ :each | 
+			(self
+				typeNamed: aString
+				inNamespace: each
+				ifNone: [ nil ]) ifNotNil: [ :type | ^ type ] ].
+	^ nil
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> defaultImportedTypeNames [
+	^ {#('kotlin')
+			-> #('Annotation' 'Any' 'ArithmeticException' 'Array' 'AssertionError' 'AutoCloseable' 'Boolean' 'BooleanArray' 'Byte' 'ByteArray' 'Char' 'CharArray' 'CharSequence' 'ClassCastException' 'Comparable' 'Comparator' 'ConcurrentModificationException' 'DeepRecursiveFunction' 'DeepRecursiveScope' 'DeprecationLevel' 'Double' 'DoubleArray' 'Enum' 'Error' 'Exception' 'Float' 'FloatArray' 'Function' 'IllegalArgumentException' 'IllegalStateException' 'IndexOutOfBoundsException' 'Int' 'IntArray' 'KotlinVersion' 'Lazy' 'LazyThreadSafetyMode' 'Long' 'LongArray' 'NoSuchElementException' 'Nothing' 'NotImplementedError' 'NoWhenBranchMatchedException' 'NullPointerException' 'Number' 'NumberFormatException' 'Pair' 'Result' 'RuntimeException' 'Short' 'ShortArray' 'String' 'Throwable' 'Triple' 'UByte' 'UByteArray' 'UInt' 'UIntArray' 'ULong' 'ULongArray' 'UninitializedPropertyAccessException' 'Unit' 'UnsupportedOperationException' 'UShort' 'UShortArray').
+		#('kotlin' 'annotation') -> #('AnnotationRetention' 'AnnotationTarget').
+		#('kotlin' 'collections')
+			-> #('AbstractCollection' 'AbstractIterator' 'AbstractList' 'AbstractMap' 'AbstractMutableCollection' 'AbstractMutableList' 'AbstractMutableMap' 'AbstractMutableSet' 'AbstractSet' 'ArrayDeque' 'ArrayList' 'BooleanIterator' 'ByteIterator' 'CharIterator' 'Collection' 'DoubleIterator' 'FloatIterator' 'Grouping' 'HashMap' 'HashSet' 'IndexedValue' 'IntIterator' 'Iterable' 'Iterator' 'LinkedHashMap' 'LinkedHashSet' 'List' 'ListIterator' 'LongIterator' 'Map' 'MutableCollection' 'MutableIterable' 'MutableIterator' 'MutableList' 'MutableListIterator' 'MutableMap' 'MutableSet' 'RandomAccess' 'Set' 'ShortIterator').
+		#('kotlin' 'ranges')
+			-> #('CharProgression' 'CharRange' 'ClosedFloatingPointRange' 'ClosedRange' 'IntProgression' 'IntRange' 'LongProgression' 'LongRange' 'OpenEndRange' 'UIntProgression' 'UIntRange' 'ULongProgression' 'ULongRange').
+		#('kotlin' 'sequences') -> #('Sequence' 'SequenceScope').
+		#('kotlin' 'text')
+			-> #('Appendable' 'CharacterCodingException' 'CharCategory' 'HexFormat' 'MatchGroup' 'MatchGroupCollection' 'MatchNamedGroupCollection' 'MatchResult' 'Regex' 'RegexOption' 'StringBuilder' 'Typography')}
 ]
 
 { #category : 'accessing' }
@@ -281,13 +322,15 @@ GtSmaCCKotlinImporter >> kotlinAstsDo: aBlock [
 GtSmaCCKotlinImporter >> lookupTypeNamed: aString in: aType [
 	| file |
 	file := (aType propertyNamed: #ast) topParent.
-	^ (self explicitlyImportedTypeNamed: aString in: file)
-		ifNil: [ (self
-				typeNamed: aString
-				inNamespace: aType container
-				ifNone: [ nil ])
-				ifNil: [ (self starImportedTypeNamed: aString in: file)
-						ifNil: [ self unknownTypeNamed: aString ] ] ]
+	(self explicitlyImportedTypeNamed: aString in: file)
+		ifNotNil: [ :type | ^ type ].
+	(self
+		typeNamed: aString
+		inNamespace: aType container
+		ifNone: [ nil ]) ifNotNil: [ :type | ^ type ].
+	(self starImportedTypeNamed: aString in: file) ifNotNil: [ :type | ^ type ].
+	(self defaultImportedTypeNamed: aString) ifNotNil: [ :type | ^ type ].
+	^ self unknownTypeNamed: aString
 ]
 
 { #category : 'accessing' }

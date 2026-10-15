@@ -36,6 +36,30 @@ public class Derived extends Base implements A {}'}
 ]
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> classExtendingDefaultImportType [
+	<gtExample>
+	<return: #FAMIXInheritance>
+	| directory model inheritance builtInType child |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'CustomException.java' -> 'package com.example;
+
+public class CustomException extends Exception {}'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	builtInType := model allTypes detect: [ :each | each name = 'Exception' ].
+	child := model allModelClasses detect: [ :each | each name = 'CustomException' ].
+	self assert: inheritance superclass == builtInType.
+	self assert: inheritance subclass == child.
+	self assert: builtInType isStub.
+	self assert: builtInType container mooseName equals: 'java::lang'.
+	^ inheritance
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> classImplementingInterfaceInTheSamePackage [
 	<gtExample>
 	<return: #FAMIXInheritance>

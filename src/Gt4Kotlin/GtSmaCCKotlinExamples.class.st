@@ -36,6 +36,56 @@ class Derived : Base(), A'}
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> classExtendingDefaultImportType [
+	<gtExample>
+	<return: #FAMIXInheritance>
+	| directory model inheritance builtInType child |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'CustomException.kt' -> 'package com.example
+
+class CustomException : Exception() {}'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	builtInType := model allTypes detect: [ :each | each name = 'Exception' ].
+	child := model allModelClasses detect: [ :each | each name = 'CustomException' ].
+	self assert: inheritance superclass == builtInType.
+	self assert: inheritance subclass == child.
+	self assert: builtInType isStub.
+	self assert: builtInType container mooseName equals: 'kotlin'.
+	^ inheritance
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> classImplementingDefaultImportTypeFromKotlinTextPackage [
+	<gtExample>
+	<return: #FAMIXInheritance>
+	| directory model inheritance defaultImportType child |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Buffer.kt' -> 'package com.example
+
+abstract class Buffer : Appendable'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	defaultImportType := model allTypes
+			detect: [ :each | each name = 'Appendable' ].
+	child := model allModelClasses detect: [ :each | each name = 'Buffer' ].
+	self assert: inheritance superclass == defaultImportType.
+	self assert: inheritance subclass == child.
+	self assert: defaultImportType isStub.
+	self assert: defaultImportType container mooseName equals: 'kotlin::text'.
+	^ inheritance
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> classImplementingInterfaceByDelegation [
 	<gtExample>
 	<return: #FAMIXInheritance>
