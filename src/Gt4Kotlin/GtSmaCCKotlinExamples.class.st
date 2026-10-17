@@ -430,6 +430,36 @@ interface Derived : Base {}'}
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> localVariableIsNotAnAttribute [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Car.kt'
+						-> 'package com.example
+
+class Car {
+	private lateinit var name: String
+
+	fun greet(): String {
+		val greeting: String = "Hello"
+		return greeting
+	}
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allAttributes size equals: 1.
+	attribute := model allAttributes first.
+	class := model allModelClasses detect: [ :each | each name = 'Car' ].
+	self assert: attribute name equals: 'name'.
+	self assert: attribute parentType == class.
+	^ attribute
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> sincleClassModelSourceLanguage [
 	<gtExample>
 	<return: #MooseModel>
@@ -721,6 +751,37 @@ GtSmaCCKotlinExamples >> singleClassMethodInFileEntities [
 	method := class methods detect: [:each | each name = 'greet'].
 	self assert: (file entities includes: method).
 	^ file
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassMethodLocalVariable [
+	<gtExample>
+	<return: #FAMIXLocalVariable>
+	| directory model method local stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example {
+	fun greet(): String {
+		val greeting: String = "Hello"
+		return greeting
+	}
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allLocalVariables size equals: 1.
+	local := model allLocalVariables first.
+	method := model allModelMethods detect: [ :each | each name = 'greet' ].
+	self assert: local name equals: 'greeting'.
+	self assert: local parentBehaviouralEntity == method.
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: local declaredType == stringType.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	^ local
 ]
 
 { #category : 'examples' }

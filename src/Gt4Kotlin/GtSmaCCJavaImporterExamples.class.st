@@ -305,6 +305,36 @@ public interface Derived extends Base {}'}
 ]
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> localVariableIsNotAnAttribute [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Car.java'
+						-> 'package com.example;
+
+public class Car {
+	private String name;
+
+	public String greet() {
+		String greeting = "Hello";
+		return greeting;
+	}
+}
+'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allAttributes size equals: 1.
+	attribute := model allAttributes first.
+	class := model allModelClasses detect: [ :each | each name = 'Car' ].
+	self assert: attribute name equals: 'name'.
+	self assert: attribute parentType == class.
+	^ attribute
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> sincleClassModelSourceLanguage [
 	<gtExample>
 	<return: #MooseModel>
@@ -570,6 +600,37 @@ GtSmaCCJavaImporterExamples >> singleClassMethodInFileEntities [
 	method := class methods detect: [:each | each name = 'greet'].
 	self assert: (file entities includes: method).
 	^ file
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassMethodLocalVariable [
+	<gtExample>
+	<return: #FAMIXLocalVariable>
+	| directory model method local stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> 'package com.example;
+
+public class Example {
+	public String greet() {
+		String greeting = "Hello";
+		return greeting;
+	}
+}
+'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allLocalVariables size equals: 1.
+	local := model allLocalVariables first.
+	method := model allModelMethods detect: [ :each | each name = 'greet' ].
+	self assert: local name equals: 'greeting'.
+	self assert: local parentBehaviouralEntity == method.
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: local declaredType == stringType.
+	self assert: stringType container mooseName equals: 'java::lang'.
+	^ local
 ]
 
 { #category : 'examples' }

@@ -346,7 +346,82 @@
 							"__type" : "textSnippet",
 							"children" : {
 								"__type" : "snippets",
-								"items" : [ ]
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-17T19:56:51.898162+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-17T19:56:51.898162+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "09r7fCIwR1SFU7m8/NrhTg=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Accesses to local variables: in {{gtExample:GtSmaCCJavaImporterExamples>>singleClassMethodLocalVariable|noCode}}, `return greeting` creates a `FAMIXAccess` from `greet()` to the local, so its Navigation view shows `Incoming Accesses` and `Accessors`. The Kotlin counterpart {{gtExample:GtSmaCCKotlinExamples>>singleClassMethodLocalVariable|noCode}} has no accesses yet."
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-17T19:56:51.944254+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-17T19:56:51.944254+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "+wA0MtZyR5Cg2zDEAP5E3A=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Thinnest first slice: reading a local in a `return` statement creates a `FAMIXAccess` from the method to the local. Probably easier after the `TKotlinNodeNodeVisitor` refactoring, which tracks the current method."
+									}
+								]
 							},
 							"createEmail" : {
 								"__type" : "email",
@@ -1007,6 +1082,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Function types in declared types, e.g. `(String) -> Unit`"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-17T19:36:08.446251+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-17T20:00:53.007221+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "BFBknXuWRhqmOu/cZiYeOQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Properties of a class declared inside a function body (local classes, object expressions): `importClassParts` treats every `KotlinPropertyDeclarationNode` under a `KotlinFunctionDeclarationNode` as a local, so these become `FAMIXLocalVariable`s of the enclosing method instead of attributes of the local class."
 						}
 					]
 				},

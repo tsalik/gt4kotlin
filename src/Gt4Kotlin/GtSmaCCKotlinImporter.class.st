@@ -185,7 +185,25 @@ GtSmaCCKotlinImporter >> ensureFolderNamed: aDirectory [
 			folder ]
 ]
 
-{ #category : 'accessing' }
+{ #category : 'importing' }
+GtSmaCCKotlinImporter >> ensureLocalVariableFrom: aPropertyNode [
+	| var famixFile |
+	famixFile := aPropertyNode topParent attributeNamed: #famixFile.
+	var := FAMIXLocalVariable new
+			name: aPropertyNode declaration name source;
+			sourceAnchor: (self sourceAnchorFrom: aPropertyNode);
+			parentBehaviouralEntity: ((aPropertyNode parentOfType: KotlinFunctionDeclarationNode) attributeNamed: #famixMethod);
+			mooseModel: model;
+			yourself.
+	var
+		declaredType: (self
+				lookupTypeNamed: aPropertyNode declaration type source
+				in: var parentBehaviouralEntity parentType).
+	famixFile addEntity: var.
+	^ var
+]
+
+{ #category : 'importing' }
 GtSmaCCKotlinImporter >> ensureMethodFrom: functionDeclarationNode [
 	| method file |
 	method := FAMIXMethod new
@@ -202,6 +220,7 @@ GtSmaCCKotlinImporter >> ensureMethodFrom: functionDeclarationNode [
 						in: method parentType) ].
 	file := functionDeclarationNode topParent attributeNamed: #famixFile.
 	file addEntity: method.
+	functionDeclarationNode attributeNamed: #famixMethod put: method.
 	functionDeclarationNode parameters
 		do: [ :each | 
 			| param |
@@ -277,7 +296,7 @@ GtSmaCCKotlinImporter >> explicitlyImportedTypeNamed: aString in: aFileNode [
 		ifNone: [ nil ]
 ]
 
-{ #category : 'accessing' }
+{ #category : 'importing' }
 GtSmaCCKotlinImporter >> importClassParts [
 	self
 		kotlinAstsDo: [ :node | 
@@ -286,7 +305,9 @@ GtSmaCCKotlinImporter >> importClassParts [
 					(each isKindOf: KotlinFunctionDeclarationNode)
 						ifTrue: [ self ensureMethodFrom: each ].
 					(each isKindOf: KotlinPropertyDeclarationNode)
-						ifTrue: [ self ensurePropertyFrom: each ] ] ]
+						ifTrue: [ (each parentOfType: KotlinFunctionDeclarationNode) isNil
+								ifTrue: [ self ensurePropertyFrom: each ]
+								ifFalse: [ self ensureLocalVariableFrom: each ] ] ] ]
 ]
 
 { #category : 'accessing' }
