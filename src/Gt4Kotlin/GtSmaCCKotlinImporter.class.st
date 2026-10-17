@@ -194,19 +194,26 @@ GtSmaCCKotlinImporter >> ensureMethodFrom: functionDeclarationNode [
 			sourceAnchor: (self sourceAnchorFrom: functionDeclarationNode);
 			mooseModel: model;
 			yourself.
+	functionDeclarationNode colonToken
+		ifNil: [ method declaredType: (self defaultImportedTypeNamed: 'Unit') ]
+		ifNotNil: [ method
+				declaredType: (self
+						lookupTypeNamed: functionDeclarationNode types last source
+						in: method parentType) ].
 	file := functionDeclarationNode topParent attributeNamed: #famixFile.
 	file addEntity: method.
-	self addMethodSignature: method.
 	functionDeclarationNode parameters
 		do: [ :each | 
 			| param |
 			param := FAMIXParameter new
+					declaredType: (self lookupTypeNamed: each parameter type source in: method parentType);
 					name: each parameter name source;
 					sourceAnchor: (self sourceAnchorFrom: each);
 					belongsTo: method;
 					mooseModel: model;
 					yourself.
 			file addEntity: param ].
+	self addMethodSignature: method.
 	^ method
 ]
 
@@ -241,6 +248,8 @@ GtSmaCCKotlinImporter >> ensurePropertyFrom: aPropertyNode [
 			parentType: (self containerIn: aPropertyNode parent);
 			mooseModel: model;
 			yourself.
+	attr
+		declaredType: (self lookupTypeNamed: aPropertyNode declaration type source in: attr parentType).
 	self addModifiers: aPropertyNode modifiers to: attr.
 	aPropertyNode valToken ifNotNil: [ attr isFinal: true ].
 	famixFile addEntity: attr.

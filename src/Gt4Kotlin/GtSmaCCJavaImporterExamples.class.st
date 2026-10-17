@@ -320,7 +320,7 @@ GtSmaCCJavaImporterExamples >> sincleClassModelSourceLanguage [
 GtSmaCCJavaImporterExamples >> singleClassAttribute [
 	<gtExample>
 	<return: #FAMIXAttribute>
-	| directory model attribute class |
+	| directory model attribute class stringType |
 	directory := self
 			sourceDirectoryNamed: 'com/example'
 			withFiles: {'Car.java'
@@ -338,6 +338,10 @@ public class Car {
 	class := model allModelClasses detect: [ :each | each name = 'Car' ].
 	self assert: attribute name equals: 'name'.
 	self assert: attribute parentType == class.
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: attribute declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'java::lang'.
 	^ attribute
 ]
 
@@ -572,7 +576,7 @@ GtSmaCCJavaImporterExamples >> singleClassMethodInFileEntities [
 GtSmaCCJavaImporterExamples >> singleClassMethodParameter [
 	<gtExample>
 	<return: #FAMIXParameter>
-	| directory model method parameter |
+	| directory model method parameter stringType |
 	directory := self
 			sourceDirectoryNamed: 'com/example'
 			withFiles: {'Example.java'
@@ -593,6 +597,10 @@ GtSmaCCJavaImporterExamples >> singleClassMethodParameter [
 	self assert: parameter parentBehaviouralEntity == method.
 	self assert: parameter sourceText equals: 'String message'.
 	self assert: ((model allWithType: FAMIXParameter) includes: parameter).
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: parameter declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'java::lang'.
 	^ parameter
 ]
 
@@ -620,6 +628,34 @@ GtSmaCCJavaImporterExamples >> singleClassMethodParameterInFileEntities [
 	file := model allFiles detect: [ :each | each name = 'Example.java' ].
 	self assert: (file entities includes: parameter).
 	^ file
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassMethodReturnType [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model method stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> '
+	package com.example;
+	
+	public class Example {
+		public String greet() {
+			return "Hello";
+		}
+	}
+	'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	method := model allModelMethods detect: [ :each | each name = 'greet' ].
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: method declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'java::lang'.
+	^ method
 ]
 
 { #category : 'examples' }

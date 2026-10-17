@@ -445,7 +445,7 @@ GtSmaCCKotlinExamples >> sincleClassModelSourceLanguage [
 GtSmaCCKotlinExamples >> singleClassAttribute [
 	<gtExample>
 	<return: #FAMIXAttribute>
-	| directory model attribute class |
+	| directory model attribute class stringType |
 	directory := self
 			sourceDirectoryNamed: 'com/example'
 			withFiles: {'Car.kt'
@@ -463,6 +463,10 @@ class Car {
 	class := model allModelClasses detect: [ :each | each name = 'Car' ].
 	self assert: attribute name equals: 'name'.
 	self assert: attribute parentType == class.
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: attribute declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'kotlin'.
 	^ attribute
 ]
 
@@ -666,6 +670,33 @@ GtSmaCCKotlinExamples >> singleClassMethod [
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassMethodImplicitUnitReturnType [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model method unitType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+        package com.example
+
+        class Example {
+                fun greet() {}
+        }
+        '}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	method := model allModelMethods detect: [ :each | each name = 'greet' ].
+	unitType := model allTypes detect: [ :each | each name = 'Unit' ].
+	self assert: method declaredType == unitType.
+	self assert: unitType isStub.
+	self assert: unitType container mooseName equals: 'kotlin'.
+	^ method
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> singleClassMethodInFileEntities [
 	<gtExample>
 	<return: #FAMIXFile>
@@ -696,7 +727,7 @@ GtSmaCCKotlinExamples >> singleClassMethodInFileEntities [
 GtSmaCCKotlinExamples >> singleClassMethodParameter [
 	<gtExample>
 	<return: #FAMIXParameter>
-	| directory model method parameter |
+	| directory model method parameter stringType |
 	directory := self
 			sourceDirectoryNamed: 'com/example'
 			withFiles: {'Example.kt'
@@ -717,6 +748,10 @@ GtSmaCCKotlinExamples >> singleClassMethodParameter [
 	self assert: parameter parentBehaviouralEntity == method.
 	self assert: parameter sourceText equals: 'message: String'.
 	self assert: ((model allWithType: FAMIXParameter) includes: parameter).
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: parameter declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'kotlin'.
 	^ parameter
 ]
 
@@ -744,6 +779,34 @@ GtSmaCCKotlinExamples >> singleClassMethodParameterInFileEntities [
 	file := model allFiles detect: [ :each | each name = 'Example.kt' ].
 	self assert: (file entities includes: parameter).
 	^ file
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassMethodReturnType [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model method stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+	package com.example
+	
+	class Example {
+		fun greet(): String {
+			return "Hello"
+		}
+	}
+	'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	method := model allModelMethods detect: [ :each | each name = 'greet' ].
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: method declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	^ method
 ]
 
 { #category : 'examples' }
