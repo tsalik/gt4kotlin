@@ -1,0 +1,936 @@
+{
+	"__schema" : "4.1",
+	"__type" : "page",
+	"children" : {
+		"__type" : "snippets",
+		"items" : [
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:35:27.703104+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:36:02.588825+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "4F+zfnEBSOyYcxQWBmJ/kA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Replace the `withAllNodesDo:` scan in {{gtMethod:GtSmaCCKotlinImporter>>importClassParts}} with a `KotlinNodeNodeVisitor` subclass that tracks the current container and the current method while descending. This removes the `#famixMethod` node attribute and the `parentOfType:` / `containerIn:` lookups from the class-parts code."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:35:27.764817+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:35:27.764817+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "OOONezZGTvGHQCL0cmkD2A=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Pure refactoring, no behaviour change: all {{gtClass:GtSmaCCKotlinExamples}} and {{gtClass:GtSmaCCJavaImporterExamples}} must stay green (baseline: 77/77). Properties of local classes stay locals of the enclosing method on purpose; fixing that is the next slice."
+						}
+					]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-10-18T13:35:00.590938+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-10-18T13:35:00.590938+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "wI2YuwbNQxK+IGHeIxrWnA=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Context"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T13:39:41.210499+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T13:39:41.210499+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "dwGZdu4RQ5G5si/y/3kDBw=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Kept current behaviour on purpose: `visitFile:` starts `currentContainer` at the file's `#container` (nil for a file with no `package` line), and `visitClassDeclaration:` doesn't reset `currentMethod`, so properties of local classes are still locals of the enclosing method."
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T13:39:41.407115+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T13:39:41.407115+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "B6wj7UErRyKEBZf7c+sWWQ=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "{{gtMethod:GtSmaCCKotlinImporter>>containerIn:}} is still used by {{gtMethod:GtSmaCCKotlinImporter>>createClassOrInterfaceFrom:}}."
+									}
+								]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:39:06.103143+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:48:06.660261+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "QHtiQHi2SFu6tBjncBotVA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Replaced the scan in {{gtMethod:GtSmaCCKotlinImporter>>importClassParts}} with {{gtClass:GtSmaCCKotlinClassPartsImporter}}, a `KotlinNodeNodeVisitor` that keeps `currentContainer` and `currentMethod` while descending. The importer now has {{gtMethod:GtSmaCCKotlinImporter>>ensureMethodFrom:in:}}, {{gtMethod:GtSmaCCKotlinImporter>>ensurePropertyFrom:in:}} and {{gtMethod:GtSmaCCKotlinImporter>>ensureLocalVariableFrom:in:}}, and the one-argument versions are gone, along with `#famixMethod`. "
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:53:50.540155+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:53:50.540155+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "cHulVKeNQZWmHPLyKN/mZg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Updated [[TODO]] after the refactoring: reworded the local-variable accesses and local-class properties entries for the visitor; added locals in non-function bodies (`init`, constructors, accessors, lambdas), nested-function scoping coverage, and importing classes with a visitor as a refactoring candidate."
+						}
+					]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-10-18T13:35:00.595164+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-10-18T13:35:00.595164+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "l3OcBN45Qs6hfM6kzEo+Sg=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Done"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:23.340926+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:23.340926+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "3HTplWe6QnWULwSzQVYnrQ=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "The parser comes with a visitor: {{gtClass:KotlinNodeNodeVisitor}}, using the trait {{gtClass:TKotlinNodeNodeVisitor}}. Each node type has a `visitXxx:` method, and a walk starts with `aVisitor accept: aNode`."
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:23.589401+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:23.589401+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "cXfwGo9oQiO5j/n4E8uadg=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "The default `visitXxx:` methods go from specific to general: `visitFunctionDeclaration:` calls `visitDeclaration:`, and the chain ends in `visitSmaCCParseNode:`, which does `acceptNodes: sortedChildren`. That is what makes the visitor descend."
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:23.793663+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:23.793663+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "8Q2QaQB4SQO0DT5BFldNXw=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "In an override, call `super visitXxx:` to keep descending; leave it out to skip the whole subtree."
+									}
+								]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T14:08:00.458972+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T14:08:00.458972+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "T83iKI9QTKurdTEwQwK5Ag=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "SmaCC-generated visitors"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:23.989199+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:23.989199+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "YAIzd2p5Rp6JcTRc1kgkWw=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Save the current value in a temporary, set the new one, call `super`, then restore the saved value. Each nested call keeps its own saved value, so this works like a stack without an explicit stack object. That's how `currentContainer` and `currentMethod` work in {{gtClass:GtSmaCCKotlinClassPartsImporter}}."
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:24.084191+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:24.084191+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "FDxr03ioQaSzPgYOXA25+Q=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Instance variables start as `nil`, so `currentMethod` being `nil` naturally means \"not inside a function\"."
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:24.1914+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:24.1914+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "LNBULYzTQxqussNy+QC33A=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Pitfall: if an exception escapes from inside the `super` call, the restore line never runs. With per-declaration error logging, the handler must sit inside the save/restore, or the restore must use `ensure:`, or one failure leaves the wrong container for the rest of the file."
+									}
+								]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T14:08:00.659513+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T14:08:00.659513+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "E8Dpz9TqQPa2e9xCXGBhEQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Keeping \"where am I\" state in a visitor"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:24.284484+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:24.284484+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "AfFAMKIMQZCkLFBW8Qb/HA=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "SmaCC nodes can be navigated directly: `withAllNodesDo:`, `withAllNodesOfType:do:`, `parentOfType:`, `topParent`. You can also store your own data on a node with `attributeNamed:put:`, as `#container` and `#famixFile` do."
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:24.369164+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:24.369164+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "4/pBJrKsS/euk4icJ9Gvig=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Fine for one-off lookups. Once many nodes need the same context, a visitor that carries the context downwards is simpler."
+									}
+								]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T14:08:00.847193+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T14:08:00.847193+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "2gDp9ErzTVSWedAN5k06SQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Visitor vs. walking the tree"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:24.660308+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:24.660308+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "OPzo8KTWTQaZxDbfJAHzNw=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "`ensureMethodFrom:` and `ensureMethodFrom:in:` are two different methods, not two versions of one. Adding an argument creates a new selector; the old method stays until you remove it, which is why the refactoring removed the one-argument versions explicitly."
+									}
+								]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T14:08:01.015056+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T14:08:01.015056+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "/fruZ4mbSbaVF9qqrMIgoQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Selectors include the arguments: Pharo has no overloading"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:24.747774+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T14:08:24.747774+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "vjzyystsS/StOCwUHbOviw=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "In `GtSmaCCKotlinClassPartsImporter new importer: self; accept: node`, both `importer:` and `accept:` go to the object `new` returned: `;` repeats the receiver of the last message before it. So the `importer:` setter doesn't need to return `self`."
+									}
+								]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T14:08:01.194012+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T14:08:01.194012+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "OTbprQEQRdSkYPkW/AnthQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Cascades go to the receiver of the first message"
+						}
+					]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-10-18T14:07:52.848293+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-10-18T14:07:52.848293+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "b34JfKgqQsmDJojFFpQauQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "## Learned"
+			}
+		]
+	},
+	"createEmail" : {
+		"__type" : "email",
+		"emailString" : "<unknown>"
+	},
+	"createTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2026-10-18T13:34:46.480973+03:00"
+		}
+	},
+	"editEmail" : {
+		"__type" : "email",
+		"emailString" : "<unknown>"
+	},
+	"editTime" : {
+		"__type" : "time",
+		"time" : {
+			"__type" : "dateAndTime",
+			"dateAndTimeString" : "2026-10-18T13:34:46.480973+03:00"
+		}
+	},
+	"pageType" : {
+		"__type" : "namedPage",
+		"title" : "2026-10-18: Refactor importClassParts into a node visitor"
+	},
+	"uid" : {
+		"__type" : "uuid",
+		"uuid" : "2ae8c06a-ea37-4a32-85a1-5d39bc0a28de"
+	}
+}

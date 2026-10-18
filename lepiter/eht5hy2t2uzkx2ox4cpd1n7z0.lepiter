@@ -235,7 +235,45 @@
 							"__type" : "textSnippet",
 							"children" : {
 								"__type" : "snippets",
-								"items" : [ ]
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T13:53:35.687851+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-18T13:53:35.687851+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "jCj7/pZjQ9KCkeyUSMPLwg=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Nested-function scoping has no example: {{gtMethod:GtSmaCCKotlinClassPartsImporter>>visitFunctionDeclaration:}} saves and restores `currentMethod`, so a local in an inner function should belong to the inner function, and a local after it to the outer one again. The 2026-10-18 refactoring kept this behaviour, but nothing pins it down."
+									}
+								]
 							},
 							"createEmail" : {
 								"__type" : "email",
@@ -409,7 +447,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-17T19:56:51.944254+03:00"
+												"dateAndTimeString" : "2026-10-18T13:53:23.706414+03:00"
 											}
 										},
 										"uid" : {
@@ -419,7 +457,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Thinnest first slice: reading a local in a `return` statement creates a `FAMIXAccess` from the method to the local. Probably easier after the `TKotlinNodeNodeVisitor` refactoring, which tracks the current method."
+										"string" : "Thinnest first slice: reading a local in a `return` statement creates a `FAMIXAccess` from the method to the local. {{gtClass:GtSmaCCKotlinClassPartsImporter}} already tracks `currentMethod`, so a `visitNameExpression:` (or `visitReturnExpression:`) can look the name up among `currentMethod`'s locals."
 									}
 								]
 							},
@@ -1108,7 +1146,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-17T20:00:53.007221+03:00"
+									"dateAndTimeString" : "2026-10-18T13:53:25.350131+03:00"
 								}
 							},
 							"uid" : {
@@ -1118,7 +1156,81 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Properties of a class declared inside a function body (local classes, object expressions): `importClassParts` treats every `KotlinPropertyDeclarationNode` under a `KotlinFunctionDeclarationNode` as a local, so these become `FAMIXLocalVariable`s of the enclosing method instead of attributes of the local class."
+							"string" : "Properties of a class declared inside a function body (local classes, object expressions) become `FAMIXLocalVariable`s of the enclosing method instead of attributes of the local class. Cause: {{gtMethod:GtSmaCCKotlinClassPartsImporter>>visitClassDeclaration:}} switches `currentContainer` but keeps `currentMethod`. Fix: save `currentMethod`, set it to nil while visiting the class, then restore it."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:53:35.930237+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:53:35.930237+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "N4fOodTSToS4lxv+OsvAlw=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Locals in code bodies other than functions probably become `FAMIXAttribute`s of the class: `init { val tmp = … }`, secondary constructor bodies, getter/setter bodies (`get() { val t = … }`), and lambdas in property initializers (`val x = run { val y = 1; y }`). {{gtClass:GtSmaCCKotlinClassPartsImporter}} only sets `currentMethod` for a `KotlinFunctionDeclarationNode`. Found by reading the code, not confirmed by an example yet. Java references: `ensureInitializerFrom:`, `ensureConstructorFrom:`, `ensureLambdaFrom:` in {{gtClass:GtSmaCCJavaImporter}}. Thinnest first case: `init`."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:53:36.022204+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:53:36.022204+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "tQATjQxeS2uGCv+xEbpKAA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Refactoring candidate: import classes with a visitor too. {{gtMethod:GtSmaCCKotlinImporter>>importClasses}} still uses `withAllNodesOfType:`, {{gtMethod:GtSmaCCKotlinImporter>>containerIn:}} and the `#container` node attribute, and every `ensure…From:in:` finds its file via `topParent attributeNamed: #famixFile` (a visitor could track `currentFile`). Caveat: classes from all files must exist before any declared type is looked up, so class creation stays a separate pass before class parts."
 						}
 					]
 				},
@@ -1152,6 +1264,43 @@
 					"__type" : "textStyle"
 				},
 				"string" : "Next steps"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-10-18T14:03:10.617579+03:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2026-10-18T14:03:10.617579+03:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "awo309Z1TBaIos8HeUV8CQ=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : ""
 			}
 		]
 	},

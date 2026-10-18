@@ -822,6 +822,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "[[2026-10-17: Local val/var in a function body should be a FAMIXLocalVariable]]"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:35:00.612317+03:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-18T13:35:00.612317+03:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "nXuwu5a5T9C/Eb7/aPCprA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "[[2026-10-18: Refactor importClassParts into a node visitor]]"
 						}
 					]
 				},
