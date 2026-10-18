@@ -187,7 +187,7 @@ GtSmaCCKotlinImporter >> ensureFolderNamed: aDirectory [
 
 { #category : 'importing' }
 GtSmaCCKotlinImporter >> ensureLocalVariableFrom: aPropertyNode in: aMethod [
-	| var famixFile |
+	| var famixFile declaredType |
 	famixFile := aPropertyNode topParent attributeNamed: #famixFile.
 	var := FAMIXLocalVariable new
 			name: aPropertyNode declaration name source;
@@ -195,10 +195,13 @@ GtSmaCCKotlinImporter >> ensureLocalVariableFrom: aPropertyNode in: aMethod [
 			parentBehaviouralEntity: aMethod;
 			mooseModel: model;
 			yourself.
-	var
-		declaredType: (self
-				lookupTypeNamed: aPropertyNode declaration type source
-				in: var parentBehaviouralEntity parentType).
+	declaredType := aPropertyNode declaration type.
+	declaredType
+		ifNotNil: [ var
+				declaredType: (self
+						lookupTypeNamed: declaredType source
+						in: var parentBehaviouralEntity parentType) ].
+
 	famixFile addEntity: var.
 	^ var
 ]
@@ -258,7 +261,7 @@ GtSmaCCKotlinImporter >> ensureNamespaceFromNames: aPackageNamesCollection [
 
 { #category : 'importing' }
 GtSmaCCKotlinImporter >> ensurePropertyFrom: aPropertyNode in: aContainer [
-	| attr famixFile |
+	| attr famixFile declaredTypeNode |
 	famixFile := aPropertyNode topParent attributeNamed: #famixFile.
 	attr := FAMIXAttribute new
 			name: aPropertyNode declaration name source;
@@ -266,8 +269,10 @@ GtSmaCCKotlinImporter >> ensurePropertyFrom: aPropertyNode in: aContainer [
 			parentType: aContainer;
 			mooseModel: model;
 			yourself.
-	attr
-		declaredType: (self lookupTypeNamed: aPropertyNode declaration type source in: attr parentType).
+	declaredTypeNode := aPropertyNode declaration type.
+	declaredTypeNode
+		ifNotNil: [ attr
+				declaredType: (self lookupTypeNamed: declaredTypeNode source in: attr parentType) ].
 	self addModifiers: aPropertyNode modifiers to: attr.
 	aPropertyNode valToken ifNotNil: [ attr isFinal: true ].
 	famixFile addEntity: attr.

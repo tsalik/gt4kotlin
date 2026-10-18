@@ -28,7 +28,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T23:25:40.220038+03:00"
+												"dateAndTimeString" : "2026-10-19T00:33:15.904388+03:00"
 											}
 										},
 										"editEmail" : {
@@ -39,7 +39,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T23:25:40.220038+03:00"
+												"dateAndTimeString" : "2026-10-19T00:33:15.904388+03:00"
 											}
 										},
 										"uid" : {
@@ -49,7 +49,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Model importer crashes for property with implicit types"
+										"string" : "Model importer crashes for top-level functions"
 									}
 								]
 							},
@@ -1427,43 +1427,6 @@
 											"__type" : "textStyle"
 										},
 										"string" : "Custom FAMIX subclasses for Kotlin-only concepts, when an example needs one."
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T23:17:17.478144+03:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T23:17:41.137827+03:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "xhwxDNBdQ/OuDsIwVe5N/Q=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Model importer crashes for top-level functions"
 									},
 									{
 										"__type" : "textSnippet",

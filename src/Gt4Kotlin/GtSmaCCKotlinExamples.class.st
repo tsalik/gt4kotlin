@@ -525,6 +525,32 @@ class Car {
 	^ file
 ]
 
+{ #category : 'examples-type-inference' }
+GtSmaCCKotlinExamples >> singleClassAttributeInferredType [
+	<gtExample>
+	<noTest>
+	<return: #FAMIXAttribute>
+	| directory model attribute stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example {
+	private val greet = "Hello"
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allAttributes size equals: 1.
+	attribute := model allAttributes detect: [ :each | each name = 'greet' ].
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: attribute declaredType == stringType.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	^ attribute
+]
+
 { #category : 'examples' }
 GtSmaCCKotlinExamples >> singleClassAttributeModifiers [
 	<gtExample>
@@ -568,6 +594,29 @@ class Car {
 			buildKotlinModel.
 	attribute := model allAttributes first.
 	self assert: attribute sourceText equals: 'private lateinit var name: String'.
+	^ attribute
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassAttributeTypeInferenceNilDeclaredType [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example {
+	private val greet = "Hello"
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allAttributes size equals: 1.
+	attribute := model allAttributes detect: [:each | each name = 'greet'].
+	self assert: attribute declaredType isNil.
 	^ attribute
 ]
 
@@ -669,6 +718,32 @@ GtSmaCCKotlinExamples >> singleClassFolders [
 	example := model allFolders detect: [ :each | each name = 'example' ].
 	self assert: (example files collect: #name) asArray equals: #('Example.kt').
 	^ root
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassLocalVariableTypeInferenceNilDeclaredType [
+	<gtExample>
+	<return: #FAMIXLocalVariable>
+	| directory model localVariable |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example {
+	
+	fun greet() {
+		val greet = "Hello" 
+	}
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allLocalVariables size equals: 1.
+	localVariable := model allLocalVariables detect: [:each | each name = 'greet'].
+	self assert: localVariable declaredType isNil.
+	^ localVariable
 ]
 
 { #category : 'examples' }
@@ -778,6 +853,35 @@ class Example {
 	method := model allModelMethods detect: [ :each | each name = 'greet' ].
 	self assert: local name equals: 'greeting'.
 	self assert: local parentBehaviouralEntity == method.
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: local declaredType == stringType.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	^ local
+]
+
+{ #category : 'examples-type-inference' }
+GtSmaCCKotlinExamples >> singleClassMethodLocalVariableInferredType [
+	<gtExample>
+	<noTest>
+	<return: #FAMIXLocalVariable>
+	| directory model local stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example {
+	fun greet(): String {
+		val greeting = "Hello"
+		return greeting
+	}
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allLocalVariables size equals: 1.
+	local := model allLocalVariables detect: [ :each | each name = 'greeting' ].
 	stringType := model allTypes detect: [ :each | each name = 'String' ].
 	self assert: local declaredType == stringType.
 	self assert: stringType container mooseName equals: 'kotlin'.
