@@ -28,7 +28,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-22T00:41:39.263188+03:00"
+												"dateAndTimeString" : "2026-10-22T00:55:46.594642+03:00"
 											}
 										},
 										"editEmail" : {
@@ -39,7 +39,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-22T00:41:39.263188+03:00"
+												"dateAndTimeString" : "2026-10-22T00:55:56.666506+03:00"
 											}
 										},
 										"uid" : {
@@ -49,7 +49,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Add ADR section and record ADRs"
+										"string" : "Convert the imorter to a visitor subclass"
 									}
 								]
 							},
