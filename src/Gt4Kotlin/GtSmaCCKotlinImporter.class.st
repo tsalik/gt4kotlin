@@ -185,7 +185,44 @@ GtSmaCCKotlinImporter >> ensureFolderNamed: aDirectory [
 			folder ]
 ]
 
-{ #category : 'importing' }
+{ #category : 'private' }
+GtSmaCCKotlinImporter >> ensureFunctionFrom: aFunctionDeclarationNode in: aNamespace [
+	| function fileNode file |
+	function := FAMIXFunction new
+			name: aFunctionDeclarationNode name source;
+			container: aNamespace;
+			sourceAnchor: (self sourceAnchorFrom: aFunctionDeclarationNode);
+			mooseModel: model;
+			yourself.
+	fileNode := aFunctionDeclarationNode topParent.
+	aFunctionDeclarationNode colonToken
+		ifNil: [ function declaredType: (self defaultImportedTypeNamed: 'Unit') ]
+		ifNotNil: [ function
+				declaredType: (self
+						lookupTypeNamed: aFunctionDeclarationNode types last source
+						inFile: fileNode
+						namespace: aNamespace) ].
+	file := fileNode attributeNamed: #famixFile.
+	file addEntity: function.
+	aFunctionDeclarationNode parameters
+		do: [ :each | 
+			| param |
+			param := FAMIXParameter new
+					declaredType: (self
+							lookupTypeNamed: each parameter type source
+							inFile: fileNode
+							namespace: aNamespace);
+					name: each parameter name source;
+					sourceAnchor: (self sourceAnchorFrom: each);
+					belongsTo: function;
+					mooseModel: model;
+					yourself.
+			file addEntity: param ].
+	self addMethodSignature: function.
+	^ function
+]
+
+{ #category : 'private' }
 GtSmaCCKotlinImporter >> ensureLocalVariableFrom: aPropertyNode in: aMethod [
 	| var famixFile declaredType |
 	famixFile := aPropertyNode topParent attributeNamed: #famixFile.
@@ -198,9 +235,12 @@ GtSmaCCKotlinImporter >> ensureLocalVariableFrom: aPropertyNode in: aMethod [
 	declaredType := aPropertyNode declaration type.
 	declaredType
 		ifNotNil: [ var
-				declaredType: (self
-						lookupTypeNamed: declaredType source
-						in: var parentBehaviouralEntity parentType) ].
+				declaredType: (aMethod isFunction
+						ifTrue: [ self
+								lookupTypeNamed: declaredType source
+								inFile: aPropertyNode topParent
+								namespace: aMethod container ]
+						ifFalse: [ self lookupTypeNamed: declaredType source in: aMethod parentType ]) ].
 
 	famixFile addEntity: var.
 	^ var
@@ -347,17 +387,23 @@ GtSmaCCKotlinImporter >> kotlinAstsDo: aBlock [
 	asts do: aBlock
 ]
 
-{ #category : 'accessing' }
+{ #category : 'private' }
 GtSmaCCKotlinImporter >> lookupTypeNamed: aString in: aType [
-	| file |
-	file := (aType propertyNamed: #ast) topParent.
-	(self explicitlyImportedTypeNamed: aString in: file)
+	^ self
+		lookupTypeNamed: aString
+		inFile: (aType propertyNamed: #ast) topParent
+		namespace: aType container
+]
+
+{ #category : 'private' }
+GtSmaCCKotlinImporter >> lookupTypeNamed: aString inFile: aFileNode namespace: aNamespace [
+	(self explicitlyImportedTypeNamed: aString in: aFileNode)
 		ifNotNil: [ :type | ^ type ].
 	(self
 		typeNamed: aString
-		inNamespace: aType container
+		inNamespace: aNamespace
 		ifNone: [ nil ]) ifNotNil: [ :type | ^ type ].
-	(self starImportedTypeNamed: aString in: file) ifNotNil: [ :type | ^ type ].
+	(self starImportedTypeNamed: aString in: aFileNode) ifNotNil: [ :type | ^ type ].
 	(self defaultImportedTypeNamed: aString) ifNotNil: [ :type | ^ type ].
 	^ self unknownTypeNamed: aString
 ]
@@ -406,8 +452,9 @@ GtSmaCCKotlinImporter >> typeNamed: aString importedBy: anImportNode [
 				ifNone: [ self createUnknownType: aString in: namespace ] ]
 ]
 
-{ #category : 'accessing' }
+{ #category : 'private' }
 GtSmaCCKotlinImporter >> typeNamed: aString inNamespace: aNamespace ifNone: aBlock [
+	aNamespace ifNil: [ ^ aBlock value ].
 	^ aNamespace children
 		detect: [ :each | each name = aString and: [ each isKindOf: FAMIXType ] ]
 		ifNone: aBlock.

@@ -1055,6 +1055,112 @@ interface Example {}'} asDictionary.
 	^ interface
 ]
 
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleTopLevelFunction [
+	<gtExample>
+	<return: #FAMIXFunction>
+	| directory model function unitType |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+fun greet() {}'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allFunctions size equals: 1.
+	function := model allFunctions first.
+	self assert: function name equals: 'greet'.
+	self assert: function container mooseName equals: 'com::example'.
+	self assert: function sourceText equals: 'fun greet() {}'.
+	unitType := model allTypes detect: [ :each | each name = 'Unit' ].
+	self assert: function declaredType == unitType.
+	self assert: unitType isStub.
+	self assert: unitType container mooseName equals: 'kotlin'.
+	^ function
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleTopLevelFunctionLocalVariable [
+	<gtExample>
+	<return: #FAMIXLocalVariable>
+	| directory model function local stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+fun greet(): String {
+	val greeting: String = "Hello"
+	return greeting
+}'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allLocalVariables size equals: 1.
+	local := model allLocalVariables first.
+	function := model allFunctions detect: [ :each | each name = 'greet' ].
+	self assert: local name equals: 'greeting'.
+	self assert: local parentBehaviouralEntity == function.
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: local declaredType == stringType.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	^ local
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleTopLevelFunctionParameter [
+	<gtExample>
+	<return: #FAMIXParameter>
+	| directory model function parameter stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt' -> 'package com.example
+
+fun greet(message: String) {}'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	function := model allFunctions detect: [ :each | each name = 'greet' ].
+	self assert: function parameters size equals: 1.
+	parameter := function parameters first.
+	self assert: parameter name equals: 'message'.
+	self assert: parameter parentBehaviouralEntity == function.
+	self assert: parameter sourceText equals: 'message: String'.
+	self assert: ((model allWithType: FAMIXParameter) includes: parameter).
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: parameter declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	^ parameter
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleTopLevelFunctionReturnType [
+	<gtExample>
+	<return: #FAMIXFunction>
+	| directory model function stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+fun greet(): String {
+	return "Hello"
+}'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	function := model allFunctions detect: [ :each | each name = 'greet' ].
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: function declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	^ function
+]
+
 { #category : 'examples - support' }
 GtSmaCCKotlinExamples >> sourceDirectoryNamed: aString withFiles: aDictionary [
 	| sourceDirectory directory |
@@ -1082,6 +1188,43 @@ GtSmaCCKotlinExamples >> sourceDirectoryWithFiles: aDictionary [
 			file parent ensureCreateDirectory.
 			file writeStreamDo: [ :stream | stream nextPutAll: source ] ].
 	^ sourceDirectory
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> topLevelFunctionWithoutPackage [
+	<gtExample>
+	<return: #FAMIXFunction>
+	| directory model function |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt' -> 'fun greet() {}'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allFunctions size equals: 1.
+	function := model allFunctions detect: [ :each | each name = 'greet' ].
+	self assert: function container isNil.
+	^ function
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> topLevelFunctionWithoutPackageParameter [
+	<gtExample>
+	<return: #FAMIXParameter>
+	| directory model function parameter stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt' -> 'fun greet(message: String) {}'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	function := model allFunctions detect: [ :each | each name = 'greet' ].
+	self assert: function parameters size equals: 1.
+	parameter := function parameters first.
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: parameter declaredType == stringType.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	^ parameter
 ]
 
 { #category : 'examples' }

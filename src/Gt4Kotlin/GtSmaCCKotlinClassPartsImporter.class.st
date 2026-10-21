@@ -38,7 +38,9 @@ GtSmaCCKotlinClassPartsImporter >> visitFile: aFile [
 GtSmaCCKotlinClassPartsImporter >> visitFunctionDeclaration: aFunctionDeclaration [
 	| outerMethod |
 	outerMethod := currentMethod.
-	currentMethod := importer ensureMethodFrom: aFunctionDeclaration in: currentContainer.
+	currentMethod := (currentContainer isNil or: [ currentContainer isNamespace ])
+			ifTrue: [ importer ensureFunctionFrom: aFunctionDeclaration in: currentContainer ]
+			ifFalse: [ importer ensureMethodFrom: aFunctionDeclaration in: currentContainer ].
 	super visitFunctionDeclaration: aFunctionDeclaration.
 	currentMethod := outerMethod.
 	^ aFunctionDeclaration
