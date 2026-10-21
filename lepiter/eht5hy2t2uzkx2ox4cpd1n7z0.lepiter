@@ -28,7 +28,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-19T00:33:15.904388+03:00"
+												"dateAndTimeString" : "2026-10-22T00:41:39.263188+03:00"
 											}
 										},
 										"editEmail" : {
@@ -39,17 +39,17 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-19T00:33:15.904388+03:00"
+												"dateAndTimeString" : "2026-10-22T00:41:39.263188+03:00"
 											}
 										},
 										"uid" : {
 											"__type" : "uid",
-											"uidString" : "18W4UHQWRJ2weMcuyO1kMA=="
+											"uidString" : "YJCZE443Tiet9HXsiPofMA=="
 										},
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Model importer crashes for top-level functions"
+										"string" : "Add ADR section and record ADRs"
 									}
 								]
 							},
@@ -438,6 +438,80 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-22T00:17:43.237465+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-22T00:17:58.928804+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "90OV6QrNS1CjzleQBMc/3A=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Functions inside `object` declrations"
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-22T00:17:18.992729+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-22T00:17:31.889215+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "sy+r6GGFS0GmVpMjRe4J4g=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Top-level properties"
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
 												"dateAndTimeString" : "2026-10-18T14:16:17.139163+03:00"
 											}
 										},
@@ -449,7 +523,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:16:54.7303+03:00"
+												"dateAndTimeString" : "2026-10-22T00:17:29.935149+03:00"
 											}
 										},
 										"uid" : {
@@ -459,7 +533,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Top-level functions and properties, and nested functions. Top-level functions probably throw today, because `currentContainer` is a namespace"
+										"string" : "Nested functions"
 									},
 									{
 										"__type" : "textSnippet",
@@ -1220,6 +1294,43 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-22T00:21:57.613003+03:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-22T00:22:03.248767+03:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "oqtaINuWRnmOBk1oA+zhsg=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Excluding folders from the import"
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
 												"dateAndTimeString" : "2026-10-18T14:23:52.685694+03:00"
 											}
 										},
@@ -1427,43 +1538,6 @@
 											"__type" : "textStyle"
 										},
 										"string" : "Custom FAMIX subclasses for Kotlin-only concepts, when an example needs one."
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T23:39:30.768415+03:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T23:39:41.108949+03:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "YZtyrYKoS36B8lJzEHhmrA=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Add ADR section and record ADRs"
 									}
 								]
 							},
