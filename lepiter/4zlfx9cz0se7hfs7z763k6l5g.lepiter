@@ -34,7 +34,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-22T00:50:07.08847+03:00"
+									"dateAndTimeString" : "2026-10-25T14:28:00.822702+02:00"
 								}
 							},
 							"uid" : {
@@ -44,7 +44,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Accepted, 2026-10-22. The refactoring that applies it has not started yet."
+							"string" : "Accepted, 2026-10-22. Amended by [[003: The current file is kept beside the scope stack, and AST attributes may map nodes to entities]]."
 						}
 					]
 				},
@@ -220,7 +220,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-22T00:50:07.215848+03:00"
+									"dateAndTimeString" : "2026-10-23T02:16:38.067107+03:00"
 								}
 							},
 							"uid" : {
@@ -230,7 +230,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "{{gtClass:GtSmaCCJavaImporter}} works the same way (`withAllNodesDo:`, an `isKindOf:` chain, `containerIn:`). {{gtClass:GtPythonImporter}} and {{gtClass:GtJSImporter}} are themselves visitors with a `scopeStack` ({{gtMethod:GtPythonImporter>>assignScope:around:}}), and record `node -> scope` pairs during the walk to resolve after all files ({{gtMethod:GtPythonImporter>>visitFunctionCallExpression:}})."
+							"string" : "{{gtClass:GtSmaCCJavaImporter}} works the same way (`withAllNodesDo:`, an `isKindOf:` chain, `containerIn:`). {{gtClass:GtPythonImporter}} and {{gtClass:GtJSImporter}} are themselves visitors with a `scopeStack` ({{gtMethod:GtPythonImporter>>assignScope:around:}}). They create classes by plain name on first mention (`classes at:ifAbsentPut:`), and record `node -> scope` pairs during the walk ({{gtMethod:GtPythonImporter>>visitFunctionCallExpression:}}) that they resolve after each file (`finishImportingFile`), not after all files. {{gtClass:GtRubyImporter}} records `{ class. superclassName }` pairs during the walk and resolves them once every AST has been walked ({{gtMethod:GtRubyImporter>>importASTs:}}); that is the model for deferred resolution here."
 						}
 					]
 				},
@@ -518,7 +518,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-22T00:50:07.75431+03:00"
+									"dateAndTimeString" : "2026-10-23T02:16:39.153205+03:00"
 								}
 							},
 							"uid" : {
@@ -528,7 +528,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "During the walk, entities have no declared types or superclasses yet; anything that needs them must run after resolution."
+							"string" : "During the walk, entities have no declared types or superclasses yet; anything that needs them must run after resolution. Signatures are one case: `addMethodSignature:` reads parameter types, and `FAMIXMethod`/`FAMIXFunction` build their `mooseName` from the signature, so signatures are built in `addMethodSignatures` after `resolveTypeReferences`."
 						},
 						{
 							"__type" : "textSnippet",

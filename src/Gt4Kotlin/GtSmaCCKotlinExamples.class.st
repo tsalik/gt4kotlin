@@ -140,6 +140,40 @@ class Derived : Base {}'} asDictionary.
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> declaredTypesForwardReference [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute classA classB |
+	directory := self
+			sourceDirectoryWithFiles: {'a/A.kt' -> 'package a
+
+import b.B
+
+class A {
+        lateinit var b: B
+}
+'.
+					'b/B.kt' -> 'package b
+
+class B
+'} asDictionary.
+	self
+		assert: (KotlinParser sourceFilesIn: directory) first basename
+		equals: 'A.kt'.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allAttributes size equals: 1.
+	attribute := model allAttributes first.
+	classA := model allModelClasses detect: [ :each | each name = 'A' ].
+	classB := model allModelClasses detect: [ :each | each name = 'B' ].
+	self assert: attribute name equals: 'b'.
+	self assert: attribute parentType == classA.
+	self assert: attribute declaredType == classB.
+	^ attribute
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> inheritanceBetweenClassesInDifferentPackagesModel [
 	<gtExample>
 	<return: #MooseModel>
@@ -457,6 +491,32 @@ class Car {
 	self assert: attribute name equals: 'name'.
 	self assert: attribute parentType == class.
 	^ attribute
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> nestedClassContainer [
+	<gtExample>
+	<return: #FAMIXClass>
+	| directory model outer inner |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Outer.kt'
+						-> 'package com.example;
+
+class Outer {
+	class Inner {}
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allModelClasses size equals: 2.
+	outer := model allModelClasses detect: [ :each | each name = 'Outer' ].
+	inner := model allModelClasses detect: [ :each | each name = 'Inner' ].
+	self assert: outer container mooseName equals: 'com::example'.
+	self assert: inner container == outer.
+	self assert: inner mooseName equals: 'com::example::Outer::Inner'.
+	^ inner
 ]
 
 { #category : 'examples' }
@@ -917,6 +977,8 @@ GtSmaCCKotlinExamples >> singleClassMethodParameter [
 	self assert: parameter declaredType == stringType.
 	self assert: stringType isStub.
 	self assert: stringType container mooseName equals: 'kotlin'.
+	self assert: method signature equals: 'greet(String)'.
+	self assert: method mooseName equals: 'com::example::Example.greet(String)'.
 	^ parameter
 ]
 
@@ -1134,6 +1196,8 @@ fun greet(message: String) {}'}
 	self assert: parameter declaredType == stringType.
 	self assert: stringType isStub.
 	self assert: stringType container mooseName equals: 'kotlin'.
+	self assert: function signature equals: 'greet(String)'.
+	self assert: function mooseName equals: 'com::example.greet(String)'.
 	^ parameter
 ]
 
@@ -1191,6 +1255,38 @@ GtSmaCCKotlinExamples >> sourceDirectoryWithFiles: aDictionary [
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> superTypeForwardReference [
+	<gtExample>
+	<return: #FAMIXInheritance>
+	| directory model inheritance classA classB |
+	directory := self
+			sourceDirectoryWithFiles: {'a/A.kt' -> 'package a
+
+import b.B
+
+class A : B()
+'.
+					'b/B.kt' -> 'package b
+
+open class B
+'} asDictionary.
+	self
+		assert: (KotlinParser sourceFilesIn: directory) first basename
+		equals: 'A.kt'.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	classA := model allModelClasses detect: [ :each | each name = 'A' ].
+	classB := model allModelClasses detect: [ :each | each name = 'B' ].
+	self assert: inheritance subclass == classA.
+	self assert: inheritance superclass == classB.
+	self assert: inheritance sourceText equals: 'B'.
+	^ inheritance
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> topLevelFunctionWithoutPackage [
 	<gtExample>
 	<return: #FAMIXFunction>
@@ -1224,6 +1320,7 @@ GtSmaCCKotlinExamples >> topLevelFunctionWithoutPackageParameter [
 	stringType := model allTypes detect: [ :each | each name = 'String' ].
 	self assert: parameter declaredType == stringType.
 	self assert: stringType container mooseName equals: 'kotlin'.
+	self assert: function signature equals: 'greet(String)'.
 	^ parameter
 ]
 

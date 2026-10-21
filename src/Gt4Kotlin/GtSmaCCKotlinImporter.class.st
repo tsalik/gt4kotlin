@@ -1,41 +1,20 @@
 Class {
 	#name : 'GtSmaCCKotlinImporter',
-	#superclass : 'Object',
+	#superclass : 'KotlinNodeNodeVisitor',
 	#instVars : [
 		'baseDirectory',
 		'model',
 		'asts',
 		'folders',
-		'rootNamespaces'
+		'rootNamespaces',
+		'scopeStack',
+		'declaredTypeReferences',
+		'superTypeReferences',
+		'currentFile'
 	],
 	#category : 'Gt4Kotlin',
 	#package : 'Gt4Kotlin'
 }
-
-{ #category : 'accessing' }
-GtSmaCCKotlinImporter >> addInheritanceFrom: aType to: aTypeNode [
-	| superType |
-	superType := self
-			lookupTypeNamed: aTypeNode source
-			in: aType.
-	^ model
-		add: (FAMIXInheritance new
-				subclass: aType;
-				superclass: superType;
-				sourceAnchor: (self sourceAnchorFrom: aTypeNode);
-				yourself)
-]
-
-{ #category : 'accessing' }
-GtSmaCCKotlinImporter >> addInheritedTypes [
-	model allTypes
-		do: [ :each | 
-			(each propertyNamed: #ast ifAbsent: [  ])
-				ifNotNil: [ :ast | 
-					(ast isKindOf: KotlinClassDeclarationNode)
-						ifTrue: [ ast annotatedSpecifiers
-								do: [ :annotated | self addInheritanceFrom: each to: (self superTypeNodeFrom: annotated specifier) ] ] ] ]
-]
 
 { #category : 'accessing' }
 GtSmaCCKotlinImporter >> addMethodSignature: method [
@@ -50,11 +29,23 @@ GtSmaCCKotlinImporter >> addMethodSignature: method [
 ]
 
 { #category : 'accessing' }
+GtSmaCCKotlinImporter >> addMethodSignatures [
+	model allFunctions do: [ :each | self addMethodSignature: each ].
+	model allModelMethods do: [:each |self addMethodSignature: each]
+]
+
+{ #category : 'accessing' }
 GtSmaCCKotlinImporter >> addModifiers: aCollection to: anEntity [
 	aCollection
 		do: [ :each | 
 			(each isKindOf: KotlinModifierNode)
 				ifTrue: [ anEntity addModifier: each name source asSymbol ] ]
+]
+
+{ #category : 'private' }
+GtSmaCCKotlinImporter >> assignScope: aModelObject around: aBlock [
+	scopeStack addLast: aModelObject.
+	^ aBlock ensure: [ scopeStack removeLast ]
 ]
 
 { #category : 'accessing' }
@@ -78,37 +69,25 @@ GtSmaCCKotlinImporter >> buildKotlinModel [
 	model rootFolder: baseDirectory.
 	model name: baseDirectory basenameWithoutExtension.
 	self buildDefaultImportedTypes.
-	self importFiles.
-	self importNamespaces.
-	self importClasses.
-	self importClassParts.
-	self addInheritedTypes.
+	self kotlinAstsDo: [:each | self accept: each].
+	self resolveDeclaredTypeReferences.
+	self resolveSuperTypeReferences.
+	self addMethodSignatures.
 	^ model
 ]
 
 { #category : 'accessing' }
-GtSmaCCKotlinImporter >> containerIn: aNode [
-	| current |
-	current := aNode.
-	[ current notNil ]
-		whileTrue: [ (current attributeNamed: #container ifAbsent: [  ]) ifNotNil: [ :c | ^ c ].
-			current := current parent ].
-	^ nil 
-]
-
-{ #category : 'accessing' }
-GtSmaCCKotlinImporter >> createClassOrInterfaceFrom: aNode [
+GtSmaCCKotlinImporter >> createClassOrInterfaceFrom: aClassDeclarationNode in: aContainer [
 	| class |
 	class := FAMIXClass new
-			name: aNode name source;
+			name: aClassDeclarationNode name source;
 			mooseModel: model;
-			container: (self containerIn: aNode parent);
-			sourceAnchor: (self sourceAnchorFrom: aNode);
-			isInterface: aNode interfaceToken isNotNil;
+			container: aContainer;
+			sourceAnchor: (self sourceAnchorFrom: aClassDeclarationNode);
+			isInterface: aClassDeclarationNode interfaceToken isNotNil;
 			yourself.
-	(aNode topParent attributeNamed: #famixFile) addEntity: class.
-	aNode attributeNamed: #container put: class.
-	class propertyNamed: #ast put: aNode.
+	currentFile addEntity: class.
+	class propertyNamed: #ast put: aClassDeclarationNode.
 	^ class
 ]
 
@@ -122,7 +101,12 @@ GtSmaCCKotlinImporter >> createUnknownType: aString in: aNamespace [
 		yourself
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'private' }
+GtSmaCCKotlinImporter >> currentScope [
+	^ scopeStack ifEmpty: [ nil ] ifNotEmpty: [ :stack | stack last ]
+]
+
+{ #category : 'importing' }
 GtSmaCCKotlinImporter >> defaultImportedNamespaces [
 	^ self defaultImportedTypeNames
 		collect: [ :each | self ensureNamespaceFromNames: each key ]
@@ -187,45 +171,42 @@ GtSmaCCKotlinImporter >> ensureFolderNamed: aDirectory [
 
 { #category : 'private' }
 GtSmaCCKotlinImporter >> ensureFunctionFrom: aFunctionDeclarationNode in: aNamespace [
-	| function fileNode file |
+	| function |
 	function := FAMIXFunction new
 			name: aFunctionDeclarationNode name source;
 			container: aNamespace;
 			sourceAnchor: (self sourceAnchorFrom: aFunctionDeclarationNode);
 			mooseModel: model;
 			yourself.
-	fileNode := aFunctionDeclarationNode topParent.
 	aFunctionDeclarationNode colonToken
 		ifNil: [ function declaredType: (self defaultImportedTypeNamed: 'Unit') ]
-		ifNotNil: [ function
-				declaredType: (self
-						lookupTypeNamed: aFunctionDeclarationNode types last source
-						inFile: fileNode
-						namespace: aNamespace) ].
-	file := fileNode attributeNamed: #famixFile.
-	file addEntity: function.
+		ifNotNil: [ declaredTypeReferences
+				add: {function.
+						aFunctionDeclarationNode types last source.
+						aFunctionDeclarationNode topParent.
+						scopeStack first} ].
+	currentFile addEntity: function.
 	aFunctionDeclarationNode parameters
 		do: [ :each | 
 			| param |
 			param := FAMIXParameter new
-					declaredType: (self
-							lookupTypeNamed: each parameter type source
-							inFile: fileNode
-							namespace: aNamespace);
 					name: each parameter name source;
 					sourceAnchor: (self sourceAnchorFrom: each);
 					belongsTo: function;
 					mooseModel: model;
 					yourself.
-			file addEntity: param ].
-	self addMethodSignature: function.
+			declaredTypeReferences
+				add: {param.
+						each parameter type source.
+						aFunctionDeclarationNode topParent.
+						scopeStack first}.
+			currentFile addEntity: param ].
 	^ function
 ]
 
 { #category : 'private' }
 GtSmaCCKotlinImporter >> ensureLocalVariableFrom: aPropertyNode in: aMethod [
-	| var famixFile declaredType |
-	famixFile := aPropertyNode topParent attributeNamed: #famixFile.
+	| var declaredType |
 	var := FAMIXLocalVariable new
 			name: aPropertyNode declaration name source;
 			sourceAnchor: (self sourceAnchorFrom: aPropertyNode);
@@ -234,21 +215,18 @@ GtSmaCCKotlinImporter >> ensureLocalVariableFrom: aPropertyNode in: aMethod [
 			yourself.
 	declaredType := aPropertyNode declaration type.
 	declaredType
-		ifNotNil: [ var
-				declaredType: (aMethod isFunction
-						ifTrue: [ self
-								lookupTypeNamed: declaredType source
-								inFile: aPropertyNode topParent
-								namespace: aMethod container ]
-						ifFalse: [ self lookupTypeNamed: declaredType source in: aMethod parentType ]) ].
-
-	famixFile addEntity: var.
+		ifNotNil: [ declaredTypeReferences
+				add: {var.
+						declaredType source.
+						aPropertyNode topParent.
+						scopeStack first} ].
+	currentFile addEntity: var.
 	^ var
 ]
 
 { #category : 'importing' }
 GtSmaCCKotlinImporter >> ensureMethodFrom: functionDeclarationNode in: aContainer [
-	| method file |
+	| method |
 	method := FAMIXMethod new
 			name: functionDeclarationNode name source;
 			parentType: aContainer;
@@ -257,24 +235,27 @@ GtSmaCCKotlinImporter >> ensureMethodFrom: functionDeclarationNode in: aContaine
 			yourself.
 	functionDeclarationNode colonToken
 		ifNil: [ method declaredType: (self defaultImportedTypeNamed: 'Unit') ]
-		ifNotNil: [ method
-				declaredType: (self
-						lookupTypeNamed: functionDeclarationNode types last source
-						in: method parentType) ].
-	file := functionDeclarationNode topParent attributeNamed: #famixFile.
-	file addEntity: method.
+		ifNotNil: [ declaredTypeReferences
+				add: {method.
+						functionDeclarationNode types last source.
+						functionDeclarationNode topParent.
+						scopeStack first} ].
+	currentFile addEntity: method.
 	functionDeclarationNode parameters
 		do: [ :each | 
 			| param |
 			param := FAMIXParameter new
-					declaredType: (self lookupTypeNamed: each parameter type source in: method parentType);
 					name: each parameter name source;
 					sourceAnchor: (self sourceAnchorFrom: each);
 					belongsTo: method;
 					mooseModel: model;
 					yourself.
-			file addEntity: param ].
-	self addMethodSignature: method.
+			declaredTypeReferences
+				add: {param.
+						each parameter type source.
+						functionDeclarationNode topParent.
+						scopeStack first}.
+			currentFile addEntity: param ].
 	^ method
 ]
 
@@ -301,27 +282,27 @@ GtSmaCCKotlinImporter >> ensureNamespaceFromNames: aPackageNamesCollection [
 
 { #category : 'importing' }
 GtSmaCCKotlinImporter >> ensurePropertyFrom: aPropertyNode in: aContainer [
-	| attr famixFile declaredTypeNode |
-	famixFile := aPropertyNode topParent attributeNamed: #famixFile.
+	| attr  |
 	attr := FAMIXAttribute new
 			name: aPropertyNode declaration name source;
 			sourceAnchor: (self sourceAnchorFrom: aPropertyNode);
 			parentType: aContainer;
 			mooseModel: model;
 			yourself.
-	declaredTypeNode := aPropertyNode declaration type.
-	declaredTypeNode
-		ifNotNil: [ attr
-				declaredType: (self lookupTypeNamed: declaredTypeNode source in: attr parentType) ].
+	aPropertyNode declaration type
+		ifNotNil: [ declaredTypeReferences
+				add: {attr.
+						aPropertyNode declaration type source.
+						aPropertyNode topParent.
+						scopeStack first} ].
 	self addModifiers: aPropertyNode modifiers to: attr.
 	aPropertyNode valToken ifNotNil: [ attr isFinal: true ].
-	famixFile addEntity: attr.
+	currentFile addEntity: attr.
 	^ attr
 ]
 
 { #category : 'accessing' }
 GtSmaCCKotlinImporter >> ensureRootNamespace: aString [
-	rootNamespaces ifNil: [ rootNamespaces := Dictionary new ].
 	^ rootNamespaces
 		at: aString
 		ifAbsentPut: [ model
@@ -340,43 +321,14 @@ GtSmaCCKotlinImporter >> explicitlyImportedTypeNamed: aString in: aFileNode [
 		ifNone: [ nil ]
 ]
 
-{ #category : 'importing' }
-GtSmaCCKotlinImporter >> importClassParts [
-	self
-		kotlinAstsDo: [ :node | 
-			GtSmaCCKotlinClassPartsImporter new
-				importer: self;
-				accept: node ]
-]
-
-{ #category : 'accessing' }
-GtSmaCCKotlinImporter >> importClasses [
-	self
-		kotlinAstsDo: [ :node | 
-			node
-				withAllNodesOfType: KotlinClassDeclarationNode
-				do: [ :each | self createClassOrInterfaceFrom: each ] ]
-]
-
-{ #category : 'accessing' }
-GtSmaCCKotlinImporter >> importFiles [
+{ #category : 'initialization' }
+GtSmaCCKotlinImporter >> initialize [
+	super initialize.
+	scopeStack := OrderedCollection new.
 	folders := Dictionary new.
-	self
-		kotlinAstsDo: [ :node | 
-			node
-				attributeNamed: #famixFile
-				put: (self ensureFileFrom: node filename asFileReference) ]
-]
-
-{ #category : 'accessing' }
-GtSmaCCKotlinImporter >> importNamespaces [
-	self
-		kotlinAstsDo: [ :node | 
-			node name
-				ifNotNil: [ :package | 
-					node
-						attributeNamed: #container
-						put: (self ensureNamespaceFromNames: (package names collect:[:each | each source])) ] ]
+	rootNamespaces := Dictionary new.
+	declaredTypeReferences := OrderedCollection new.
+	superTypeReferences := OrderedCollection new.
 ]
 
 { #category : 'accessing' }
@@ -385,14 +337,6 @@ GtSmaCCKotlinImporter >> kotlinAstsDo: aBlock [
 		ifNil: [ asts := (KotlinParser sourceFilesIn: baseDirectory)
 					collect: [ :each | KotlinParser parseFileWithErrors: each ] ].
 	asts do: aBlock
-]
-
-{ #category : 'private' }
-GtSmaCCKotlinImporter >> lookupTypeNamed: aString in: aType [
-	^ self
-		lookupTypeNamed: aString
-		inFile: (aType propertyNamed: #ast) topParent
-		namespace: aType container
 ]
 
 { #category : 'private' }
@@ -408,10 +352,38 @@ GtSmaCCKotlinImporter >> lookupTypeNamed: aString inFile: aFileNode namespace: a
 	^ self unknownTypeNamed: aString
 ]
 
+{ #category : 'private' }
+GtSmaCCKotlinImporter >> resolveDeclaredTypeReferences [
+	declaredTypeReferences
+		do: [ :each | 
+			| modelEntity |
+			modelEntity := each first.
+			modelEntity
+				declaredType: (self
+						lookupTypeNamed: each second
+						inFile: each third
+						namespace: each fourth) ]
+]
+
+{ #category : 'accessing' }
+GtSmaCCKotlinImporter >> resolveSuperTypeReferences [
+	superTypeReferences
+		do: [ :each | 
+			model
+				add: (FAMIXInheritance new
+						subclass: each first;
+						superclass: (self
+								lookupTypeNamed: each second
+								inFile: each third
+								namespace: each fourth);
+						sourceAnchor: each fifth;
+						yourself) ]
+]
+
 { #category : 'accessing' }
 GtSmaCCKotlinImporter >> sourceAnchorFrom: aNode [
 	^ FAMIXIndexedFileEntityAnchor
-		file: (aNode topParent attributeNamed: #famixFile)
+		file: currentFile
 		startPos: aNode startPosition
 		endPos: aNode stopPosition
 		model: model
@@ -468,4 +440,53 @@ GtSmaCCKotlinImporter >> unknownTypeNamed: aString [
 		typeNamed: aString
 		inNamespace: unknown
 		ifNone: [ self createUnknownType: aString in: unknown ]
+]
+
+{ #category : 'visiting' }
+GtSmaCCKotlinImporter >> visitClassDeclaration: aClassDeclaration [
+	| class |
+	class := self
+			createClassOrInterfaceFrom: aClassDeclaration
+			in: self currentScope.
+	aClassDeclaration annotatedSpecifiers
+		do: [ :each | 
+			| superTypeNode |
+			superTypeNode := self superTypeNodeFrom: each specifier.
+			superTypeReferences
+				add: {class.
+						superTypeNode source.
+						aClassDeclaration topParent.
+						scopeStack first.
+						self sourceAnchorFrom: superTypeNode} ].
+	^ self
+		assignScope: class
+		around: [ super visitClassDeclaration: aClassDeclaration ]
+]
+
+{ #category : 'visiting' }
+GtSmaCCKotlinImporter >> visitFile: aFile [
+	| namespace |
+	currentFile := self ensureFileFrom: aFile filename asFileReference.
+	namespace := aFile name
+			ifNotNil: [ :package | self ensureNamespaceFromNames: (package names collect: [ :each | each source ]) ].
+	^ self assignScope: namespace around: [ super visitFile: aFile ]
+]
+
+{ #category : 'visiting' }
+GtSmaCCKotlinImporter >> visitFunctionDeclaration: aFunctionDeclaration [
+	| function |
+	function := (self currentScope isNil or: [ self currentScope isNamespace ])
+			ifTrue: [ self ensureFunctionFrom: aFunctionDeclaration in: self currentScope ]
+			ifFalse: [ self ensureMethodFrom: aFunctionDeclaration in: self currentScope ].
+	^ self
+		assignScope: function
+		around: [ super visitFunctionDeclaration: aFunctionDeclaration ]
+]
+
+{ #category : 'visiting' }
+GtSmaCCKotlinImporter >> visitPropertyDeclaration: aPropertyDeclaration [
+	(self currentScope isFunction or: [self currentScope isMethod])
+		ifTrue: [ self ensureLocalVariableFrom: aPropertyDeclaration in: self currentScope]
+		ifFalse: [self ensurePropertyFrom: aPropertyDeclaration in: self currentScope].
+	^ super visitPropertyDeclaration: aPropertyDeclaration
 ]

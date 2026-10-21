@@ -334,6 +334,33 @@ public class Car {
 	^ attribute
 ]
 
+{ #category : 'exa' }
+GtSmaCCJavaImporterExamples >> nestedClassContainer [
+	<gtExample>
+	<return: #FAMIXClass>
+	| directory model outer inner |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Outer.java'
+						-> 'package com.example;
+
+public class Outer {
+        public static class Inner {}
+}
+'}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allModelClasses size equals: 2.
+	outer := model allModelClasses detect: [ :each | each name = 'Outer' ].
+	inner := model allModelClasses detect: [ :each | each name = 'Inner' ].
+	self assert: outer container mooseName equals: 'com::example'.
+	self assert: inner container == outer.
+	self assert: inner mooseName equals: 'com::example::Outer::Inner'.
+	^ inner
+]
+
 { #category : 'examples' }
 GtSmaCCJavaImporterExamples >> sincleClassModelSourceLanguage [
 	<gtExample>
@@ -662,6 +689,8 @@ GtSmaCCJavaImporterExamples >> singleClassMethodParameter [
 	self assert: parameter declaredType == stringType.
 	self assert: stringType isStub.
 	self assert: stringType container mooseName equals: 'java::lang'.
+	self assert: method signature equals: 'greet(String)'.
+	self assert: method mooseName equals: 'com::example::Example.greet(String)'.
 	^ parameter
 ]
 

@@ -28,7 +28,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-22T00:55:46.594642+03:00"
+												"dateAndTimeString" : "2026-10-25T14:25:01.728589+02:00"
 											}
 										},
 										"editEmail" : {
@@ -39,17 +39,17 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-22T00:55:56.666506+03:00"
+												"dateAndTimeString" : "2026-10-25T14:25:01.728589+02:00"
 											}
 										},
 										"uid" : {
 											"__type" : "uid",
-											"uidString" : "YJCZE443Tiet9HXsiPofMA=="
+											"uidString" : "smyx1r3TRRaMiEqa0VoSOw=="
 										},
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Convert the imorter to a visitor subclass"
+										"string" : "Locals in `init`, constructor, accessor and lamda bodies become attributes. Not confirmed by an example yet."
 									}
 								]
 							},
@@ -61,7 +61,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-18T23:25:26.554109+03:00"
+									"dateAndTimeString" : "2026-10-25T14:24:38.41071+02:00"
 								}
 							},
 							"editEmail" : {
@@ -72,17 +72,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-18T23:25:26.554109+03:00"
+									"dateAndTimeString" : "2026-10-25T14:24:38.41071+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "ip2pO6vrTDmOl1OHhsQi3Q=="
+								"uidString" : "LNCThxE1T9Gp/bPovD+r7g=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Model detail and infrastructure"
+							"string" : "Locals and attributes scoped wrong"
 						}
 					]
 				},
@@ -141,7 +141,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:14:21.025362+03:00"
+												"dateAndTimeString" : "2026-10-25T14:22:03.379825+02:00"
 											}
 										},
 										"editEmail" : {
@@ -152,44 +152,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:15:08.660009+03:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "+JAFygjBRyKutNajl7ifeQ=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Locals in `init`, constructor, accessor and lamda bodies become attributes. Not confirmed by an example yet."
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:15:10.421207+03:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:15:24.811866+03:00"
+												"dateAndTimeString" : "2026-10-25T14:22:04.842146+02:00"
 											}
 										},
 										"uid" : {
@@ -199,7 +162,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Properties of local classes become locals. Fix: reset `curentMethod` in `visitClassDeclaration:`"
+										"string" : "Local classes: container is the enclosing method/function; their properties may now be attributes. Needs an example."
 									},
 									{
 										"__type" : "textSnippet",
@@ -539,7 +502,45 @@
 										"__type" : "textSnippet",
 										"children" : {
 											"__type" : "snippets",
-											"items" : [ ]
+											"items" : [
+												{
+													"__type" : "textSnippet",
+													"children" : {
+														"__type" : "snippets",
+														"items" : [ ]
+													},
+													"createEmail" : {
+														"__type" : "email",
+														"emailString" : "<unknown>"
+													},
+													"createTime" : {
+														"__type" : "time",
+														"time" : {
+															"__type" : "dateAndTime",
+															"dateAndTimeString" : "2026-10-25T14:32:06.213192+02:00"
+														}
+													},
+													"editEmail" : {
+														"__type" : "email",
+														"emailString" : "<unknown>"
+													},
+													"editTime" : {
+														"__type" : "time",
+														"time" : {
+															"__type" : "dateAndTime",
+															"dateAndTimeString" : "2026-10-25T14:32:06.213192+02:00"
+														}
+													},
+													"uid" : {
+														"__type" : "uid",
+														"uidString" : "Jxv1KI4sRqu1u42JFsmLOw=="
+													},
+													"paragraphStyle" : {
+														"__type" : "textStyle"
+													},
+													"string" : "Referring to nested types in declared types and supertypes, e.g. `val x: Outer.Inner`, or plain `Inner` used inside `Outer`. `lookupTypeNamed:inFile:namespace:` only searches imports, the namespace and default imports, never an enclosing class."
+												}
+											]
 										},
 										"createEmail" : {
 											"__type" : "email",
@@ -560,7 +561,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:18:04.237512+03:00"
+												"dateAndTimeString" : "2026-10-25T14:31:48.694279+02:00"
 											}
 										},
 										"uid" : {
@@ -570,7 +571,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Nested classes"
+										"string" : "Nested classes. Done: the container is the enclosing class and the `mooseName` is `com::example::Outer::Inner` ({{gtExample:GtSmaCCKotlinExamples>>nestedClassContainer|noCode}})."
 									},
 									{
 										"__type" : "textSnippet",
@@ -1007,7 +1008,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:22:22.564146+03:00"
+												"dateAndTimeString" : "2026-10-25T14:23:09.550225+02:00"
 											}
 										},
 										"uid" : {
@@ -1017,7 +1018,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Reading a local in `return` creates a `FAMIXAccess` from the method to the local. The vvisitor already tracks `currentMethod`."
+										"string" : "Reading a local in `return` creates a `FAMIXAccess` from the method to the local. This will probably need a node<>entity mapping"
 									},
 									{
 										"__type" : "textSnippet",
@@ -1331,43 +1332,6 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:23:52.685694+03:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:24:12.37812+03:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "CpqtuF6nRZCTMPveHsp/ng=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Assertions for the method signature/`mooseName`, eg `greet(String)`"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
 												"dateAndTimeString" : "2026-10-18T14:24:15.409717+03:00"
 											}
 										},
@@ -1442,43 +1406,6 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:24:57.225595+03:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:24:57.225595+03:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "Gaf8QsnwRme0yJR+yYJEJA=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Refactoring: import classes with a visitor. Caveat: class creation has to stay its own pass."
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
 												"dateAndTimeString" : "2026-10-18T14:25:02.631401+03:00"
 											}
 										},
@@ -1538,6 +1465,43 @@
 											"__type" : "textStyle"
 										},
 										"string" : "Custom FAMIX subclasses for Kotlin-only concepts, when an example needs one."
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-25T14:29:39.844819+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-25T14:29:39.844819+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "LoZqErRTSb6pr6bBR2/oIQ=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Files that fail to parse: a file whose parse root isn't a `KotlinFileNode` gets no `FAMIXFile`, since only `visitFile:` creates one. No example covers this yet. Decide when an example needs it, possibly together with recording import errors (an `acceptNode:` override, see [[002: The importer is a single visitor with a scope stack and deferred type resolution]] and [[003: The current file is kept beside the scope stack, and AST attributes may map nodes to entities]])."
 									}
 								]
 							},
@@ -1683,80 +1647,6 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Run the `buildKotlinModel` on a background process? At the moment GT freezes when importing a Kotlin model."
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-18T23:32:36.48588+03:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-18T23:35:01.999669+03:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "K99g47vFTwaNI7O/O3ICTQ=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "Should I convert the importer to a visitor(see {{gtClass:GtJSImporter}}). This is in regards to the traversal of the AST"
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-18T23:33:36.750747+03:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-18T23:35:06.00484+03:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "YaQZYXsxTHOvSMIkZ6F9hg=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "Should I keep a stack (see {{gtClass:GtPythonImporter}} or continue with the `propertyNamed:`/`attributeNamed:` of Java's importer? This is in regards to the context of the AST"
 						}
 					]
 				},
