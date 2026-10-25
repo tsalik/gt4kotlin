@@ -137,6 +137,42 @@ GtSmaCCKotlinImporter >> defaultImportedTypeNames [
 			-> #('Appendable' 'CharacterCodingException' 'CharCategory' 'HexFormat' 'MatchGroup' 'MatchGroupCollection' 'MatchNamedGroupCollection' 'MatchResult' 'Regex' 'RegexOption' 'StringBuilder' 'Typography')}
 ]
 
+{ #category : 'importing' }
+GtSmaCCKotlinImporter >> ensureConstructorFrom: aClassParameter in: aContainer [
+	| method param |
+	method := aContainer methods
+			detect: [ :each | each propertyNamed: #isPrimaryConstructor ifAbsent: [ false ] ]
+			ifNone: [ | constructor classDeclaration |
+				classDeclaration := aClassParameter parent.
+				constructor := FAMIXMethod new
+						name: aContainer name;
+						parentType: aContainer;
+						sourceAnchor: (FAMIXIndexedFileEntityAnchor
+								file: currentFile
+								startPos: (classDeclaration constructorToken ifNil: [ classDeclaration leftParen ]) startPosition
+								endPos: classDeclaration rightParen stopPosition
+								model: model);
+						isConstructor: true;
+						mooseModel: model;
+						yourself.
+				constructor propertyNamed: #isPrimaryConstructor put: true.
+				currentFile addEntity: constructor.
+				constructor ].
+	param := FAMIXParameter new
+			name: aClassParameter name source;
+			sourceAnchor: (self sourceAnchorFrom: aClassParameter);
+			belongsTo: method;
+			mooseModel: model;
+			yourself.
+	declaredTypeReferences
+		add: {param.
+				aClassParameter type source.
+				aClassParameter topParent.
+				scopeStack first}.
+	currentFile addEntity: param.
+	^ method
+]
+
 { #category : 'accessing' }
 GtSmaCCKotlinImporter >> ensureFileFrom: aFileReference [
 	| file anchor |
@@ -481,6 +517,12 @@ GtSmaCCKotlinImporter >> visitClassDeclaration: aClassDeclaration [
 	^ self
 		assignScope: class
 		around: [ super visitClassDeclaration: aClassDeclaration ]
+]
+
+{ #category : 'visiting' }
+GtSmaCCKotlinImporter >> visitClassParameter: aClassParameter [
+	self ensureConstructorFrom: aClassParameter in: self currentScope.
+	^ super visitClassParameter: aClassParameter
 ]
 
 { #category : 'visiting' }

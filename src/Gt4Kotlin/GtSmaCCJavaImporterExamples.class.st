@@ -474,6 +474,167 @@ public class Car {
 ]
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassConstructor [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model constructor class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> 'package com.example;
+
+public class Example {
+        public Example() {}
+}
+'}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allModelMethods size equals: 1.
+	constructor := model allModelMethods first.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: constructor name equals: 'Example'.
+	self assert: constructor isConstructor.
+	self assert: constructor parentType == class.
+	self assert: constructor signature equals: 'Example()'.
+	^ constructor
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassConstructorParameter [
+	<gtExample>
+	<return: #FAMIXParameter>
+	| directory model constructor parameter stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> '
+	package com.example;
+	
+	public class Example {
+		public Example(String message) {}
+	}
+	'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	constructor := model allModelMethods detect: [ :each | each isConstructor ].
+	self assert: constructor parameters size equals: 1.
+	parameter := constructor parameters first.
+	self assert: parameter name equals: 'message'.
+	self assert: parameter parentBehaviouralEntity == constructor.
+	self assert: parameter sourceText equals: 'String message'.
+	self assert: ((model allWithType: FAMIXParameter) includes: parameter).
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: parameter declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'java::lang'.
+	self assert: constructor signature equals: 'Example(String)'.
+	self assert: constructor mooseName equals: 'com::example::Example.Example(String)'.
+	^ parameter
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassConstructorParameterInFileEntities [
+	<gtExample>
+	<return: #FAMIXFile>
+	| directory model constructor parameter file |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> '
+	package com.example;
+	
+	public class Example {
+		public Example(String message) {}
+	}
+	'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	constructor := model allModelMethods detect: [ :each | each isConstructor ].
+	self assert: constructor parameters size equals: 1.
+	parameter := constructor parameters first.
+	file := model allFiles detect: [ :each | each name = 'Example.java' ].
+	self assert: (file entities includes: parameter).
+	^ file
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassConstructorWithParameter [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model constructor class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> 'package com.example;
+public class Example {
+		private final String message;
+		
+		public Example(String message) {
+			this.message = message;
+		}
+}'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allModelMethods size equals: 1.
+	constructor := model allModelMethods first.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: constructor name equals: 'Example'.
+	self assert: constructor isConstructor.
+	self assert: constructor parentType == class.
+	self assert: constructor name equals: 'Example'.
+	self assert: constructor mooseName equals: ('com::example::Example.Example(String)').
+	self assert: constructor signature equals: 'Example(String)'.
+	self assert: constructor parameters size equals: 1.
+	self assert: constructor parameters first name equals: 'message'.
+	self
+		assert: constructor sourceText
+		equals: 'public Example(String message) {
+			this.message = message;
+		}'.
+	^ constructor
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassConstructorWithTwoParameters [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model constructor class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> 'package com.example;
+
+public class Example {
+        public Example(String first, String second) {}
+}
+'}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allModelMethods size equals: 1.
+	constructor := model allModelMethods first.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: constructor name equals: 'Example'.
+	self assert: constructor isConstructor.
+	self assert: constructor parentType == class.
+	self assert: constructor signature equals: 'Example(String, String)'.
+	self assert: constructor parameters size equals: 2.
+	self
+		assert: (constructor parameters collect: [ :each | each name ]) asSet
+		equals: #('first' 'second') asSet.
+	self
+		assert: constructor sourceText
+		equals: 'public Example(String first, String second) {}'.
+	^ constructor
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> singleClassFile [
 	<gtExample>
 	<return: #FAMIXFileGroup>
@@ -827,6 +988,7 @@ GtSmaCCJavaImporterExamples >> singleClassMooseModel [
 	self
 		assert: (model allModelClasses collect: #mooseName) asArray sorted
 		equals: #('Example').
+	self assert: (model allModelMethods size) equals: 0.
 	^ model
 ]
 

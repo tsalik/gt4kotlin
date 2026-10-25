@@ -681,6 +681,90 @@ class Example {
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassConstructorParameter [
+	<gtExample>
+	<return: #FAMIXParameter>
+	| directory model constructor parameter stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+	package com.example
+	
+	class Example(message: String)
+	'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	constructor := model allModelMethods detect: [ :each | each isConstructor ].
+	self assert: constructor parameters size equals: 1.
+	parameter := constructor parameters first.
+	self assert: parameter name equals: 'message'.
+	self assert: parameter parentBehaviouralEntity == constructor.
+	self assert: parameter sourceText equals: 'message: String'.
+	self assert: ((model allWithType: FAMIXParameter) includes: parameter).
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: parameter declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	self assert: constructor signature equals: 'Example(String)'.
+	self assert: constructor mooseName equals: 'com::example::Example.Example(String)'.
+	^ parameter
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassConstructorParameterInFileEntities [
+	<gtExample>
+	<return: #FAMIXFile>
+	| directory model constructor parameter file |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+	package com.example
+	
+	class Example(message: String)
+	'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	constructor := model allModelMethods detect: [ :each | each isConstructor ].
+	self assert: constructor parameters size equals: 1.
+	parameter := constructor parameters first.
+	file := model allFiles detect: [ :each | each name = 'Example.kt' ].
+	self assert: (file entities includes: parameter).
+	^ file
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassConstructorWithTwoParameters [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model constructor class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+class Example(first: String, second: String)'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allModelMethods size equals: 1.
+	constructor := model allModelMethods first.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: constructor name equals: 'Example'.
+	self assert: constructor isConstructor.
+	self assert: constructor parentType == class.
+	self assert: constructor signature equals: 'Example(String, String)'.
+	self assert: constructor parameters size equals: 2.
+	self
+		assert: (constructor parameters collect: [ :each | each name ]) asSet
+		equals: #('first' 'second') asSet.
+	self assert: constructor sourceText equals: '(first: String, second: String)'.
+	^ constructor
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> singleClassFile [
 	<gtExample>
 	<return: #FAMIXFileGroup>
@@ -778,6 +862,26 @@ GtSmaCCKotlinExamples >> singleClassFolders [
 	example := model allFolders detect: [ :each | each name = 'example' ].
 	self assert: (example files collect: #name) asArray equals: #('Example.kt').
 	^ root
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassImplicitEmptyConstructor [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example()
+'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allModelMethods size equals: 0.
+	^ model
 ]
 
 { #category : 'examples' }
@@ -1115,6 +1219,7 @@ GtSmaCCKotlinExamples >> singleClassModel [
 			baseDirectory: directory;
 			buildKotlinModel.
 	self assert: (model allModelClasses collect: #mooseName) asArray sorted equals: #('Example').
+	self assert: (model allModelMethods size) equals: 0.
 	^ model
 ]
 
@@ -1145,6 +1250,100 @@ GtSmaCCKotlinExamples >> singleClassNamespace [
 			detect: [ :each | each mooseName = 'com::example::Example' ].
 	self assert: class container equals: namespace.
 	^ namespace
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassPrimaryConstructorWithKeywordAndParameter [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model constructor class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+class Example constructor(message: String)'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allModelMethods size equals: 1.
+	constructor := model allModelMethods first.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: constructor name equals: 'Example'.
+	self assert: constructor isConstructor.
+	self assert: constructor parentType == class.
+	self assert: constructor signature equals: 'Example(String)'.
+	self assert: constructor sourceText equals: 'constructor(message: String)'.
+	^ constructor
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassPrimaryConstructorWithParameter [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model constructor class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+class Example(private val message: String)'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allModelMethods size equals: 1.
+	constructor := model allModelMethods first.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: constructor name equals: 'Example'.
+	self assert: constructor isConstructor.
+	self assert: constructor parentType == class.
+	self assert: constructor name equals: 'Example'.
+	self
+		assert: constructor mooseName
+		equals: 'com::example::Example.Example(String)'.
+	self assert: constructor signature equals: 'Example(String)'.
+	self assert: constructor parameters size equals: 1.
+	self assert: constructor parameters first name equals: 'message'.
+	self assert: constructor sourceText equals: '(private val message: String)'.
+	^ constructor
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassPrimaryEmptyConstructorNoKeyword [
+	<gtExample>
+	<return: #MooseModel>
+	| directory model |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example()
+'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allModelMethods size equals: 0.
+	^ model
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassPrimaryEmptyConstructorWithKeyword [
+	<gtExample>
+	<return: #MooseModel>
+	| directory model |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example constructor()
+'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allModelMethods size equals: 0.
+	^ model
 ]
 
 { #category : 'examples' }

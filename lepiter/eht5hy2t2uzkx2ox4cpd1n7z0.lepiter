@@ -28,7 +28,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-25T22:38:03.204397+02:00"
+												"dateAndTimeString" : "2026-10-26T22:08:35.405509+02:00"
 											}
 										},
 										"editEmail" : {
@@ -39,17 +39,17 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-25T22:38:08.629837+02:00"
+												"dateAndTimeString" : "2026-10-26T22:08:35.405509+02:00"
 											}
 										},
 										"uid" : {
 											"__type" : "uid",
-											"uidString" : "nRxRlUwpSCCs//Rq+ZO+og=="
+											"uidString" : "5JJRjzHGQYqNYFEe/D+Tww=="
 										},
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Primary constructors"
+										"string" : "`val/var` in the primary constructor"
 									}
 								]
 							},
@@ -276,43 +276,6 @@
 							"children" : {
 								"__type" : "snippets",
 								"items" : [
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:15:51.370278+03:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:15:59.397823+03:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "CjSLJ1A3Q5yEsdPhcNNFTQ=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "`val/var` in the primary constructor, whic covers data classes"
-									},
 									{
 										"__type" : "textSnippet",
 										"children" : {
@@ -1136,7 +1099,45 @@
 										"__type" : "textSnippet",
 										"children" : {
 											"__type" : "snippets",
-											"items" : [ ]
+											"items" : [
+												{
+													"__type" : "textSnippet",
+													"children" : {
+														"__type" : "snippets",
+														"items" : [ ]
+													},
+													"createEmail" : {
+														"__type" : "email",
+														"emailString" : "<unknown>"
+													},
+													"createTime" : {
+														"__type" : "time",
+														"time" : {
+															"__type" : "dateAndTime",
+															"dateAndTimeString" : "2026-10-26T17:00:06.125142+02:00"
+														}
+													},
+													"editEmail" : {
+														"__type" : "email",
+														"emailString" : "<unknown>"
+													},
+													"editTime" : {
+														"__type" : "time",
+														"time" : {
+															"__type" : "dateAndTime",
+															"dateAndTimeString" : "2026-10-26T17:00:36.880695+02:00"
+														}
+													},
+													"uid" : {
+														"__type" : "uid",
+														"uidString" : "15ds2KBKRGamqrTygdgWJg=="
+													},
+													"paragraphStyle" : {
+														"__type" : "textStyle"
+													},
+													"string" : "Also constructor modifiers should be included on the constructor's `sourceAnchor`"
+												}
+											]
 										},
 										"createEmail" : {
 											"__type" : "email",
