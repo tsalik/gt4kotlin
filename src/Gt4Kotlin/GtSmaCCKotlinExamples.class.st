@@ -781,6 +781,73 @@ GtSmaCCKotlinExamples >> singleClassFolders [
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassInitializer [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model initializer class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example {
+
+    init {
+        // empty block
+    }
+    
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allModelMethods size equals: 1.
+	initializer := model allModelMethods first.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: initializer name equals: '$Example'.
+	self assert: initializer parentType == class.
+	self assert: initializer signature equals: '$Example()'.
+	^ initializer
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassInitializerLocalVariable [
+	<gtExample>
+	<return: #FAMIXLocalVariable>
+	| directory model initializer local class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example {
+
+    private lateinit var name: String
+
+    init {
+        val greeting: String = "Hello"
+        name = greeting
+    }
+    
+}
+'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allAttributes size equals: 1.
+	self assert: model allAttributes first name equals: 'name'.
+	self assert: model allLocalVariables size equals: 1.
+	local := model allLocalVariables first.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	initializer := model allModelMethods detect: [ :each | each name = '$Example' ].
+	self assert: initializer parentType == class.
+	self assert: local name equals: 'greeting'.
+	self assert: local parentBehaviouralEntity == initializer.
+	^ local
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> singleClassLocalVariableTypeInferenceNilDeclaredType [
 	<gtExample>
 	<return: #FAMIXLocalVariable>
@@ -1094,6 +1161,43 @@ GtSmaCCKotlinExamples >> singleClassSourceAnchor [
 	class := model allModelClasses detect: [ :each | each name = 'Example' ].
 	self assert: class sourceText equals: 'class Example'.
 	^ class
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassTwoInitializers [
+	<gtExample>
+	<return: #FAMIXMethodGroup>
+	| directory model initializers class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example {
+
+    init {
+        // first block
+    }
+
+    init {
+        // second block
+    }
+    
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	initializers := model allModelMethods asArray.
+	self assert: initializers size equals: 2.
+	self assert: initializers first ~~ initializers second.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	initializers
+		do: [ :each | 
+			self assert: each name equals: '$Example'.
+			self assert: each parentType == class.
+			self assert: each signature equals: '$Example()' ].
+	^ model allModelMethods
 ]
 
 { #category : 'examples' }

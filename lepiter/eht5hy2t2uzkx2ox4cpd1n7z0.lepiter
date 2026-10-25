@@ -28,7 +28,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-25T14:25:01.728589+02:00"
+												"dateAndTimeString" : "2026-10-25T22:38:03.204397+02:00"
 											}
 										},
 										"editEmail" : {
@@ -39,17 +39,17 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-25T14:25:01.728589+02:00"
+												"dateAndTimeString" : "2026-10-25T22:38:08.629837+02:00"
 											}
 										},
 										"uid" : {
 											"__type" : "uid",
-											"uidString" : "smyx1r3TRRaMiEqa0VoSOw=="
+											"uidString" : "nRxRlUwpSCCs//Rq+ZO+og=="
 										},
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Locals in `init`, constructor, accessor and lamda bodies become attributes. Not confirmed by an example yet."
+										"string" : "Primary constructors"
 									}
 								]
 							},
@@ -61,7 +61,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-25T14:24:38.41071+02:00"
+									"dateAndTimeString" : "2026-10-25T22:37:58.772727+02:00"
 								}
 							},
 							"editEmail" : {
@@ -72,17 +72,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-25T14:24:38.41071+02:00"
+									"dateAndTimeString" : "2026-10-25T22:37:58.772727+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "LNCThxE1T9Gp/bPovD+r7g=="
+								"uidString" : "7OIa/aqJQWG5PWVFk6owYA=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Locals and attributes scoped wrong"
+							"string" : "Common Kotlin declarations"
 						}
 					]
 				},
@@ -127,6 +127,43 @@
 							"children" : {
 								"__type" : "snippets",
 								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-25T22:37:45.129205+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-25T22:37:45.129205+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "XVMcpKnfQUu8oFSWjPfWsg=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Locals in constructor, accessor and lamda bodies become attributes. Not confirmed by an example yet."
+									},
 									{
 										"__type" : "textSnippet",
 										"children" : {
@@ -253,43 +290,6 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T23:25:02.852489+03:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T23:25:05.34264+03:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "jnlRO9SYTBClQ2DZ+7BFNA=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "initializers"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
 												"dateAndTimeString" : "2026-10-18T14:15:51.370278+03:00"
 											}
 										},
@@ -338,7 +338,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:16:07.888608+03:00"
+												"dateAndTimeString" : "2026-10-25T22:40:25.217498+02:00"
 											}
 										},
 										"uid" : {
@@ -348,7 +348,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Constructors, primary and secondary"
+										"string" : "Secondary constructors"
 									},
 									{
 										"__type" : "textSnippet",
@@ -1647,6 +1647,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Run the `buildKotlinModel` on a background process? At the moment GT freezes when importing a Kotlin model."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-25T21:54:18.260086+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-25T21:54:55.67319+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "clxHgZHdT8OvEs/9YarYfg=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Taking into account the language version: It would matter if I wanted to match model entities to compiled classes, for example to link the model to stack traces or profiler output."
 						}
 					]
 				},

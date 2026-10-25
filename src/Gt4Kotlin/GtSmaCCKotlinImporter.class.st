@@ -204,6 +204,19 @@ GtSmaCCKotlinImporter >> ensureFunctionFrom: aFunctionDeclarationNode in: aNames
 	^ function
 ]
 
+{ #category : 'importing' }
+GtSmaCCKotlinImporter >> ensureInitializerFrom: anAnonymousInitializer in: aClass [
+	| method |
+	method := FAMIXMethod new
+			name: '$' , aClass name;
+			parentType: aClass;
+			sourceAnchor: (self sourceAnchorFrom: anAnonymousInitializer);
+			mooseModel: model;
+			yourself.
+	currentFile addEntity: method.
+	^ method
+]
+
 { #category : 'private' }
 GtSmaCCKotlinImporter >> ensureLocalVariableFrom: aPropertyNode in: aMethod [
 	| var declaredType |
@@ -440,6 +453,13 @@ GtSmaCCKotlinImporter >> unknownTypeNamed: aString [
 		typeNamed: aString
 		inNamespace: unknown
 		ifNone: [ self createUnknownType: aString in: unknown ]
+]
+
+{ #category : 'vis' }
+GtSmaCCKotlinImporter >> visitAnonymousInitializer: anAnonymousInitializer [
+	| initializerMethod |
+	initializerMethod := self ensureInitializerFrom: anAnonymousInitializer in: self currentScope.
+	^ self assignScope: initializerMethod around: [ super visitAnonymousInitializer: anAnonymousInitializer]
 ]
 
 { #category : 'visiting' }

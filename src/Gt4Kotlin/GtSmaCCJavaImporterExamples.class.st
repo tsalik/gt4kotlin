@@ -575,6 +575,71 @@ GtSmaCCJavaImporterExamples >> singleClassFolders [
 ]
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassInitializer [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model initializer class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> 'package com.example;
+
+public class Example {
+        private String name;
+
+        {
+        		//empty block
+        }
+}
+'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allModelMethods size equals: 1.
+	initializer := model allModelMethods first.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: initializer name equals: '$Example'.
+	self assert: initializer parentType == class.
+	self assert: initializer signature equals: '$Example()'.
+	self assert: (initializer modifiers includes: #static).
+	^ initializer
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassInitializerLocalVariable [
+	<gtExample>
+	<return: #FAMIXLocalVariable>
+	| directory model initializer local class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> 'package com.example;
+
+public class Example {
+        private String name;
+
+        {
+                String greeting = "Hello";
+        }
+}
+'}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allAttributes size equals: 1.
+	self assert: model allAttributes first name equals: 'name'.
+	self assert: model allLocalVariables size equals: 1.
+	local := model allLocalVariables first.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	initializer := model allModelMethods detect: [ :each | each name = '$Example' ].
+	self assert: initializer parentType == class.
+	self assert: local name equals: 'greeting'.
+	self assert: local parentBehaviouralEntity == initializer.
+	^ local
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> singleClassMethod [
 	<gtExample>
 	<return: #FAMIXMethod>
@@ -807,6 +872,44 @@ GtSmaCCJavaImporterExamples >> singleClassSourceAnchor [
 	class := model allModelClasses detect: [ :each | each name = 'Example' ].
 	self assert: class sourceText equals: 'public class Example {}'.
 	^ class
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassTwoInitializers [
+	<gtExample>
+	<return: #FAMIXMethodGroup>
+	| directory model initializers class |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> 'package com.example;
+
+public class Example {
+        private String name;
+
+        {
+        		//first block
+        }
+
+        {
+        		//second block
+        }
+}
+'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	initializers := model allModelMethods asArray.
+	self assert: initializers size equals: 2.
+	self assert: initializers first ~~ initializers second.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	initializers
+		do: [ :each | 
+			self assert: each name equals: '$Example'.
+			self assert: each parentType == class.
+			self assert: each signature equals: '$Example()'.
+			self assert: (each modifiers includes: #static) ].
+	^ model allModelMethods
 ]
 
 { #category : 'examples' }

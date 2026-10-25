@@ -1007,6 +1007,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "[[2026-10-25: Use visitor to create FAMIXClass and support nested classes]]"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-25T20:26:36.647883+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-25T22:31:00.110646+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "ysgBf4CzRLCpT4Iu/b609Q=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "[[2026-10-25: Model initializers as FAMIXMethods and treat local vars inside of them as FAMIXLocalVariables]]"
 						}
 					]
 				},
