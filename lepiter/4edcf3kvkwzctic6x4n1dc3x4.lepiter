@@ -23,80 +23,6 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-26T22:07:56.831375+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-26T22:07:56.831375+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "NYmoIbTyQu2wthcI57Yv8w=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "Primary constructors are done: a primary constructor with non-empty parameters becomes a {{gtClass:FAMIXMethod}} with `FAMIXParameter`s ([[2026-10-25: Model primary constructors as FAMIXMethod]]). Next on the TODO page is either `val`/`var` in the primary constructor or secondary constructors."
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-26T22:07:56.907967+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-26T22:07:56.907967+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "doahQk0FQSKZMmzMR7KXtA=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "Decision: `val`/`var` first. Constructor properties are the usual way to declare properties in Kotlin (data classes, dependency injection), so importing a real codebase today misses most of its attributes. Secondary constructors fix a real bug (locals in their bodies become attributes, like `init` did), but they are much rarer in idiomatic Kotlin."
-						},
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
 									"dateAndTimeString" : "2026-10-26T22:07:56.928174+02:00"
 								}
 							},
@@ -232,43 +158,6 @@
 				"children" : {
 					"__type" : "snippets",
 					"items" : [
-						{
-							"__type" : "textSnippet",
-							"children" : {
-								"__type" : "snippets",
-								"items" : [ ]
-							},
-							"createEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"createTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-26T22:07:57.007211+02:00"
-								}
-							},
-							"editEmail" : {
-								"__type" : "email",
-								"emailString" : "<unknown>"
-							},
-							"editTime" : {
-								"__type" : "time",
-								"time" : {
-									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-26T22:07:57.007211+02:00"
-								}
-							},
-							"uid" : {
-								"__type" : "uid",
-								"uidString" : "r10ut12ASNuJv7zJw1Bwow=="
-							},
-							"paragraphStyle" : {
-								"__type" : "textStyle"
-							},
-							"string" : "1. Guard: a plain `class Example(message: String)` has no attributes. Add the assertion to an existing example; it should already be green."
-						},
 						{
 							"__type" : "textSnippet",
 							"children" : {

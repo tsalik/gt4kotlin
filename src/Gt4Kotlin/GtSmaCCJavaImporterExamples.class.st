@@ -532,6 +532,7 @@ GtSmaCCJavaImporterExamples >> singleClassConstructorParameter [
 	self assert: stringType container mooseName equals: 'java::lang'.
 	self assert: constructor signature equals: 'Example(String)'.
 	self assert: constructor mooseName equals: 'com::example::Example.Example(String)'.
+	self assert: model allAttributes size equals: 0.
 	^ parameter
 ]
 
@@ -559,6 +560,60 @@ GtSmaCCJavaImporterExamples >> singleClassConstructorParameterInFileEntities [
 	file := model allFiles detect: [ :each | each name = 'Example.java' ].
 	self assert: (file entities includes: parameter).
 	^ file
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassConstructorParameterWithAttribute [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model class constructor message title stringType file |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> '
+package com.example;
+
+public class Example {
+	private final String message;
+	String title;
+
+	public Example(String message, String title) {
+		this.message = message;
+		this.title = title;
+	}
+}'} asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: model allAttributes size equals: 2.
+	self
+		assert: (model allAttributes collect: [ :each | each name ]) asSet
+		equals: #('message' 'title') asSet.
+	self assert: (model allAttributes allSatisfy: [ :each | each parentType == class ]).
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: (model allAttributes allSatisfy: [ :each | each declaredType == stringType ]).
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'java::lang'.
+	message := model allAttributes detect: [ :each | each name = 'message' ].
+	title := model allAttributes detect: [ :each | each name = 'title' ].
+	self assert: message isFinal.
+	self assert: title isFinal not.
+	self assert: message isPrivate.
+	self assert: title isPrivate not.
+	self assert: message sourceText equals: 'private final String message;'.
+	self assert: title sourceText equals: 'String title;'.
+	file := model allFiles detect: [ :each | each name = 'Example.java' ].
+	self assert: (file entities includes: message).
+	self assert: (file entities includes: title).
+	constructor := model allModelMethods detect: [ :each | each isConstructor ].
+	self assert: constructor parameters size equals: 2.
+	self
+		assert: (constructor parameters collect: [ :each | each name ]) asSet
+		equals: #('message' 'title') asSet.
+	self
+		assert: (constructor parameters allSatisfy: [ :each | each parentBehaviouralEntity == constructor ]).
+	^ message
 ]
 
 { #category : 'examples' }

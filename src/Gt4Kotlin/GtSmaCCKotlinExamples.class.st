@@ -709,6 +709,7 @@ GtSmaCCKotlinExamples >> singleClassConstructorParameter [
 	self assert: stringType container mooseName equals: 'kotlin'.
 	self assert: constructor signature equals: 'Example(String)'.
 	self assert: constructor mooseName equals: 'com::example::Example.Example(String)'.
+	self assert: model allAttributes size equals: 0.
 	^ parameter
 ]
 
@@ -734,6 +735,52 @@ GtSmaCCKotlinExamples >> singleClassConstructorParameterInFileEntities [
 	file := model allFiles detect: [ :each | each name = 'Example.kt' ].
 	self assert: (file entities includes: parameter).
 	^ file
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleClassConstructorParameterWithAttribute [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model class constructor message title stringType file |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+package com.example
+
+class Example(private val message: String, var title: String)'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: model allAttributes size equals: 2.
+	self
+		assert: (model allAttributes collect: [ :each | each name ]) asSet
+		equals: #('message' 'title') asSet.
+	self assert: (model allAttributes allSatisfy: [ :each | each parentType == class ]).
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: (model allAttributes allSatisfy: [ :each | each declaredType == stringType ]).
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	message := model allAttributes detect: [ :each | each name = 'message' ].
+	title := model allAttributes detect: [ :each | each name = 'title' ].
+	self assert: message isFinal.
+	self assert: title isFinal not.
+	self assert: message isPrivate.
+	self assert: title isPrivate not.
+	self assert: message sourceText equals: 'private val message: String'.
+	self assert: title sourceText equals: 'var title: String'.
+	file := model allFiles detect: [ :each | each name = 'Example.kt' ].
+	self assert: (file entities includes: message).
+	self assert: (file entities includes: title).
+	constructor := model allModelMethods detect: [ :each | each isConstructor ].
+	self assert: constructor parameters size equals: 2.
+	self
+		assert: (constructor parameters collect: [ :each | each name ]) asSet
+		equals: #('message' 'title') asSet.
+	self
+		assert: (constructor parameters allSatisfy: [ :each | each parentBehaviouralEntity == constructor ]).
+	^ message
 ]
 
 { #category : 'examples' }

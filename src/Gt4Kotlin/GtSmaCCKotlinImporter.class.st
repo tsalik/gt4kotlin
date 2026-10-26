@@ -138,8 +138,29 @@ GtSmaCCKotlinImporter >> defaultImportedTypeNames [
 ]
 
 { #category : 'importing' }
+GtSmaCCKotlinImporter >> ensureAttributeNamed: aName typed: aTypeNode from: aNode in: aContainer [
+	| attr |
+	attr := FAMIXAttribute new
+			name: aName;
+			sourceAnchor: (self sourceAnchorFrom: aNode);
+			parentType: aContainer;
+			mooseModel: model;
+			yourself.
+	aTypeNode
+		ifNotNil: [ declaredTypeReferences
+				add: {attr.
+						aTypeNode source.
+						aNode topParent.
+						scopeStack first} ].
+	self addModifiers: aNode modifiers to: attr.
+	aNode valToken ifNotNil: [ attr isFinal: true ].
+	currentFile addEntity: attr.
+	^ attr
+]
+
+{ #category : 'importing' }
 GtSmaCCKotlinImporter >> ensureConstructorFrom: aClassParameter in: aContainer [
-	| method param |
+	| method param attribute |
 	method := aContainer methods
 			detect: [ :each | each propertyNamed: #isPrimaryConstructor ifAbsent: [ false ] ]
 			ifNone: [ | constructor classDeclaration |
@@ -149,7 +170,8 @@ GtSmaCCKotlinImporter >> ensureConstructorFrom: aClassParameter in: aContainer [
 						parentType: aContainer;
 						sourceAnchor: (FAMIXIndexedFileEntityAnchor
 								file: currentFile
-								startPos: (classDeclaration constructorToken ifNil: [ classDeclaration leftParen ]) startPosition
+								startPos: (classDeclaration constructorToken
+										ifNil: [ classDeclaration leftParen ]) startPosition
 								endPos: classDeclaration rightParen stopPosition
 								model: model);
 						isConstructor: true;
@@ -171,6 +193,15 @@ GtSmaCCKotlinImporter >> ensureConstructorFrom: aClassParameter in: aContainer [
 				scopeStack first}.
 	currentFile addEntity: param.
 	^ method
+]
+
+{ #category : 'importing' }
+GtSmaCCKotlinImporter >> ensureConstructorPropertyFrom: aClassParameter in: aContainer [
+	^ self
+		ensureAttributeNamed: aClassParameter name source
+		typed: aClassParameter type
+		from: aClassParameter
+		in: aContainer
 ]
 
 { #category : 'accessing' }
@@ -331,23 +362,11 @@ GtSmaCCKotlinImporter >> ensureNamespaceFromNames: aPackageNamesCollection [
 
 { #category : 'importing' }
 GtSmaCCKotlinImporter >> ensurePropertyFrom: aPropertyNode in: aContainer [
-	| attr  |
-	attr := FAMIXAttribute new
-			name: aPropertyNode declaration name source;
-			sourceAnchor: (self sourceAnchorFrom: aPropertyNode);
-			parentType: aContainer;
-			mooseModel: model;
-			yourself.
-	aPropertyNode declaration type
-		ifNotNil: [ declaredTypeReferences
-				add: {attr.
-						aPropertyNode declaration type source.
-						aPropertyNode topParent.
-						scopeStack first} ].
-	self addModifiers: aPropertyNode modifiers to: attr.
-	aPropertyNode valToken ifNotNil: [ attr isFinal: true ].
-	currentFile addEntity: attr.
-	^ attr
+	^ self
+		ensureAttributeNamed: aPropertyNode declaration name source
+		typed: aPropertyNode declaration type
+		from: aPropertyNode
+		in: aContainer
 ]
 
 { #category : 'accessing' }
@@ -522,6 +541,8 @@ GtSmaCCKotlinImporter >> visitClassDeclaration: aClassDeclaration [
 { #category : 'visiting' }
 GtSmaCCKotlinImporter >> visitClassParameter: aClassParameter [
 	self ensureConstructorFrom: aClassParameter in: self currentScope.
+	(aClassParameter valToken notNil or: [ aClassParameter varToken notNil ])
+		ifTrue: [ self ensureConstructorPropertyFrom: aClassParameter in: self currentScope ].
 	^ super visitClassParameter: aClassParameter
 ]
 
