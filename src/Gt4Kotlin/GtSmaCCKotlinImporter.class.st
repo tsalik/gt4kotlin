@@ -159,43 +159,6 @@ GtSmaCCKotlinImporter >> ensureAttributeNamed: aName typed: aTypeNode from: aNod
 ]
 
 { #category : 'importing' }
-GtSmaCCKotlinImporter >> ensureConstructorFrom: aClassParameter in: aContainer [
-	| method param attribute |
-	method := aContainer methods
-			detect: [ :each | each propertyNamed: #isPrimaryConstructor ifAbsent: [ false ] ]
-			ifNone: [ | constructor classDeclaration |
-				classDeclaration := aClassParameter parent.
-				constructor := FAMIXMethod new
-						name: aContainer name;
-						parentType: aContainer;
-						sourceAnchor: (FAMIXIndexedFileEntityAnchor
-								file: currentFile
-								startPos: (classDeclaration constructorToken
-										ifNil: [ classDeclaration leftParen ]) startPosition
-								endPos: classDeclaration rightParen stopPosition
-								model: model);
-						isConstructor: true;
-						mooseModel: model;
-						yourself.
-				constructor propertyNamed: #isPrimaryConstructor put: true.
-				currentFile addEntity: constructor.
-				constructor ].
-	param := FAMIXParameter new
-			name: aClassParameter name source;
-			sourceAnchor: (self sourceAnchorFrom: aClassParameter);
-			belongsTo: method;
-			mooseModel: model;
-			yourself.
-	declaredTypeReferences
-		add: {param.
-				aClassParameter type source.
-				aClassParameter topParent.
-				scopeStack first}.
-	currentFile addEntity: param.
-	^ method
-]
-
-{ #category : 'importing' }
 GtSmaCCKotlinImporter >> ensureConstructorPropertyFrom: aClassParameter in: aContainer [
 	^ self
 		ensureAttributeNamed: aClassParameter name source
@@ -236,7 +199,7 @@ GtSmaCCKotlinImporter >> ensureFolderNamed: aDirectory [
 			folder ]
 ]
 
-{ #category : 'private' }
+{ #category : 'importing' }
 GtSmaCCKotlinImporter >> ensureFunctionFrom: aFunctionDeclarationNode in: aNamespace [
 	| function |
 	function := FAMIXFunction new
@@ -255,19 +218,11 @@ GtSmaCCKotlinImporter >> ensureFunctionFrom: aFunctionDeclarationNode in: aNames
 	currentFile addEntity: function.
 	aFunctionDeclarationNode parameters
 		do: [ :each | 
-			| param |
-			param := FAMIXParameter new
-					name: each parameter name source;
-					sourceAnchor: (self sourceAnchorFrom: each);
-					belongsTo: function;
-					mooseModel: model;
-					yourself.
-			declaredTypeReferences
-				add: {param.
-						each parameter type source.
-						aFunctionDeclarationNode topParent.
-						scopeStack first}.
-			currentFile addEntity: param ].
+			self
+				ensureParameterNamed: each parameter name source
+				typed: each parameter type
+				from: each
+				in: function ].
 	^ function
 ]
 
@@ -323,19 +278,11 @@ GtSmaCCKotlinImporter >> ensureMethodFrom: functionDeclarationNode in: aContaine
 	currentFile addEntity: method.
 	functionDeclarationNode parameters
 		do: [ :each | 
-			| param |
-			param := FAMIXParameter new
-					name: each parameter name source;
-					sourceAnchor: (self sourceAnchorFrom: each);
-					belongsTo: method;
-					mooseModel: model;
-					yourself.
-			declaredTypeReferences
-				add: {param.
-						each parameter type source.
-						functionDeclarationNode topParent.
-						scopeStack first}.
-			currentFile addEntity: param ].
+			self
+				ensureParameterNamed: each parameter name source
+				typed: each parameter type
+				from: each
+				in: method ].
 	^ method
 ]
 
@@ -361,6 +308,46 @@ GtSmaCCKotlinImporter >> ensureNamespaceFromNames: aPackageNamesCollection [
 ]
 
 { #category : 'importing' }
+GtSmaCCKotlinImporter >> ensureParameterNamed: aName typed: aTypeNode from: aNode in: aBehaviouralEntity [
+	| param |
+	param := FAMIXParameter new
+			name: aName;
+			sourceAnchor: (self sourceAnchorFrom: aNode);
+			belongsTo: aBehaviouralEntity;
+			mooseModel: model;
+			yourself.
+	declaredTypeReferences
+		add: {param.
+				aTypeNode source.
+				aNode topParent.
+				scopeStack first}.
+	currentFile addEntity: param.
+	^ param
+]
+
+{ #category : 'importing' }
+GtSmaCCKotlinImporter >> ensurePrimaryConstructorFrom: aClassDeclaration in: aContainer [
+	^ aContainer methods
+		detect: [ :each | each propertyNamed: #isPrimaryConstructor ifAbsent: [ false ] ]
+		ifNone: [ | constructor |
+			constructor := FAMIXMethod new
+					name: aContainer name;
+					parentType: aContainer;
+					sourceAnchor: (FAMIXIndexedFileEntityAnchor
+							file: currentFile
+							startPos: (aClassDeclaration constructorToken
+									ifNil: [ aClassDeclaration leftParen ]) startPosition
+							endPos: aClassDeclaration rightParen stopPosition
+							model: model);
+					isConstructor: true;
+					mooseModel: model;
+					yourself.
+			constructor propertyNamed: #isPrimaryConstructor put: true.
+			currentFile addEntity: constructor.
+			constructor ]
+]
+
+{ #category : 'importing' }
 GtSmaCCKotlinImporter >> ensurePropertyFrom: aPropertyNode in: aContainer [
 	^ self
 		ensureAttributeNamed: aPropertyNode declaration name source
@@ -377,6 +364,27 @@ GtSmaCCKotlinImporter >> ensureRootNamespace: aString [
 				add: (FAMIXNamespace new
 						name: aString;
 						yourself) ]
+]
+
+{ #category : 'importing' }
+GtSmaCCKotlinImporter >> ensureSecondaryConstructorFrom: aSecondaryConstructor in: aClass [
+	| constructor |
+	constructor := FAMIXMethod new
+			name: aClass name;
+			parentType: aClass;
+			sourceAnchor: (self sourceAnchorFrom: aSecondaryConstructor);
+			isConstructor: true;
+			mooseModel: model;
+			yourself.
+	currentFile addEntity: constructor.
+	aSecondaryConstructor parameters
+		do: [ :each | 
+			self
+				ensureParameterNamed: each parameter name source
+				typed: each parameter type
+				from: each
+				in: constructor ].
+	^ constructor
 ]
 
 { #category : 'accessing' }
@@ -540,7 +548,13 @@ GtSmaCCKotlinImporter >> visitClassDeclaration: aClassDeclaration [
 
 { #category : 'visiting' }
 GtSmaCCKotlinImporter >> visitClassParameter: aClassParameter [
-	self ensureConstructorFrom: aClassParameter in: self currentScope.
+	| constructor |
+	constructor := self ensurePrimaryConstructorFrom: aClassParameter parent in: self currentScope.
+	self
+		ensureParameterNamed: aClassParameter name source
+		typed: aClassParameter type
+		from: aClassParameter
+		in: constructor.
 	(aClassParameter valToken notNil or: [ aClassParameter varToken notNil ])
 		ifTrue: [ self ensureConstructorPropertyFrom: aClassParameter in: self currentScope ].
 	^ super visitClassParameter: aClassParameter
@@ -572,4 +586,13 @@ GtSmaCCKotlinImporter >> visitPropertyDeclaration: aPropertyDeclaration [
 		ifTrue: [ self ensureLocalVariableFrom: aPropertyDeclaration in: self currentScope]
 		ifFalse: [self ensurePropertyFrom: aPropertyDeclaration in: self currentScope].
 	^ super visitPropertyDeclaration: aPropertyDeclaration
+]
+
+{ #category : 'visiting' }
+GtSmaCCKotlinImporter >> visitSecondaryConstructor: aSecondaryConstructor [
+	| constructor |
+	constructor := self ensureSecondaryConstructorFrom: aSecondaryConstructor in: self currentScope.
+	^ self
+		assignScope: constructor
+		around: [ super visitSecondaryConstructor: aSecondaryConstructor ]
 ]

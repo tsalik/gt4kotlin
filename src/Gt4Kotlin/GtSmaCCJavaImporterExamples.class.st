@@ -502,6 +502,42 @@ public class Example {
 ]
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassConstructorLocalVariable [
+	<gtExample>
+	<return: #FAMIXLocalVariable>
+	| directory model constructor local class stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> 'package com.example;
+
+public class Example {
+        private String name;
+
+        public Example() {
+                String greeting = "Hello";
+        }
+}
+'}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	self assert: model allAttributes size equals: 1.
+	self assert: model allAttributes first name equals: 'name'.
+	self assert: model allLocalVariables size equals: 1.
+	local := model allLocalVariables first.
+	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	constructor := model allModelMethods detect: [ :each | each isConstructor ].
+	self assert: constructor parentType == class.
+	self assert: local name equals: 'greeting'.
+	self assert: local parentBehaviouralEntity == constructor.
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: local declaredType == stringType.
+	^ local
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> singleClassConstructorParameter [
 	<gtExample>
 	<return: #FAMIXParameter>
@@ -1089,6 +1125,42 @@ GtSmaCCJavaImporterExamples >> singleClassSourceAnchor [
 	class := model allModelClasses detect: [ :each | each name = 'Example' ].
 	self assert: class sourceText equals: 'public class Example {}'.
 	^ class
+]
+
+{ #category : 'examples' }
+GtSmaCCJavaImporterExamples >> singleClassTwoConstructors [
+	<gtExample>
+	<return: #Collection>
+	| directory model constructors withParameter withoutParameter |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> 'package com.example;
+
+public class Example {
+        public Example(String message) {}
+
+        public Example() {
+                this("Hello");
+        }
+}
+'}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	constructors := model allModelMethods select: [ :each | each isConstructor ].
+	self assert: constructors size equals: 2.
+	withParameter := constructors
+			detect: [ :each | each signature = 'Example(String)' ].
+	withoutParameter := constructors
+			detect: [ :each | each signature = 'Example()' ].
+	self assert: withParameter parameters size equals: 1.
+	self assert: withParameter parameters first name equals: 'message'.
+	self assert: withoutParameter parameters isEmpty.
+	self assert: (model allWithType: FAMIXParameter) size equals: 1.
+	self assert: model allAttributes size equals: 0.
+	^ constructors
 ]
 
 { #category : 'examples' }
