@@ -87,6 +87,34 @@ public class Derived implements Base {}'} asDictionary.
 ]
 
 { #category : 'examples' }
+GtSmaCCJavaImporterExamples >> genericMethodParameter [
+	<gtExample>
+	<return: #FAMIXParameter>
+	| directory model method parameter |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.java'
+						-> '
+        package com.example;
+
+        public class Example {
+                public <T> T identity(T value) { return value; }
+        }
+        '}
+					asDictionary.
+	model := GtSmaCCJavaImporter new
+			baseDirectory: directory;
+			buildJavaModel.
+	method := model allModelMethods detect: [ :each | each name = 'identity' ].
+	self assert: method parameters size equals: 1.
+	parameter := method parameters first.
+	self assert: parameter name equals: 'value'.
+	self assert: parameter parentBehaviouralEntity == method.
+	self assert: parameter sourceText equals: 'T value'.
+	^ parameter
+]
+
+{ #category : 'examples' }
 GtSmaCCJavaImporterExamples >> inheritanceBetweenClassesInDifferentPackagesModel [
 	<gtExample>
 	<return: #MooseModel>

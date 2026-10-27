@@ -28,7 +28,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-27T14:21:03.360477+02:00"
+												"dateAndTimeString" : "2026-10-27T15:12:02.824186+02:00"
 											}
 										},
 										"editEmail" : {
@@ -39,17 +39,17 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-27T14:21:14.085749+02:00"
+												"dateAndTimeString" : "2026-10-27T15:12:08.113686+02:00"
 											}
 										},
 										"uid" : {
 											"__type" : "uid",
-											"uidString" : "GWtgfQezRby45rWMaTaIHg=="
+											"uidString" : "FcvBEbg9SLGdDTy7BMTiog=="
 										},
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Stop crashing when importing functions with parameter types"
+										"string" : "Support destructuring locals"
 									}
 								]
 							},
@@ -237,6 +237,43 @@
 											"__type" : "textStyle"
 										},
 										"string" : "Example for nested-function scoping"
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-27T14:57:48.07593+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-27T14:57:48.07593+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "8G593egdSkCQieE4XVLutg=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Anonymous function parameters (fun(x: Int) {}) become parameters of the enclosing method/function, since anonymous functions aren't modelled and visitFunctionValueParameter: uses currentScope. Not confirmed by an example yet."
 									}
 								]
 							},

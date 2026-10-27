@@ -174,6 +174,34 @@ class B
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> genericMethodParameter [
+	<gtExample>
+	<return: #FAMIXParameter>
+	| directory model method parameter |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+        package com.example
+
+        class Example {
+                fun <T> identity(value: T): T = value
+        }
+        '}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	method := model allModelMethods detect: [ :each | each name = 'identity' ].
+	self assert: method parameters size equals: 1.
+	parameter := method parameters first.
+	self assert: parameter name equals: 'value'.
+	self assert: parameter parentBehaviouralEntity == method.
+	self assert: parameter sourceText equals: 'value: T'.
+	^ parameter
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> inheritanceBetweenClassesInDifferentPackagesModel [
 	<gtExample>
 	<return: #MooseModel>

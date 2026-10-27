@@ -216,13 +216,6 @@ GtSmaCCKotlinImporter >> ensureFunctionFrom: aFunctionDeclarationNode in: aNames
 						aFunctionDeclarationNode topParent.
 						scopeStack first} ].
 	currentFile addEntity: function.
-	aFunctionDeclarationNode parameters
-		do: [ :each | 
-			self
-				ensureParameterNamed: each parameter name source
-				typed: each parameter type
-				from: each
-				in: function ].
 	^ function
 ]
 
@@ -295,13 +288,6 @@ GtSmaCCKotlinImporter >> ensureMethodFrom: functionDeclarationNode in: aContaine
 						functionDeclarationNode topParent.
 						scopeStack first} ].
 	currentFile addEntity: method.
-	functionDeclarationNode parameters
-		do: [ :each | 
-			self
-				ensureParameterNamed: each parameter name source
-				typed: each parameter type
-				from: each
-				in: method ].
 	^ method
 ]
 
@@ -396,13 +382,6 @@ GtSmaCCKotlinImporter >> ensureSecondaryConstructorFrom: aSecondaryConstructor i
 			mooseModel: model;
 			yourself.
 	currentFile addEntity: constructor.
-	aSecondaryConstructor parameters
-		do: [ :each | 
-			self
-				ensureParameterNamed: each parameter name source
-				typed: each parameter type
-				from: each
-				in: constructor ].
 	^ constructor
 ]
 
@@ -597,6 +576,17 @@ GtSmaCCKotlinImporter >> visitFunctionDeclaration: aFunctionDeclaration [
 	^ self
 		assignScope: function
 		around: [ super visitFunctionDeclaration: aFunctionDeclaration ]
+]
+
+{ #category : 'visiting' }
+GtSmaCCKotlinImporter >> visitFunctionValueParameter: aFunctionValueParameter [
+	| parameter |
+	parameter := self
+			ensureParameterNamed: aFunctionValueParameter parameter name source
+			typed: aFunctionValueParameter parameter type
+			from: aFunctionValueParameter
+			in: self currentScope.
+	^ super visitFunctionValueParameter: aFunctionValueParameter
 ]
 
 { #category : 'visiting' }
