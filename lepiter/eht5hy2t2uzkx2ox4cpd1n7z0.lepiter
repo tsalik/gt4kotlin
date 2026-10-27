@@ -28,7 +28,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-27T11:20:44.792593+02:00"
+												"dateAndTimeString" : "2026-10-27T14:21:03.360477+02:00"
 											}
 										},
 										"editEmail" : {
@@ -39,7 +39,7 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-27T11:20:44.792593+02:00"
+												"dateAndTimeString" : "2026-10-27T14:21:14.085749+02:00"
 											}
 										},
 										"uid" : {
@@ -49,7 +49,7 @@
 										"paragraphStyle" : {
 											"__type" : "textStyle"
 										},
-										"string" : "Top-level properties"
+										"string" : "Stop crashing when importing functions with parameter types"
 									}
 								]
 							},
@@ -386,6 +386,43 @@
 											"__type" : "textStyle"
 										},
 										"string" : "Nested functions"
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-27T14:20:59.697179+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-27T14:20:59.697179+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "amudZ3JmQ9uqjvfZfly2rg=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Type parameters in generic functions"
 									},
 									{
 										"__type" : "textSnippet",

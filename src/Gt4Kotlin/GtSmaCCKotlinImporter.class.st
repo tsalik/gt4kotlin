@@ -227,6 +227,25 @@ GtSmaCCKotlinImporter >> ensureFunctionFrom: aFunctionDeclarationNode in: aNames
 ]
 
 { #category : 'importing' }
+GtSmaCCKotlinImporter >> ensureGlobalVariableNamed: aName typed: aTypeNode from: aNode in: aContainer [
+	| var |
+	var := FAMIXGlobalVariable new
+			name: aName;
+			sourceAnchor: (self sourceAnchorFrom: aNode);
+			parentScope: aContainer;
+			mooseModel: model;
+			yourself.
+	aTypeNode
+		ifNotNil: [ declaredTypeReferences
+				add: {var.
+						aTypeNode source.
+						aNode topParent.
+						scopeStack first} ].
+	currentFile addEntity: var.
+	^ var
+]
+
+{ #category : 'importing' }
 GtSmaCCKotlinImporter >> ensureInitializerFrom: anAnonymousInitializer in: aClass [
 	| method |
 	method := FAMIXMethod new
@@ -582,9 +601,11 @@ GtSmaCCKotlinImporter >> visitFunctionDeclaration: aFunctionDeclaration [
 
 { #category : 'visiting' }
 GtSmaCCKotlinImporter >> visitPropertyDeclaration: aPropertyDeclaration [
-	(self currentScope isFunction or: [self currentScope isMethod])
-		ifTrue: [ self ensureLocalVariableFrom: aPropertyDeclaration in: self currentScope]
-		ifFalse: [self ensurePropertyFrom: aPropertyDeclaration in: self currentScope].
+	(self currentScope isNil or: [ self currentScope isNamespace ])
+		ifTrue: [ self ensureGlobalVariableNamed: aPropertyDeclaration declaration name source typed: aPropertyDeclaration declaration type from: aPropertyDeclaration in: self currentScope ]
+		ifFalse: [ (self currentScope isFunction or: [ self currentScope isMethod ])
+				ifTrue: [ self ensureLocalVariableFrom: aPropertyDeclaration in: self currentScope ]
+				ifFalse: [ self ensurePropertyFrom: aPropertyDeclaration in: self currentScope ] ].
 	^ super visitPropertyDeclaration: aPropertyDeclaration
 ]
 

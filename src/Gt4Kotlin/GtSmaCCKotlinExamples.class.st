@@ -1603,6 +1603,35 @@ interface Example {}'} asDictionary.
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> singleTopLevelConstProperty [
+	<gtExample>
+	<return: #FAMIXGlobalVariable>
+	| directory model variable file stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+const val name: String = "example"'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allGlobalVariables size equals: 1.
+	self assert: model allAttributes size equals: 0.
+	variable := model allGlobalVariables first.
+	self assert: variable name equals: 'name'.
+	self assert: variable parentScope mooseName equals: 'com::example'.
+	self assert: variable sourceText equals: 'const val name: String = "example"'.
+	file := model allFiles detect: [ :each | each name = 'Example.kt' ].
+	self assert: (file entities includes: variable).
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: variable declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	^ variable
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> singleTopLevelFunction [
 	<gtExample>
 	<return: #FAMIXFunction>
@@ -1710,6 +1739,35 @@ fun greet(): String {
 	^ function
 ]
 
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleTopLevelProperty [
+	<gtExample>
+	<return: #FAMIXGlobalVariable>
+	| directory model variable file stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+val name: String = "example"'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allGlobalVariables size equals: 1.
+	self assert: model allAttributes size equals: 0.
+	variable := model allGlobalVariables first.
+	self assert: variable name equals: 'name'.
+	self assert: variable parentScope mooseName equals: 'com::example'.
+	self assert: variable sourceText equals: 'val name: String = "example"'.
+	file := model allFiles detect: [ :each | each name = 'Example.kt' ].
+	self assert: (file entities includes: variable).
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: variable declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	^ variable
+]
+
 { #category : 'examples - support' }
 GtSmaCCKotlinExamples >> sourceDirectoryNamed: aString withFiles: aDictionary [
 	| sourceDirectory directory |
@@ -1772,6 +1830,32 @@ open class B
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> topLevelConstPropertyWithoutPackage [
+	<gtExample>
+	<return: #FAMIXGlobalVariable>
+	| directory model variable file stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt' -> 'const val name: String = "example"'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allGlobalVariables size equals: 1.
+	self assert: model allAttributes size equals: 0.
+	variable := model allGlobalVariables first.
+	self assert: variable name equals: 'name'.
+	self assert: variable parentScope isNil.
+	self assert: variable sourceText equals: 'const val name: String = "example"'.
+	file := model allFiles detect: [ :each | each name = 'Example.kt' ].
+	self assert: (file entities includes: variable).
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: variable declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	^ variable
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> topLevelFunctionWithoutPackage [
 	<gtExample>
 	<return: #FAMIXFunction>
@@ -1807,6 +1891,32 @@ GtSmaCCKotlinExamples >> topLevelFunctionWithoutPackageParameter [
 	self assert: stringType container mooseName equals: 'kotlin'.
 	self assert: function signature equals: 'greet(String)'.
 	^ parameter
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> topLevelPropertyWithoutPackage [
+	<gtExample>
+	<return: #FAMIXGlobalVariable>
+	| directory model variable file stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt' -> 'val name: String = "example"'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allGlobalVariables size equals: 1.
+	self assert: model allAttributes size equals: 0.
+	variable := model allGlobalVariables first.
+	self assert: variable name equals: 'name'.
+	self assert: variable parentScope isNil.
+	self assert: variable sourceText equals: 'val name: String = "example"'.
+	file := model allFiles detect: [ :each | each name = 'Example.kt' ].
+	self assert: (file entities includes: variable).
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: variable declaredType == stringType.
+	self assert: stringType isStub.
+	self assert: stringType container mooseName equals: 'kotlin'.
+	^ variable
 ]
 
 { #category : 'examples' }
