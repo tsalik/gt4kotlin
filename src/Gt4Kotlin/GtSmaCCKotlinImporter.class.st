@@ -252,15 +252,15 @@ GtSmaCCKotlinImporter >> ensureInitializerFrom: anAnonymousInitializer in: aClas
 ]
 
 { #category : 'private' }
-GtSmaCCKotlinImporter >> ensureLocalVariableFrom: aPropertyNode in: aMethod [
+GtSmaCCKotlinImporter >> ensureLocalVariableFrom: aPropertyNode declaration: aVariableDeclaration in: aMethod [
 	| var declaredType |
 	var := FAMIXLocalVariable new
-			name: aPropertyNode declaration name source;
+			name: aVariableDeclaration name source;
 			sourceAnchor: (self sourceAnchorFrom: aPropertyNode);
 			parentBehaviouralEntity: aMethod;
 			mooseModel: model;
 			yourself.
-	declaredType := aPropertyNode declaration type.
+	declaredType := aVariableDeclaration type.
 	declaredType
 		ifNotNil: [ declaredTypeReferences
 				add: {var.
@@ -590,11 +590,25 @@ GtSmaCCKotlinImporter >> visitFunctionValueParameter: aFunctionValueParameter [
 ]
 
 { #category : 'visiting' }
+GtSmaCCKotlinImporter >> visitMultiVariableDeclaration: aMultiVariableDeclaration [
+	(self currentScope notNil
+		and: [ (self currentScope isFunction or: [ self currentScope isMethod ])
+				and: [ aMultiVariableDeclaration parent isKindOf: KotlinPropertyDeclarationNode ] ])
+		ifTrue: [ (aMultiVariableDeclaration variables
+				reject: [ :each | each name source = '_' ])
+				do: [ :each | 
+					self
+						ensureLocalVariableFrom: aMultiVariableDeclaration parent
+						declaration: each
+						in: self currentScope ] ].
+	^ super visitMultiVariableDeclaration: aMultiVariableDeclaration
+]
+
+{ #category : 'visiting' }
 GtSmaCCKotlinImporter >> visitPropertyDeclaration: aPropertyDeclaration [
 	(self currentScope isNil or: [ self currentScope isNamespace ])
 		ifTrue: [ self ensureGlobalVariableNamed: aPropertyDeclaration declaration name source typed: aPropertyDeclaration declaration type from: aPropertyDeclaration in: self currentScope ]
 		ifFalse: [ (self currentScope isFunction or: [ self currentScope isMethod ])
-				ifTrue: [ self ensureLocalVariableFrom: aPropertyDeclaration in: self currentScope ]
 				ifFalse: [ self ensurePropertyFrom: aPropertyDeclaration in: self currentScope ] ].
 	^ super visitPropertyDeclaration: aPropertyDeclaration
 ]
@@ -606,4 +620,16 @@ GtSmaCCKotlinImporter >> visitSecondaryConstructor: aSecondaryConstructor [
 	^ self
 		assignScope: constructor
 		around: [ super visitSecondaryConstructor: aSecondaryConstructor ]
+]
+
+{ #category : 'visiting' }
+GtSmaCCKotlinImporter >> visitVariableDeclaration: aVariableDeclaration [
+	(self currentScope notNil
+		and: [ (self currentScope isFunction or: [ self currentScope isMethod ])
+				and: [ aVariableDeclaration parent isKindOf: KotlinPropertyDeclarationNode ] ])
+		ifTrue: [ self
+				ensureLocalVariableFrom: aVariableDeclaration parent
+				declaration: aVariableDeclaration
+				in: self currentScope ].
+	^ super visitVariableDeclaration: aVariableDeclaration
 ]

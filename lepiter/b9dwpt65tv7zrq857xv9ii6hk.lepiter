@@ -1229,6 +1229,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "[[2026-10-27: Use visitFunctionValueParameter to import FAMIXParameters from methods and functions]]"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-30T14:58:15.674721+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-30T14:58:15.674721+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "cfUoTZ1jS0CZjDA9KZKk1A=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "[[2026-10-30: Parse destrucuring declarations as FAMIXLocalVariables]]"
 						}
 					]
 				},

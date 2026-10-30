@@ -174,6 +174,92 @@ class B
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> destructuringDeclarationsExplicitTypes [
+	<gtExample>
+	<return: #Collection>
+	| directory model localVariables a b stringType intType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example {
+
+    fun greet(pair: Pair<String, Int>) {
+        val (a: String, b: Int) = pair
+    }
+
+}'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	localVariables := model allLocalVariables.
+	self assert: localVariables size equals: 2.
+	a := localVariables detect: [ :each | each name = 'a' ].
+	b := localVariables detect: [ :each | each name = 'b' ].
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	intType := model allTypes detect: [ :each | each name = 'Int' ].
+	self assert: a declaredType == stringType.
+	self assert: b declaredType == intType.
+	^ localVariables
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> destructuringDeclarationsLocalVariables [
+	<gtExample>
+	<return: #Collection>
+	| directory model localVariables |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example {
+
+    fun greet(pair: Pair<String, String>) {
+        val (a,b) = pair
+    }
+
+}'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	localVariables := model allLocalVariables.
+	self assert: localVariables size equals: 2.
+	^ localVariables
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> destructuringDeclarationsUnderscoreIsNotALocalVariable [
+	<gtExample>
+	<return: #FMAIXLocalVariable>
+	| directory model localVariables local |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+class Example {
+
+    fun greet(pair: Pair<String, String>) {
+        val (_,b) = pair
+    }
+
+}'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	localVariables := model allLocalVariables.
+	self assert: localVariables size equals: 1.
+	local := model allLocalVariables first.
+	self assert: local name equals: 'b'.
+	^ local
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> genericMethodParameter [
 	<gtExample>
 	<return: #FAMIXParameter>
