@@ -634,6 +634,96 @@ class Outer {
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> nestedObjectContainer [
+	<gtExample>
+	<return: #FAMIXClass>
+	| directory model outer inner |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Outer.kt'
+						-> 'package com.example
+
+class Outer {
+	object Inner {}
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allModelClasses size equals: 2.
+	outer := model allModelClasses detect: [ :each | each name = 'Outer' ].
+	inner := model allModelClasses detect: [ :each | each name = 'Inner' ].
+	self assert: inner isKotlinObject.
+	self assert: outer container mooseName equals: 'com::example'.
+	self assert: inner container == outer.
+	self assert: inner mooseName equals: 'com::example::Outer::Inner'.
+	^ inner
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> objectAsDeclaredType [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute classA objectB |
+	directory := self
+			sourceDirectoryWithFiles: {'a/A.kt' -> 'package a
+
+import b.B
+
+class A {
+        val b: B = B
+}
+'.
+					'b/B.kt' -> 'package b
+
+object B
+'} asDictionary.
+	self
+		assert: (KotlinParser sourceFilesIn: directory) first basename
+		equals: 'A.kt'.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allAttributes size equals: 1.
+	attribute := model allAttributes first.
+	classA := model allModelClasses detect: [ :each | each name = 'A' ].
+	objectB := model allModelClasses detect: [ :each | each name = 'B' ].
+	self assert: objectB isKotlinObject.
+	self assert: attribute name equals: 'b'.
+	self assert: attribute parentType == classA.
+	self assert: attribute declaredType == objectB.
+	^ attribute
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> objectImplementingInterfaceInTheSamePackage [
+	<gtExample>
+	<return: #FAMIXInheritance>
+	| directory model inheritance interface child |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Base.kt' -> 'package com.example
+
+interface Base {}'.
+					'Derived.kt'
+						-> 'package com.example
+
+object Derived : Base {}'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	interface := model allClasses detect: [ :each | each name = 'Base' ].
+	child := model allModelClasses detect: [ :each | each name = 'Derived' ].
+	self assert: inheritance superclass == interface.
+	self assert: inheritance subclass == child.
+	self assert: interface isInterface.
+	self assert: child isKotlinObject.
+	^ inheritance
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> sincleClassModelSourceLanguage [
 	<gtExample>
 	<return: #MooseModel>
@@ -995,6 +1085,7 @@ GtSmaCCKotlinExamples >> singleClassFileEntities [
 	self assert: model allFiles size equals: 1.
 	file := model allFiles detect: [ :each | each name = 'Example.kt' ].
 	class := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: class isKotlinObject not.
 	self assert: file entities size equals: 1.
 	self assert: file entities first == class.
 	self assert: (class containerFiles includes: file).
@@ -1714,6 +1805,118 @@ interface Example {}'} asDictionary.
 	self assert: interface isInterface.
 	self assert: interface isStub not.
 	^ interface
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleObjectConstAttribute [
+	<gtExample>
+	<return: #FAMIXAttribute>
+	| directory model attribute object stringType |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+object Example {
+	const val GREETING: String = "hi"
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allGlobalVariables size equals: 0.
+	self assert: model allAttributes size equals: 1.
+	attribute := model allAttributes first.
+	object := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: object isKotlinObject.
+	self assert: attribute name equals: 'GREETING'.
+	self assert: attribute parentType == object.
+	self assert: (object attributes includes: attribute).
+	self assert: (attribute modifiers includes: #const).
+	stringType := model allTypes detect: [ :each | each name = 'String' ].
+	self assert: attribute declaredType == stringType.
+	^ attribute
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleObjectInitializer [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model initializer object |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> 'package com.example
+
+object Example {
+
+    init {
+        // empty block
+    }
+    
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allModelMethods size equals: 1.
+	initializer := model allModelMethods first.
+	object := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: object isKotlinObject.
+	self assert: initializer name equals: '$Example'.
+	self assert: initializer parentType == object.
+	self assert: initializer signature equals: '$Example()'.
+	^ initializer
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleObjectIsKotlinObject [
+	<gtExample>
+	<return: #FAMIXClass>
+	| directory model object |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+	package com.example
+	
+	object Example'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allModelClasses size equals: 1.
+	object := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: object isKotlinObject.
+	^ object
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> singleObjectMethod [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model object method |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Example.kt'
+						-> '
+	package com.example
+	
+	object Example {
+		fun greet() {}
+	}
+	'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	object := model allModelClasses detect: [ :each | each name = 'Example' ].
+	self assert: object isKotlinObject.
+	self assert: model allModelMethods size equals: 1.
+	method := model allModelMethods detect: [:each | each name = 'greet'].
+	self assert: method parentType == object.
+	self assert: (object methods includes: method).
+	self assert: method mooseName equals: 'com::example::Example.greet()'.
+	self assert: method sourceText equals: 'fun greet() {}'.
+	^ method.
 ]
 
 { #category : 'examples' }

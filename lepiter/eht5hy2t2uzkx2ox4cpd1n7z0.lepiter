@@ -13,45 +13,7 @@
 							"__type" : "textSnippet",
 							"children" : {
 								"__type" : "snippets",
-								"items" : [
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-30T16:29:58.292147+02:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-30T16:30:05.935194+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "cm9eRMmeSvmF5gRHMMvrDg=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Model objects"
-									}
-								]
+								"items" : [ ]
 							},
 							"createEmail" : {
 								"__type" : "email",
@@ -61,7 +23,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-25T22:37:58.772727+02:00"
+									"dateAndTimeString" : "2026-10-30T18:09:35.882444+02:00"
 								}
 							},
 							"editEmail" : {
@@ -72,17 +34,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-25T22:37:58.772727+02:00"
+									"dateAndTimeString" : "2026-10-30T18:09:35.882444+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "7OIa/aqJQWG5PWVFk6owYA=="
+								"uidString" : "ikgWbqHRR1OY2bW7Z+fJWQ=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Common Kotlin declarations"
+							"string" : "Companion objects"
 						}
 					]
 				},
@@ -466,44 +428,82 @@
 										"__type" : "textSnippet",
 										"children" : {
 											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:16:11.515732+03:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:16:16.197579+03:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "oYHr4sgvTTi9vStFuKTRjw=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Objects and companion objects"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
+											"items" : [
+												{
+													"__type" : "textSnippet",
+													"children" : {
+														"__type" : "snippets",
+														"items" : [ ]
+													},
+													"createEmail" : {
+														"__type" : "email",
+														"emailString" : "<unknown>"
+													},
+													"createTime" : {
+														"__type" : "time",
+														"time" : {
+															"__type" : "dateAndTime",
+															"dateAndTimeString" : "2026-10-30T18:08:19.249883+02:00"
+														}
+													},
+													"editEmail" : {
+														"__type" : "email",
+														"emailString" : "<unknown>"
+													},
+													"editTime" : {
+														"__type" : "time",
+														"time" : {
+															"__type" : "dateAndTime",
+															"dateAndTimeString" : "2026-10-30T18:08:19.249883+02:00"
+														}
+													},
+													"uid" : {
+														"__type" : "uid",
+														"uidString" : "ZE1QBtMqQAep9iAMTG8PNg=="
+													},
+													"paragraphStyle" : {
+														"__type" : "textStyle"
+													},
+													"string" : "KotlinObjectLiteralNode, e.g. object : Runnable { override fun run() {} } inside a function. There's no visit override, so its members are visited in the enclosing function's scope. Java precedent: {{gtMethod:GtSmaCCJavaImporter>>ensureInnerClassFrom:}} makes a FAMIXClass named after the supertype, contained in the enclosing method, with an inheritance to it."
+												},
+												{
+													"__type" : "textSnippet",
+													"children" : {
+														"__type" : "snippets",
+														"items" : [ ]
+													},
+													"createEmail" : {
+														"__type" : "email",
+														"emailString" : "<unknown>"
+													},
+													"createTime" : {
+														"__type" : "time",
+														"time" : {
+															"__type" : "dateAndTime",
+															"dateAndTimeString" : "2026-10-30T18:08:05.028284+02:00"
+														}
+													},
+													"editEmail" : {
+														"__type" : "email",
+														"emailString" : "<unknown>"
+													},
+													"editTime" : {
+														"__type" : "time",
+														"time" : {
+															"__type" : "dateAndTime",
+															"dateAndTimeString" : "2026-10-30T18:08:05.028284+02:00"
+														}
+													},
+													"uid" : {
+														"__type" : "uid",
+														"uidString" : "BzLEc4RGTjqt8sfFqC5bcw=="
+													},
+													"paragraphStyle" : {
+														"__type" : "textStyle"
+													},
+													"string" : "Platform importers will need @JvmStatic, @JvmField, @JsExport, @JsName and @ObjCName to know how other languages call into Kotlin."
+												}
+											]
 										},
 										"createEmail" : {
 											"__type" : "email",
@@ -535,43 +535,6 @@
 											"__type" : "textStyle"
 										},
 										"string" : "Anonymous objects"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-22T00:17:43.237465+03:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-22T00:17:58.928804+03:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "90OV6QrNS1CjzleQBMc/3A=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Functions inside `object` declrations"
 									},
 									{
 										"__type" : "textSnippet",
@@ -646,81 +609,6 @@
 											"__type" : "textStyle"
 										},
 										"string" : "Type parameters in generic functions"
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [
-												{
-													"__type" : "textSnippet",
-													"children" : {
-														"__type" : "snippets",
-														"items" : [ ]
-													},
-													"createEmail" : {
-														"__type" : "email",
-														"emailString" : "<unknown>"
-													},
-													"createTime" : {
-														"__type" : "time",
-														"time" : {
-															"__type" : "dateAndTime",
-															"dateAndTimeString" : "2026-10-25T14:32:06.213192+02:00"
-														}
-													},
-													"editEmail" : {
-														"__type" : "email",
-														"emailString" : "<unknown>"
-													},
-													"editTime" : {
-														"__type" : "time",
-														"time" : {
-															"__type" : "dateAndTime",
-															"dateAndTimeString" : "2026-10-25T14:32:06.213192+02:00"
-														}
-													},
-													"uid" : {
-														"__type" : "uid",
-														"uidString" : "Jxv1KI4sRqu1u42JFsmLOw=="
-													},
-													"paragraphStyle" : {
-														"__type" : "textStyle"
-													},
-													"string" : "Referring to nested types in declared types and supertypes, e.g. `val x: Outer.Inner`, or plain `Inner` used inside `Outer`. `lookupTypeNamed:inFile:namespace:` only searches imports, the namespace and default imports, never an enclosing class."
-												}
-											]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:18:02.72083+03:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-25T14:31:48.694279+02:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "0p4m2VgiTcq755GidIZ29w=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Nested classes. Done: the container is the enclosing class and the `mooseName` is `com::example::Outer::Inner` ({{gtExample:GtSmaCCKotlinExamples>>nestedClassContainer|noCode}})."
 									},
 									{
 										"__type" : "textSnippet",
@@ -1743,43 +1631,6 @@
 											"__type" : "time",
 											"time" : {
 												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:25:09.762861+03:00"
-											}
-										},
-										"editEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"editTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
-												"dateAndTimeString" : "2026-10-18T14:25:09.762861+03:00"
-											}
-										},
-										"uid" : {
-											"__type" : "uid",
-											"uidString" : "L+8VU2RpSaC04OkM0maXXQ=="
-										},
-										"paragraphStyle" : {
-											"__type" : "textStyle"
-										},
-										"string" : "Custom FAMIX subclasses for Kotlin-only concepts, when an example needs one."
-									},
-									{
-										"__type" : "textSnippet",
-										"children" : {
-											"__type" : "snippets",
-											"items" : [ ]
-										},
-										"createEmail" : {
-											"__type" : "email",
-											"emailString" : "<unknown>"
-										},
-										"createTime" : {
-											"__type" : "time",
-											"time" : {
-												"__type" : "dateAndTime",
 												"dateAndTimeString" : "2026-10-25T14:29:39.844819+02:00"
 											}
 										},
@@ -1802,6 +1653,43 @@
 											"__type" : "textStyle"
 										},
 										"string" : "Files that fail to parse: a file whose parse root isn't a `KotlinFileNode` gets no `FAMIXFile`, since only `visitFile:` creates one. No example covers this yet. Decide when an example needs it, possibly together with recording import errors (an `acceptNode:` override, see [[002: The importer is a single visitor with a scope stack and deferred type resolution]] and [[003: The current file is kept beside the scope stack, and AST attributes may map nodes to entities]])."
+									},
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-30T18:06:07.745751+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-30T18:06:07.745751+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "hJPl2pgVS8qLmTe8L8Hs1Q=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Moose metamodel in a fresh image: a new MooseEntity subclass (e.g. {{gtClass:GtKotlinObject}}) needs MooseModel resetMeta, otherwise name: fails with #allAttributes was sent to nil. Check whether loading Gt4Kotlin into a fresh image needs a reset at load time (baseline post-load?)."
 									}
 								]
 							},
@@ -1984,6 +1872,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "Taking into account the language version: It would matter if I wanted to match model entities to compiled classes, for example to link the model to stack traces or profiler output."
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-30T18:06:25.875704+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-30T18:06:25.875704+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "EPj8mbuXTemwRwU+OyTSlQ=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "Platform importers (JVM, JS, Native) on top of the core model, to find usages from other languages: Foo.INSTANCE, the FooKt file facade, Foo.getInstance(), Foo.shared. The core model records only Kotlin facts"
 						}
 					]
 				},

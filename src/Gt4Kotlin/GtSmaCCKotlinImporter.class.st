@@ -91,6 +91,20 @@ GtSmaCCKotlinImporter >> createClassOrInterfaceFrom: aClassDeclarationNode in: a
 	^ class
 ]
 
+{ #category : 'importing' }
+GtSmaCCKotlinImporter >> createObjectFrom: anObjectDeclarationNode in: aContainer [
+	| class |
+	class := GtKotlinObject new
+			name: anObjectDeclarationNode name source;
+			mooseModel: model;
+			container: aContainer;
+			sourceAnchor: (self sourceAnchorFrom: anObjectDeclarationNode);
+			yourself.
+	currentFile addEntity: class.
+	class propertyNamed: #ast put: anObjectDeclarationNode.
+	^ class
+]
+
 { #category : 'accessing' }
 GtSmaCCKotlinImporter >> createUnknownType: aString in: aNamespace [
 	^ FAMIXType new
@@ -426,6 +440,20 @@ GtSmaCCKotlinImporter >> lookupTypeNamed: aString inFile: aFileNode namespace: a
 	^ self unknownTypeNamed: aString
 ]
 
+{ #category : 'importing' }
+GtSmaCCKotlinImporter >> recordSuperTypesOf: aType from: aDeclarationNode [
+	aDeclarationNode annotatedSpecifiers
+		do: [ :each | 
+			| superTypeNode |
+			superTypeNode := self superTypeNodeFrom: each specifier.
+			superTypeReferences
+				add: {aType.
+						superTypeNode source.
+						aDeclarationNode topParent.
+						scopeStack first.
+						self sourceAnchorFrom: superTypeNode} ]
+]
+
 { #category : 'private' }
 GtSmaCCKotlinImporter >> resolveDeclaredTypeReferences [
 	declaredTypeReferences
@@ -529,16 +557,7 @@ GtSmaCCKotlinImporter >> visitClassDeclaration: aClassDeclaration [
 	class := self
 			createClassOrInterfaceFrom: aClassDeclaration
 			in: self currentScope.
-	aClassDeclaration annotatedSpecifiers
-		do: [ :each | 
-			| superTypeNode |
-			superTypeNode := self superTypeNodeFrom: each specifier.
-			superTypeReferences
-				add: {class.
-						superTypeNode source.
-						aClassDeclaration topParent.
-						scopeStack first.
-						self sourceAnchorFrom: superTypeNode} ].
+	self recordSuperTypesOf: class from: aClassDeclaration.
 	^ self
 		assignScope: class
 		around: [ super visitClassDeclaration: aClassDeclaration ]
@@ -602,6 +621,18 @@ GtSmaCCKotlinImporter >> visitMultiVariableDeclaration: aMultiVariableDeclaratio
 						declaration: each
 						in: self currentScope ] ].
 	^ super visitMultiVariableDeclaration: aMultiVariableDeclaration
+]
+
+{ #category : 'visiting' }
+GtSmaCCKotlinImporter >> visitObjectDeclaration: anObjectDeclaration [
+	| object |
+	object := self
+			createObjectFrom: anObjectDeclaration
+			in: self currentScope.
+	self recordSuperTypesOf: object from: anObjectDeclaration.
+	^ self
+		assignScope: object
+		around: [ super visitObjectDeclaration: anObjectDeclaration ]
 ]
 
 { #category : 'visiting' }

@@ -1266,6 +1266,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "[[2026-10-30: Parse destrucuring declarations as FAMIXLocalVariables]]"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-30T16:50:13.758001+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-30T16:50:13.758001+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "GE2R66AsTeiRwOeAQ8Xi+g=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "[[2026-10-30: Model object declarations as FAMIXClass]]"
 						}
 					]
 				},
@@ -1526,6 +1563,43 @@
 								"__type" : "textStyle"
 							},
 							"string" : "[[003: The current file is kept beside the scope stack, and AST attributes may map nodes to entities]]"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-30T17:51:43.866817+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-30T17:51:43.866817+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "egd9cRLkScuWdA6atuxi2Q=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "[[004: Named objects are GtKotlinObjects, a FAMIXClass subclass that answers isKotlinObject]]"
 						}
 					]
 				},
