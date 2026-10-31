@@ -436,12 +436,12 @@
 		"__type" : "time",
 		"time" : {
 			"__type" : "dateAndTime",
-			"dateAndTimeString" : "2026-10-30T16:49:59.283296+02:00"
+			"dateAndTimeString" : "2026-10-31T10:33:47.571216+02:00"
 		}
 	},
 	"pageType" : {
 		"__type" : "namedPage",
-		"title" : "2026-10-30: Model object declarations as FAMIXClass"
+		"title" : "2026-10-30: Model object declarations as GtKotlinObject"
 	},
 	"uid" : {
 		"__type" : "uuid",

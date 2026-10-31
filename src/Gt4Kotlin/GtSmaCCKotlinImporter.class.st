@@ -92,16 +92,18 @@ GtSmaCCKotlinImporter >> createClassOrInterfaceFrom: aClassDeclarationNode in: a
 ]
 
 { #category : 'importing' }
-GtSmaCCKotlinImporter >> createObjectFrom: anObjectDeclarationNode in: aContainer [
+GtSmaCCKotlinImporter >> createObjectFrom: anObjectNode in: aContainer [
 	| class |
 	class := GtKotlinObject new
-			name: anObjectDeclarationNode name source;
+			name: (anObjectNode name
+					ifNotNil: [ :nameToken | nameToken source ]
+					ifNil: [ 'Companion' ]);
 			mooseModel: model;
 			container: aContainer;
-			sourceAnchor: (self sourceAnchorFrom: anObjectDeclarationNode);
+			sourceAnchor: (self sourceAnchorFrom: anObjectNode);
 			yourself.
 	currentFile addEntity: class.
-	class propertyNamed: #ast put: anObjectDeclarationNode.
+	class propertyNamed: #ast put: anObjectNode.
 	^ class
 ]
 
@@ -575,6 +577,16 @@ GtSmaCCKotlinImporter >> visitClassParameter: aClassParameter [
 	(aClassParameter valToken notNil or: [ aClassParameter varToken notNil ])
 		ifTrue: [ self ensureConstructorPropertyFrom: aClassParameter in: self currentScope ].
 	^ super visitClassParameter: aClassParameter
+]
+
+{ #category : 'visiting' }
+GtSmaCCKotlinImporter >> visitCompanionObject: aCompanionObject [
+	| object |
+	object := self createObjectFrom: aCompanionObject in: self currentScope.
+	self recordSuperTypesOf: object from: aCompanionObject.
+	^ self
+		assignScope: object
+		around: [ super visitCompanionObject: aCompanionObject ]
 ]
 
 { #category : 'visiting' }

@@ -34,7 +34,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-30T17:47:47.06898+02:00"
+									"dateAndTimeString" : "2026-10-31T10:33:49.318064+02:00"
 								}
 							},
 							"uid" : {
@@ -44,7 +44,7 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Accepted, 2026-10-30. Decided in [[2026-10-30: Model object declarations as FAMIXClass]]."
+							"string" : "Accepted, 2026-10-30. Decided in [[2026-10-30: Model object declarations as GtKotlinObject]]."
 						}
 					]
 				},

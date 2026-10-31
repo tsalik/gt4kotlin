@@ -13,7 +13,45 @@
 							"__type" : "textSnippet",
 							"children" : {
 								"__type" : "snippets",
-								"items" : [ ]
+								"items" : [
+									{
+										"__type" : "textSnippet",
+										"children" : {
+											"__type" : "snippets",
+											"items" : [ ]
+										},
+										"createEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"createTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-31T10:48:18.277217+02:00"
+											}
+										},
+										"editEmail" : {
+											"__type" : "email",
+											"emailString" : "<unknown>"
+										},
+										"editTime" : {
+											"__type" : "time",
+											"time" : {
+												"__type" : "dateAndTime",
+												"dateAndTimeString" : "2026-10-31T10:48:18.277217+02:00"
+											}
+										},
+										"uid" : {
+											"__type" : "uid",
+											"uidString" : "tz8fbuzvQfqZDE/0hAaohw=="
+										},
+										"paragraphStyle" : {
+											"__type" : "textStyle"
+										},
+										"string" : "Anonymous objects"
+									}
+								]
 							},
 							"createEmail" : {
 								"__type" : "email",
@@ -23,7 +61,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-30T18:09:35.882444+02:00"
+									"dateAndTimeString" : "2026-10-31T10:48:08.577226+02:00"
 								}
 							},
 							"editEmail" : {
@@ -34,17 +72,17 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-30T18:09:35.882444+02:00"
+									"dateAndTimeString" : "2026-10-31T10:48:14.888301+02:00"
 								}
 							},
 							"uid" : {
 								"__type" : "uid",
-								"uidString" : "ikgWbqHRR1OY2bW7Z+fJWQ=="
+								"uidString" : "Et7RGDm4TzmXiId//8U/5A=="
 							},
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "Companion objects"
+							"string" : "Common Kotlin Declarations"
 						}
 					]
 				},
@@ -1098,7 +1136,45 @@
 										"__type" : "textSnippet",
 										"children" : {
 											"__type" : "snippets",
-											"items" : [ ]
+											"items" : [
+												{
+													"__type" : "textSnippet",
+													"children" : {
+														"__type" : "snippets",
+														"items" : [ ]
+													},
+													"createEmail" : {
+														"__type" : "email",
+														"emailString" : "<unknown>"
+													},
+													"createTime" : {
+														"__type" : "time",
+														"time" : {
+															"__type" : "dateAndTime",
+															"dateAndTimeString" : "2026-10-31T10:26:48.846681+02:00"
+														}
+													},
+													"editEmail" : {
+														"__type" : "email",
+														"emailString" : "<unknown>"
+													},
+													"editTime" : {
+														"__type" : "time",
+														"time" : {
+															"__type" : "dateAndTime",
+															"dateAndTimeString" : "2026-10-31T10:26:48.846681+02:00"
+														}
+													},
+													"uid" : {
+														"__type" : "uid",
+														"uidString" : "2nspzXEKTgyByZKmJC1qfA=="
+													},
+													"paragraphStyle" : {
+														"__type" : "textStyle"
+													},
+													"string" : "Calls through a companion: MyClass.create() resolves to the companion's create. The companion can also be reached by name (MyClass.Factory.create(), or MyClass.Companion when it's unnamed), and MyClass used as a value is the companion instance."
+												}
+											]
 										},
 										"createEmail" : {
 											"__type" : "email",
@@ -1172,6 +1248,43 @@
 														"__type" : "textStyle"
 													},
 													"string" : "No {{gtClass:FAMIXAccess}} for primary constructor. Only explicit `this.message = message` on secondary constructors, will be considered an access."
+												},
+												{
+													"__type" : "textSnippet",
+													"children" : {
+														"__type" : "snippets",
+														"items" : [ ]
+													},
+													"createEmail" : {
+														"__type" : "email",
+														"emailString" : "<unknown>"
+													},
+													"createTime" : {
+														"__type" : "time",
+														"time" : {
+															"__type" : "dateAndTime",
+															"dateAndTimeString" : "2026-10-31T10:28:42.509739+02:00"
+														}
+													},
+													"editEmail" : {
+														"__type" : "email",
+														"emailString" : "<unknown>"
+													},
+													"editTime" : {
+														"__type" : "time",
+														"time" : {
+															"__type" : "dateAndTime",
+															"dateAndTimeString" : "2026-10-31T10:29:25.808078+02:00"
+														}
+													},
+													"uid" : {
+														"__type" : "uid",
+														"uidString" : "M/6udmnjTzaHm13x0K1n5Q=="
+													},
+													"paragraphStyle" : {
+														"__type" : "textStyle"
+													},
+													"string" : "Kotlin companion objects' properties can be  accessed directly through the outer class"
 												}
 											]
 										},

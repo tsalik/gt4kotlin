@@ -1292,7 +1292,7 @@
 								"__type" : "time",
 								"time" : {
 									"__type" : "dateAndTime",
-									"dateAndTimeString" : "2026-10-30T16:50:13.758001+02:00"
+									"dateAndTimeString" : "2026-10-31T10:33:48.291623+02:00"
 								}
 							},
 							"uid" : {
@@ -1302,7 +1302,44 @@
 							"paragraphStyle" : {
 								"__type" : "textStyle"
 							},
-							"string" : "[[2026-10-30: Model object declarations as FAMIXClass]]"
+							"string" : "[[2026-10-30: Model object declarations as GtKotlinObject]]"
+						},
+						{
+							"__type" : "textSnippet",
+							"children" : {
+								"__type" : "snippets",
+								"items" : [ ]
+							},
+							"createEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"createTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-31T10:33:35.442764+02:00"
+								}
+							},
+							"editEmail" : {
+								"__type" : "email",
+								"emailString" : "<unknown>"
+							},
+							"editTime" : {
+								"__type" : "time",
+								"time" : {
+									"__type" : "dateAndTime",
+									"dateAndTimeString" : "2026-10-31T10:33:57.940687+02:00"
+								}
+							},
+							"uid" : {
+								"__type" : "uid",
+								"uidString" : "xtSsgUBTS8+Fw8cBjaXjIA=="
+							},
+							"paragraphStyle" : {
+								"__type" : "textStyle"
+							},
+							"string" : "[[2026-10-31: Model companion objects as GtKotlinObject]]"
 						}
 					]
 				},

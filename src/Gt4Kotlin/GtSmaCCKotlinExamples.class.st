@@ -140,6 +140,96 @@ class Derived : Base {}'} asDictionary.
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> companionObjectContainer [
+	<gtExample>
+	<return: #FAMIXClass>
+	| directory model outer companion |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Outer.kt'
+						-> 'package com.example
+
+class Outer {
+        companion object {}
+}
+'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allModelClasses size equals: 2.
+	outer := model allModelClasses detect: [ :each | each name = 'Outer' ].
+	companion := model allModelClasses detect: [ :each | each name = 'Companion' ].
+	self assert: companion isKotlinObject.
+	self assert: outer container mooseName equals: 'com::example'.
+	self assert: companion container == outer.
+	self assert: companion mooseName equals: 'com::example::Outer::Companion'.
+	^ companion
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> companionObjectImplementingInterfaceInTheSamePackage [
+	<gtExample>
+	<return: #FAMIXInheritance>
+	| directory model inheritance interface child |
+	directory := self
+			sourceDirectoryNamed: 'com/package'
+			withFiles: {'Base.kt' -> 'package com.example
+
+interface Base {}'.
+					'Outer.kt'
+						-> 'package com.example
+
+class Outer {
+	companion object : Base {}
+}'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allInheritanceDefinitions size equals: 1.
+	inheritance := model allInheritanceDefinitions first.
+	interface := model allClasses detect: [ :each | each name = 'Base' ].
+	child := model allModelClasses detect: [ :each | each name = 'Companion' ].
+	self assert: inheritance superclass == interface.
+	self assert: inheritance subclass == child.
+	self assert: interface isInterface.
+	self assert: child isKotlinObject.
+	^ inheritance
+]
+
+{ #category : 'examples' }
+GtSmaCCKotlinExamples >> companionObjectMethod [
+	<gtExample>
+	<return: #FAMIXMethod>
+	| directory model outer companion method |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Outer.kt'
+						-> 'package com.example
+
+class Outer {
+	companion object {
+		fun create() {}
+	}
+}
+'} asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	outer := model allModelClasses detect: [ :each | each name = 'Outer' ].
+	companion := model allModelClasses detect: [ :each | each name = 'Companion' ].
+	self assert: (model allModelMethods select: [ :each | each name = 'create' ]) size equals: 1.
+	method := model allModelMethods detect: [ :each | each name = 'create' ].
+	self assert: method parentType == companion.
+	self assert: (companion methods includes: method).
+	self assert: (outer methods includes: method) not.
+	self assert: method mooseName equals: 'com::example::Outer::Companion.create()'.
+	self assert: method sourceText equals: 'fun create() {}'.
+	^ method
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> declaredTypesForwardReference [
 	<gtExample>
 	<return: #FAMIXAttribute>
@@ -608,6 +698,34 @@ class Car {
 ]
 
 { #category : 'examples' }
+GtSmaCCKotlinExamples >> namedCompanionObjectContainer [
+	<gtExample>
+	<return: #FAMIXClass>
+	| directory model outer companion |
+	directory := self
+			sourceDirectoryNamed: 'com/example'
+			withFiles: {'Outer.kt'
+						-> 'package com.example
+
+class Outer {
+        companion object Factory {}
+}
+'}
+					asDictionary.
+	model := GtSmaCCKotlinImporter new
+			baseDirectory: directory;
+			buildKotlinModel.
+	self assert: model allModelClasses size equals: 2.
+	outer := model allModelClasses detect: [ :each | each name = 'Outer' ].
+	companion := model allModelClasses detect: [ :each | each name = 'Factory' ].
+	self assert: companion isKotlinObject.
+	self assert: outer container mooseName equals: 'com::example'.
+	self assert: companion container == outer.
+	self assert: companion mooseName equals: 'com::example::Outer::Factory'.
+	^ companion
+]
+
+{ #category : 'examples' }
 GtSmaCCKotlinExamples >> nestedClassContainer [
 	<gtExample>
 	<return: #FAMIXClass>
@@ -657,6 +775,7 @@ class Outer {
 	self assert: outer container mooseName equals: 'com::example'.
 	self assert: inner container == outer.
 	self assert: inner mooseName equals: 'com::example::Outer::Inner'.
+	self assert: inner isKotlinObject.
 	^ inner
 ]
 
